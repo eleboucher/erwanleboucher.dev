@@ -1,0 +1,14 @@
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
+:root {
+  --primary: #33375b;
+  --lightAccent: #8499bf;
+  --darkAccent: #f22b4c;
+  --white: #e9eae6;
+  --dark: #1d1a23;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background-color: var(--white);
+}
