@@ -8,7 +8,7 @@ import TimeLine from '../components/timeline/timeline'
 import Skills from '../components/skills/skills'
 const IndexPage = () => (
   <Layout>
-    <SEO title="Index" keywords={[`gatsby`, `application`, `react`]} />
+    <SEO keywords={[`Erwan`, `Leboucher`, `Developer`, `FullStack`]} />
     <Intro />
     <About />
     <TimeLine />
