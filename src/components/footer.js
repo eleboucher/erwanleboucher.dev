@@ -8,6 +8,10 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const Icon = styled.img`
@@ -18,6 +22,7 @@ const Icon = styled.img`
 const Item = styled.div`
   display: flex;
   align-items: center;
+  margin: 0px 20px;
 `
 
 const Footer = () => (
