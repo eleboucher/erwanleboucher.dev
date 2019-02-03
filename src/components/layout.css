@@ -1,4 +1,10 @@
-@import url(//fonts.googleapis.com/css?family=Open+Sans);
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
 :root {
   --primary: #33375b;
   --lightAccent: #8499bf;
