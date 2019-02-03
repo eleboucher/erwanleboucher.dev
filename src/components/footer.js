@@ -28,9 +28,9 @@ const Item = styled.div`
 const Footer = () => (
   <Wrapper>
     <Item>
-      <Text>Find the Code on Github</Text>
+      <Text as="a">Find the Code on</Text>
       <a href="https://github.com/genesixx/erwanleboucher.fr">
-        <Icon src={Github} />
+        <Icon src={Github} alt="Github" />
       </a>
     </Item>
     <Item>
