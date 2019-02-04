@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { Text } from '../typography'
 import Pannel from '../Pannel'
-const BREAPOINT = {
+const BREAKPOINT = {
   L: '1024px',
   M: '700px',
 }
@@ -17,7 +17,7 @@ const TimeLine = styled.div`
   word-break: break-word;
   justify-content: center;
 
-  @media (max-width: ${BREAPOINT.M}) {
+  @media (max-width: ${BREAKPOINT.M}) {
     border-bottom: none;
     border-left: 5px solid var(--white);
     flex-direction: column;
@@ -28,16 +28,17 @@ const TimeLine = styled.div`
 TimeLine.Info = styled.div`
   margin-left: 100px;
 
-  @media (max-width: ${BREAPOINT.L}) {
+  @media (max-width: ${BREAKPOINT.L}) {
     margin-left: 50px;
   }
 
-  @media (max-width: ${BREAPOINT.M}) {
+  @media (max-width: ${BREAKPOINT.M}) {
     margin-left: 20px;
+    margin-top: 30px;
   }
 `
 
-TimeLine.Head = styled.h3`
+TimeLine.Head = styled.span`
   text-decoration: none;
   color: var(--white);
   font-weight: bold;
@@ -57,7 +58,7 @@ TimeLine.Head = styled.h3`
     position: absolute;
     bottom: -20px;
     border: 5px solid var(--primary);
-    @media (max-width: ${BREAPOINT.M}) {
+    @media (max-width: ${BREAKPOINT.M}) {
       bottom: unset;
       left: -20px;
     }
@@ -65,9 +66,21 @@ TimeLine.Head = styled.h3`
 `
 TimeLine.Text = styled(Text)`
   font-size: 14px;
+  margin-top: 10px;
+
+  @media (max-width: ${BREAKPOINT.M}) {
+    margin: 0px;
+  }
 `
 
-TimeLine.Date = styled.h4``
+TimeLine.Date = styled.h4`
+  margin-bottom: 10px;
+  font-weight: 300;
+
+  @media (max-width: ${BREAKPOINT.M}) {
+    margin: 0px;
+  }
+`
 
 const TimeLineComponent = () => (
   <Pannel title="My Journey" primary>
