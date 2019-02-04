@@ -8,6 +8,7 @@
 
 body {
   margin: 0;
+  font-display: swap;
   font-family: 'Open Sans', sans-serif;
   background-color: var(--white);
 }
