@@ -16,7 +16,8 @@ const About = () => (
       Hi,
       <br /> I'm a {calculateAge()} year old Full-Stack developer living in
       Paris. Enthusiast about anything related to new technology, science or
-      engineering.
+      engineering. I'm as well interested by cars, especially Formula 1, Sci-fi
+      and musics.
     </Text>
   </Pannel>
 )
