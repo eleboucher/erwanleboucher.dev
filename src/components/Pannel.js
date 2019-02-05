@@ -27,8 +27,8 @@ Pannel.Body = styled.div`
 `
 Pannel.Title = styled(SubTitle)``
 
-const PannelComponent = ({ primary, title, children }) => (
-  <Pannel primary={primary}>
+const PannelComponent = ({ className, primary, title, children }) => (
+  <Pannel className={className} primary={primary}>
     <Pannel.Title>{title}</Pannel.Title>
     <Pannel.Body>{children}</Pannel.Body>
   </Pannel>

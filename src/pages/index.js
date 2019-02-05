@@ -6,6 +6,8 @@ import Intro from '../components/intro'
 import About from '../components/about'
 import TimeLine from '../components/timeline'
 import Skills from '../components/skills'
+import Resume from '../components/resume'
+
 const IndexPage = () => (
   <Layout>
     <SEO keywords={[`Erwan`, `Leboucher`, `Developer`, `FullStack`]} />
@@ -13,6 +15,7 @@ const IndexPage = () => (
     <About />
     <TimeLine />
     <Skills />
+    <Resume />
   </Layout>
 )
 
