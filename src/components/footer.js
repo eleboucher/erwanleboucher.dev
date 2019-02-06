@@ -8,6 +8,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
+  background-color: var(--white);
+
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: center;
