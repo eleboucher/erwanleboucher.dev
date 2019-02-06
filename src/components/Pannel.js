@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 import { SubTitle } from './typography'
 
 const Pannel = styled.div`
-  min-height: 98vh;
+  min-height: 90vh;
 
   padding: 20px 10px;
   display: flex;
