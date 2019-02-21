@@ -18,6 +18,7 @@ const StyledLink = styled.a`
   text-decoration: none;
   text-align: center;
   transition: opacity 0.2s linear;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.7;
