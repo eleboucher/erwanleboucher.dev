@@ -36,6 +36,7 @@ Social.Icon = styled.img`
   height: 50px;
 
   transition: opacity 0.2s linear;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.7;
