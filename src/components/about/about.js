@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Pannel from '../Pannel'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { Text } from '../typography'
 
 const calculateAge = () => {

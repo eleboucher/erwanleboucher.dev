@@ -2,7 +2,7 @@ import React from 'react'
 
 import RawPannel from '../Pannel'
 import { StaticQuery, graphql } from 'gatsby'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import Download from '../../images/download.svg'
 import { Text as RawText } from '../typography'
 

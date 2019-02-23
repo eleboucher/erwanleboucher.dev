@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled from 'styled-components/macro'
 import { Title, Text as RawText } from '../typography'
 
 import LinkedIn from '../../images/linkedin-logo.svg'
