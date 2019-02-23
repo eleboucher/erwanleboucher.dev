@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "Erwan Leboucher <erwanleboucher@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.0.111",
+    "gatsby": "^2.1.17",
     "gatsby-image": "^2.0.29",
     "gatsby-plugin-google-analytics": "^2.0.13",
     "gatsby-plugin-manifest": "^2.0.17",
@@ -16,8 +16,8 @@
     "gatsby-source-filesystem": "^2.0.20",
     "gatsby-transformer-sharp": "^2.1.13",
     "prop-types": "^15.6.2",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
     "react-helmet": "^5.2.0",
     "styled-components": "^4.1.3"
   },
