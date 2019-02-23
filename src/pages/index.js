@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Layout from '../components/layout'
 import SEO from '../components/seo'
@@ -7,16 +7,34 @@ import About from '../components/about'
 import TimeLine from '../components/timeline'
 import Skills from '../components/skills'
 import Resume from '../components/resume'
+import { Center, Loading } from '../components/utils'
+import Spinner from '../components/Spinner'
 
-const IndexPage = () => (
-  <Layout>
-    <SEO keywords={[`Erwan`, `Leboucher`, `Developer`, `FullStack`]} />
-    <Intro />
-    <About />
-    <TimeLine />
-    <Skills />
-    <Resume />
-  </Layout>
-)
+const IndexPage = () => {
+  const [loading, setLoading] = useState(true)
+  useEffect(() => {
+    setLoading(false)
+  }, [])
+  return (
+    <>
+      {loading ? (
+        <Loading>
+          <Center>
+            <Spinner />
+          </Center>
+        </Loading>
+      ) : (
+        <Layout>
+          <SEO keywords={[`Erwan`, `Leboucher`, `Developer`, `FullStack`]} />
+          <Intro />
+          <About />
+          <TimeLine />
+          <Skills />
+          <Resume />
+        </Layout>
+      )}
+    </>
+  )
+}
 
 export default IndexPage
