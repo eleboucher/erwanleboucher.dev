@@ -4,7 +4,7 @@ import styled from 'styled-components/macro'
 import Left from './left'
 import Right from './right'
 const Wrapper = styled.div`
-  min-height: 98vh;
+  min-height: 100vh;
   width: 100%;
 
   display: flex;
