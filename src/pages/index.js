@@ -13,7 +13,7 @@ import Spinner from '../components/Spinner'
 const IndexPage = () => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    setLoading(false)
+    setTimeout(() => setLoading(false), 200)
   }, [])
   return (
     <>
