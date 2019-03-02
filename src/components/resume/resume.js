@@ -7,7 +7,7 @@ import Download from '../../images/download.svg'
 import { Text as RawText } from '../typography'
 
 const Pannel = styled(RawPannel)`
-  min-height: 75vh;
+  min-height: 50vh;
 `
 const Text = styled(RawText)`
   color: var(--white);
