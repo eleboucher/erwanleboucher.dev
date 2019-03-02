@@ -9,6 +9,7 @@ import Skills from '../components/skills'
 import Resume from '../components/resume'
 import { Center, Loading } from '../components/utils'
 import Spinner from '../components/Spinner'
+import Projects from '../components/projects'
 
 const IndexPage = () => {
   const [loading, setLoading] = useState(true)
@@ -30,6 +31,7 @@ const IndexPage = () => {
           <About />
           <TimeLine />
           <Skills />
+          <Projects />
           <Resume />
         </Layout>
       )}

@@ -39,7 +39,7 @@ const About = () => (
       }
     `}
     render={({ file }) => (
-      <Pannel title="Download my resume" primary>
+      <Pannel title="Download my resume">
         <StyledLink
           href={file.publicURL}
           target="_blank"

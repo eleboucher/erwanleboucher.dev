@@ -1,3 +1,4 @@
+require('dotenv').config()
 module.exports = {
   siteMetadata: {
     title: `Erwan Leboucher`,
@@ -24,6 +25,18 @@ module.exports = {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: 'UA-31910784-2',
+      },
+    },
+    {
+      resolve: 'gatsby-source-graphql',
+      options: {
+        typeName: 'GitHub',
+        fieldName: 'github',
+        url: 'https://api.github.com/graphql',
+        headers: {
+          Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
+        },
+        refetchInterval: 60 * 60,
       },
     },
     `gatsby-transformer-sharp`,
