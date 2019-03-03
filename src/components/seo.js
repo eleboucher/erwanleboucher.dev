@@ -40,6 +40,10 @@ function SEO({ description, lang, meta, keywords, title }) {
                 content: Img,
               },
               {
+                name: 'og:url',
+                content: 'https://erwanleboucher.dev',
+              },
+              {
                 name: `twitter:card`,
                 content: `summary`,
               },
