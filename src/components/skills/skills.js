@@ -1,14 +1,8 @@
 import React from 'react'
 import styled from 'styled-components/macro'
-import { Text, SubTitle } from '../typography'
 import Pannel from '../Pannel'
 
 const Skills = styled.div``
-
-Skills.Cat = styled(SubTitle)`
-  font-size: 20px;
-  margin-left: 1em;
-`
 
 Skills.List = styled.ul`
   list-style: none;

@@ -1,7 +1,6 @@
 import React from 'react'
 import styled, { css } from 'styled-components/macro'
 import { StaticQuery, graphql } from 'gatsby'
-import { Text } from '../typography'
 import Pannel from '../Pannel'
 
 import Repo from '../../images/repo.svg'
@@ -152,7 +151,7 @@ const Projects = () => (
               <Card key={node.name}>
                 <Name>
                   <StyledLink href={node.url}>
-                    <img src={Repo} />
+                    <img src={Repo} alt="Repo" />
                     <RepoName>{node.name}</RepoName>
                   </StyledLink>
                 </Name>
@@ -172,9 +171,9 @@ const Projects = () => (
                 <Stats>
                   <LanguageRound color={node.primaryLanguage.color} />
                   <TopicName>{node.primaryLanguage.name}</TopicName>
-                  <img src={Star} />
+                  <img src={Star} alt="star" />
                   <TopicName>{node.stargazers.totalCount}</TopicName>
-                  <img src={Forked} />
+                  <img src={Forked} alt="fork" />
                   <TopicName>{node.forks.totalCount}</TopicName>
                 </Stats>
               </Card>

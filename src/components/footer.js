@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components/macro'
 import { Text } from './typography'
 
 import Github from '../images/github-logo-black.svg'
@@ -41,6 +41,7 @@ const Footer = () => (
         <img
           src="https://www.ikoula.com/sites/default/files/images/logo_ikoula.png"
           height="60px"
+          alt="Ikoula"
         />
       </a>
     </Item>
