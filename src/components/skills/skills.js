@@ -10,16 +10,22 @@ Skills.Cat = styled(SubTitle)`
   margin-left: 1em;
 `
 
-Skills.List = styled.ul``
+Skills.List = styled.ul`
+  list-style: none;
+  margin-left: 0;
+  padding-left: 1em;
+  text-indent: -1em;
+`
 
 Skills.Item = styled.li`
   font-size: 18px;
-  line-height: 30px;
+  line-height: 40px;
   letter-spacing: 0.8px;
 `
 
 const Wrapper = styled.div`
   display: flex;
+
   @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     flex-direction: column;
   }
@@ -29,7 +35,6 @@ const SkillsComponent = () => (
   <Pannel title="Skills">
     <Wrapper>
       <Skills>
-        <Skills.Cat>Developer Skills</Skills.Cat>
         <Skills.List>
           <Skills.Item>
             <strong>Languages:</strong> C, Java, JavaScript, Python, Go
@@ -43,20 +48,6 @@ const SkillsComponent = () => (
           </Skills.Item>
           <Skills.Item>
             <strong>Databases:</strong> MySQL, PostgreSQL, MongoDB
-          </Skills.Item>
-          <Skills.Item>
-            <strong>Scripts:</strong> Bash, Python
-          </Skills.Item>
-        </Skills.List>
-      </Skills>
-      <Skills>
-        <Skills.Cat>Tool Skills</Skills.Cat>
-        <Skills.List>
-          <Skills.Item>
-            <strong>Versioning:</strong> Git
-          </Skills.Item>
-          <Skills.Item>
-            <strong>Platforms:</strong> Mac, Linux
           </Skills.Item>
           <Skills.Item>
             <strong>Hosting Services:</strong> AWS, Digital Ocean, Heroku
