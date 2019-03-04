@@ -8,7 +8,9 @@ const Content = styled.div`
   width: 100%;
 `
 
-const breakpoint = { breakpoint: { L: '1024px', M: '700px' } }
+const breakpoint = {
+  breakpoint: { XL: '1274px', L: '1024px', M: '900px', S: '700px' },
+}
 
 const Layout = ({ children }) => (
   <ThemeProvider theme={breakpoint}>

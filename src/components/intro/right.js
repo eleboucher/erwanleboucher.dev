@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 
   align-self: center;
 
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     margin-left: 0;
     justify-content: center;
   }
@@ -20,7 +20,7 @@ const Wrapper = styled.div`
 const Social = styled.div`
   display: flex;
 
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     justify-content: center;
   }
 `

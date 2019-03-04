@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   background-color: var(--primary);
   color: var(--white);
 
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     flex-direction: column;
     text-align: center;
   }

@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { Text } from '../typography'
 import Pannel from '../Pannel'
-const BREAKPOINT = {}
 
 const TimeLine = styled.div`
   display: flex;
@@ -14,7 +13,7 @@ const TimeLine = styled.div`
   word-break: break-word;
   justify-content: center;
 
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     border-bottom: none;
     border-left: 5px solid var(--white);
     flex-direction: column;
@@ -29,7 +28,7 @@ TimeLine.Info = styled.div`
     margin-left: 50px;
   }
 
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     margin-left: 20px;
     margin-top: 30px;
   }
@@ -55,7 +54,7 @@ TimeLine.Head = styled.span`
     position: absolute;
     bottom: -20px;
     border: 5px solid var(--primary);
-    @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+    @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
       bottom: unset;
       left: -20px;
     }
@@ -65,7 +64,7 @@ TimeLine.Text = styled(Text)`
   font-size: 14px;
   margin-top: 10px;
 
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     margin: 0px;
   }
 `
@@ -74,7 +73,7 @@ TimeLine.Date = styled.h4`
   margin-bottom: 10px;
   font-weight: 300;
 
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     margin: 0px;
   }
 `

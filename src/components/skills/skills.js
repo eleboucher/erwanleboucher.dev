@@ -20,7 +20,7 @@ Skills.Item = styled.li`
 
 const Wrapper = styled.div`
   display: flex;
-  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     flex-direction: column;
   }
 `
