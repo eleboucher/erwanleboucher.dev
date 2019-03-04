@@ -16,10 +16,12 @@ const Wrapper = styled.div`
   align-items: center;
   grid-gap: 20px;
 
-  @media (min-width: 800px) and (max-width: 1100px) {
+  @media (min-width: ${({ theme }) => theme.breakpoint.M}) and (max-width: ${({
+      theme,
+    }) => theme.breakpoint.L}) {
     grid-template-columns: repeat(2, 1fr);
   }
-  @media (max-width: 800px) {
+  @media (max-width: ${({ theme }) => theme.breakpoint.M}) {
     grid-template-columns: repeat(1, 1fr);
   }
 `
