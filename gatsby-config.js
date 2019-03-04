@@ -36,7 +36,7 @@ module.exports = {
         headers: {
           Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
         },
-        refetchInterval: 60 * 60,
+        refetchInterval: 60 * 30,
       },
     },
     `gatsby-transformer-sharp`,
