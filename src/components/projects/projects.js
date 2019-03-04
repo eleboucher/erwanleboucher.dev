@@ -32,7 +32,7 @@ const Card = styled.div`
 
   background-color: var(--white);
   padding: 20px 20px;
-  border-radius: 8px;
+  border-radius: 6px;
   color: var(--dark);
   grid-gap: 10px;
 `
