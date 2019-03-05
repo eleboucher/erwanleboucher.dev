@@ -10,7 +10,7 @@ const Pannel = styled(RawPannel)`
   min-height: 50vh;
 `
 const Text = styled(RawText)`
-  color: var(--white);
+  color: var(--dark);
   font-weight: bold;
 `
 const StyledLink = styled.a`
