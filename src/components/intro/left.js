@@ -7,7 +7,9 @@ const Me = styled(Img)`
   border-radius: 100%;
   object-fit: contain;
 `
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  align-self: center;
+`
 
 const Left = () => (
   <StaticQuery

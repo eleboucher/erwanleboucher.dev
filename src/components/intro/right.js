@@ -8,9 +8,7 @@ import Github from '../../images/github-logo.svg'
 
 const Wrapper = styled.div`
   margin-left: 20px;
-
   align-self: center;
-
   @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
     margin-left: 0;
     justify-content: center;
