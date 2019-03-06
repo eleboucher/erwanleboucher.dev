@@ -5,7 +5,7 @@ import { Title, Text as RawText } from '../typography'
 import LinkedIn from '../../images/linkedin-logo.svg'
 import Twitter from '../../images/twitter-logo.svg'
 import Github from '../../images/github-logo.svg'
-
+import Mail from '../../images/mail.svg'
 const Wrapper = styled.div`
   margin-left: 20px;
   align-self: center;
@@ -49,6 +49,9 @@ const Right = () => (
     <Title>Erwan Leboucher</Title>
     <Text>Full-Stack Developer</Text>
     <Social>
+      <Social.Link href="mailto:erwanleboucher@gmail.com">
+        <Social.Icon src={Mail} />
+      </Social.Link>
       <Social.Link href="https://github.com/genesixx">
         <Social.Icon src={Github} />
       </Social.Link>
