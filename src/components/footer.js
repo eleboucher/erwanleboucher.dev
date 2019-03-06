@@ -2,14 +2,14 @@ import React from 'react'
 import styled from 'styled-components/macro'
 import { Text } from './typography'
 
-import Github from '../images/github-logo-black.svg'
+import Github from '../images/github-logo.svg'
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-content: center;
-  background-color: var(--white);
-
+  background-color: var(--primary);
+  color: var(--white);
   @media (max-width: 600px) {
     flex-direction: column;
     align-items: center;
@@ -26,24 +26,35 @@ const Item = styled.div`
   align-items: center;
   margin: 0px 20px;
 `
+const StyledLink = styled.a`
+  align-self: center;
+  text-decoration: none;
+  text-align: center;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.7;
+  }
+`
 
 const Footer = () => (
   <Wrapper>
     <Item>
       <Text as="a">Find the Code on</Text>
-      <a href="https://github.com/genesixx/erwanleboucher.fr">
+      <StyledLink href="https://github.com/genesixx/erwanleboucher.fr">
         <Icon src={Github} alt="Github" />
-      </a>
+      </StyledLink>
     </Item>
     <Item>
       <Text>® {new Date().getFullYear()} Erwan Leboucher. Sponsored by </Text>
-      <a href="https://goo.gl/sMDGL5">
+      <StyledLink href="https://goo.gl/sMDGL5">
         <img
           src="https://www.ikoula.com/sites/default/files/images/logo_ikoula.png"
           height="60px"
           alt="Ikoula"
         />
-      </a>
+      </StyledLink>
     </Item>
   </Wrapper>
 )

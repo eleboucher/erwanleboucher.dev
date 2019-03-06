@@ -10,7 +10,7 @@ const Pannel = styled(RawPannel)`
   min-height: 50vh;
 `
 const Text = styled(RawText)`
-  color: var(--dark);
+  color: var(--white);
   font-weight: bold;
 `
 const StyledLink = styled.a`
@@ -39,7 +39,7 @@ const About = () => (
       }
     `}
     render={({ file }) => (
-      <Pannel title="Download my resume">
+      <Pannel title="Download my resume" primary>
         <StyledLink
           href={file.publicURL}
           target="_blank"
