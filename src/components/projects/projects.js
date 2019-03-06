@@ -34,6 +34,8 @@ const Card = styled.div`
   border-radius: 6px;
   color: var(--dark);
   grid-gap: 10px;
+  border: 2px solid #d6d6d6;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 0px 18px 0px;
 `
 const Name = styled.div`
   grid-area: title;
@@ -145,7 +147,7 @@ const Projects = () => (
     render={({ github }) => {
       const repos = github.user.repositories.edges
       return (
-        <Pannel title="Projects" primary>
+        <Pannel title="Projects">
           <Wrapper>
             {repos.map(({ node }) => (
               <Card key={node.name}>
