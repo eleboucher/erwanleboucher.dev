@@ -4,6 +4,7 @@ module.exports = {
     title: `Erwan Leboucher`,
     description: `French Full-Stack Developer`,
     author: `@elebouch`,
+    siteUrl: 'https://erwanleboucher.dev',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
