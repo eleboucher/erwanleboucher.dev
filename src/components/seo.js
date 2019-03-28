@@ -12,64 +12,32 @@ function SEO({ description, lang, meta, keywords, title }) {
       render={data => {
         const metaDescription =
           description || data.site.siteMetadata.description
+        const metaTitle = title || data.site.siteMetadata.title
+        const url = 'https://erwanleboucher.dev'
         return (
-          <Helmet
-            htmlAttributes={{
-              lang,
-            }}
-            title={title ? title : data.site.siteMetadata.title}
-            meta={[
-              {
-                name: `description`,
-                content: metaDescription,
-              },
-              {
-                property: `og:title`,
-                content: data.site.siteMetadata.title,
-              },
-              {
-                property: `og:description`,
-                content: metaDescription,
-              },
-              {
-                property: `og:type`,
-                content: `website`,
-              },
-              {
-                name: 'og:image',
-                content: Img,
-              },
-              {
-                name: 'og:url',
-                content: 'https://erwanleboucher.dev',
-              },
-              {
-                name: `twitter:card`,
-                content: `summary`,
-              },
-              {
-                name: `twitter:creator`,
-                content: data.site.siteMetadata.author,
-              },
-              {
-                name: `twitter:title`,
-                content: data.site.siteMetadata.title,
-              },
-              {
-                name: `twitter:description`,
-                content: metaDescription,
-              },
-            ]
-              .concat(
-                keywords.length > 0
-                  ? {
-                      name: `keywords`,
-                      content: keywords.join(`, `),
-                    }
-                  : []
-              )
-              .concat(meta)}
-          />
+          <Helmet>
+            <title>{metaTitle}</title>
+            <meta name="description" content={metaDescription} />
+            <meta name="image" content={Img} />
+            <link rel="canonical" href={url} />
+
+            {/* OpenGraph tags */}
+            <meta property="og:url" content={url} />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content={metaTitle} />
+            <meta property="og:description" content={metaDescription} />
+            <meta property="og:image" content={Img} />
+
+            {/* Twitter Card tags */}
+            <meta name="twitter:card" content="Img" />
+            <meta
+              name="twitter:creator"
+              content={data.site.siteMetadata.author}
+            />
+            <meta name="twitter:title" content={metaTitle} />
+            <meta name="twitter:description" content={metaDescription} />
+            <meta name="twitter:image" content={Img} />
+          </Helmet>
         )
       }}
     />
