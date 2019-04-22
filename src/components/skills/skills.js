@@ -38,7 +38,7 @@ const SkillsComponent = () => (
           </Skills.Item>
           <Skills.Item>
             <strong>Frameworks:</strong> NodeJs, Express, React, React Native,
-            Mux, Flask
+            Mux, Flask, Django
           </Skills.Item>
           <Skills.Item>
             <strong>Databases:</strong> MySQL, PostgreSQL, MongoDB
