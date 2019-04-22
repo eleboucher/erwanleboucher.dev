@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - 'stable'
+cache:
+  directories:
+    - node_modules
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local_dir: public
+  target_branch: master
+  repo: genesixx/genesixx.github.io
+  on:
+    branch: master
+before_script:
+  - 'npm i'
+  - 'npm run build'
