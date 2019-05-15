@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import styled, { css } from 'styled-components'
+import { useSpring, animated } from 'react-spring'
+
+import useInView from '../hooks/useInView'
 import { SubTitle } from './typography'
 
 const Pannel = styled.div`
@@ -27,11 +30,29 @@ Pannel.Body = styled.div`
 `
 Pannel.Title = styled(SubTitle)``
 
-const PannelComponent = ({ className, primary, title, children }) => (
-  <Pannel className={className} primary={primary}>
-    <Pannel.Title>{title}</Pannel.Title>
-    <Pannel.Body>{children}</Pannel.Body>
-  </Pannel>
-)
+const PannelComponent = ({ className, primary, title, children }) => {
+  const [hasViewed, setHasViewed] = useState(false)
+  const [ref, inView] = useInView({})
+  useEffect(() => {
+    if (inView) {
+      setHasViewed(true)
+    }
+  }, [!inView])
 
-export default PannelComponent
+  const props = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: hasViewed ? 1 : 0 },
+    delay: 300,
+  })
+
+  return (
+    <Pannel className={className} ref={ref} primary={primary}>
+      <animated.div style={props}>
+        <Pannel.Title>{title}</Pannel.Title>
+        <Pannel.Body>{children}</Pannel.Body>
+      </animated.div>
+    </Pannel>
+  )
+}
+
+export default memo(PannelComponent)
