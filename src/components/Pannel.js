@@ -21,7 +21,7 @@ const Pannel = styled.div`
       color: var(--white);
     `};
 `
-Pannel.Body = styled.div`
+Pannel.Body = styled(animated.div)`
   margin-top: 40px;
   display: flex;
   width: 100%;
@@ -47,10 +47,10 @@ const PannelComponent = ({ className, primary, title, children }) => {
 
   return (
     <Pannel className={className} ref={ref} primary={primary}>
-      <animated.div style={props}>
-        <Pannel.Title>{title}</Pannel.Title>
-        <Pannel.Body>{children}</Pannel.Body>
-      </animated.div>
+      <Pannel.Title as={animated.span} style={props}>
+        {title}
+      </Pannel.Title>
+      <Pannel.Body style={props}>{children}</Pannel.Body>
     </Pannel>
   )
 }
