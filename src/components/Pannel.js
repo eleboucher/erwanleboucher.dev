@@ -32,7 +32,7 @@ Pannel.Title = styled(SubTitle)``
 
 const PannelComponent = ({ className, primary, title, children }) => {
   const [hasViewed, setHasViewed] = useState(false)
-  const [ref, inView] = useInView({ threshold: 0.6 })
+  const [ref, inView] = useInView({ threshold: 0.3 })
   useEffect(() => {
     if (inView) {
       setHasViewed(true)
