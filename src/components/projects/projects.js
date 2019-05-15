@@ -28,7 +28,7 @@ const Card = styled.div`
   display: grid;
   grid-template-rows: repeat(4, 1fr);
   grid-template-areas: 'title' 'description' 'topics' 'stats';
-
+  align-self: stretch;
   background-color: var(--white);
   padding: 20px 20px;
   border-radius: 6px;
@@ -87,6 +87,7 @@ const LanguageRound = styled.div`
 const Topics = styled.div`
   grid-area: topics;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-end;
   > :not(:first-child) {
     margin-left: 5px;
@@ -120,7 +121,7 @@ const Projects = () => (
                       color
                       name
                     }
-                    repositoryTopics(first: 4) {
+                    repositoryTopics(first: 3) {
                       edges {
                         node {
                           topic {
