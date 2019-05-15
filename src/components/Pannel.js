@@ -32,7 +32,7 @@ Pannel.Title = styled(SubTitle)``
 
 const PannelComponent = ({ className, primary, title, children }) => {
   const [hasViewed, setHasViewed] = useState(false)
-  const [ref, inView] = useInView({})
+  const [ref, inView] = useInView({ threshold: 0.6 })
   useEffect(() => {
     if (inView) {
       setHasViewed(true)
@@ -42,7 +42,6 @@ const PannelComponent = ({ className, primary, title, children }) => {
   const props = useSpring({
     from: { opacity: 0 },
     to: { opacity: hasViewed ? 1 : 0 },
-    delay: 300,
   })
 
   return (
