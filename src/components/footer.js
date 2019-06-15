@@ -47,14 +47,7 @@ const Footer = () => (
       </StyledLink>
     </Item>
     <Item>
-      <Text>® {new Date().getFullYear()} Erwan Leboucher. Sponsored by </Text>
-      <StyledLink href="https://goo.gl/sMDGL5">
-        <img
-          src="https://www.ikoula.com/sites/default/files/images/logo_ikoula.png"
-          height="60px"
-          alt="Ikoula"
-        />
-      </StyledLink>
+      <Text>® {new Date().getFullYear()} Erwan Leboucher</Text>
     </Item>
   </Wrapper>
 )
