@@ -79,7 +79,7 @@ TimeLine.Date = styled.h4`
 `
 
 const TimeLineComponent = () => (
-  <Pannel title="My Journey" primary>
+  <Pannel title="Journey" primary>
     <TimeLine>
       <TimeLine.Info>
         <TimeLine.Date>2016</TimeLine.Date>

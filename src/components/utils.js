@@ -9,5 +9,5 @@ export const Center = styled.div`
 `
 export const Loading = styled.div`
   height: 100vh;
-  background-color: #33375b;
+  background-color: #1770a2;
 `
