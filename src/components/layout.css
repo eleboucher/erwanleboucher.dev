@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 :root {
-  --primary: #33375b;
-  --lightAccent: #8499bf;
+  --primary: #1770a2;
+  --lightAccent: #4086ba;
   --darkAccent: #f22b4c;
-  --white: #e9eae6;
-  --dark: #1d1a23;
+  --white: #fff;
+  --dark: #0f0a0a;
 }
 
 body {

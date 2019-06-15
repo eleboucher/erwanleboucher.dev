@@ -16,11 +16,11 @@ function SEO({ description, lang, meta, keywords, title }) {
         const url = 'https://erwanleboucher.dev'
         return (
           <Helmet>
+            <html lang="en" />
             <title>{metaTitle}</title>
             <meta name="description" content={metaDescription} />
             <meta name="image" content={Img} />
             <link rel="canonical" href={url} />
-
             {/* OpenGraph tags */}
             <meta property="og:url" content={url} />
             <meta property="og:type" content="website" />

@@ -13,6 +13,7 @@ const Pannel = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: var(--dark);
   background-color: var(--white);
   ${props =>
     props.primary &&

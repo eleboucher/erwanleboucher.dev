@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 import { StaticQuery, graphql } from 'gatsby'
 import Pannel from '../Pannel'
 
@@ -164,8 +164,8 @@ const Projects = () => (
                     <div key={node.topic.name}>
                       <StyledLink
                         href={node.url}
-                        css={css`
-                          color: var(--lightAccent);
+                        css={`
+                          color: var(--primary);
                         `}
                       >{`#${node.topic.name}`}</StyledLink>
                     </div>

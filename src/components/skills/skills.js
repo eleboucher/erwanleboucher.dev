@@ -31,14 +31,14 @@ const SkillsComponent = () => (
       <Skills>
         <Skills.List>
           <Skills.Item>
-            <strong>Languages:</strong> C, Java, JavaScript, Python, Go
+            <strong>Languages:</strong> JavaScript, Python, Go, C, Java
           </Skills.Item>
           <Skills.Item>
-            <strong>Web:</strong> HTML/CSS, PHP
+            <strong>Web:</strong> HTML/CSS, PHP, REST API, GraphQL
           </Skills.Item>
           <Skills.Item>
-            <strong>Frameworks:</strong> NodeJs, Express, React, React Native,
-            Mux, Flask, Django
+            <strong>Frameworks:</strong> Express, React, React Native, Vue,
+            Flask, Django
           </Skills.Item>
           <Skills.Item>
             <strong>Databases:</strong> MySQL, PostgreSQL, MongoDB
@@ -47,7 +47,7 @@ const SkillsComponent = () => (
             <strong>Hosting Services:</strong> AWS, Digital Ocean, Heroku
           </Skills.Item>
           <Skills.Item>
-            <strong>DevOps:</strong> Docker, Gitlab-CI
+            <strong>DevOps:</strong> Docker, Gitlab-CI, Travis-CI
           </Skills.Item>
         </Skills.List>
       </Skills>

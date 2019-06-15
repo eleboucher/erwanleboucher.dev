@@ -5,7 +5,7 @@ import { Text } from '../typography'
 import Left from './left'
 import Right from './right'
 const Wrapper = styled.div`
-  min-height: 100vh;
+  min-height: 98vh;
   width: 100%;
 
   display: flex;

@@ -50,16 +50,16 @@ const Right = () => (
     <Text>Full-Stack Developer</Text>
     <Social>
       <Social.Link href="mailto:erwanleboucher@gmail.com">
-        <Social.Icon src={Mail} />
+        <Social.Icon src={Mail} alt="mail" />
       </Social.Link>
       <Social.Link href="https://github.com/genesixx">
-        <Social.Icon src={Github} />
+        <Social.Icon src={Github} alt="GitHub" />
       </Social.Link>
       <Social.Link href="https://www.linkedin.com/in/erwan-leboucher/">
-        <Social.Icon src={LinkedIn} />
+        <Social.Icon src={LinkedIn} alt="LinkedIn" />
       </Social.Link>
       <Social.Link href="https://twitter.com/elebouch">
-        <Social.Icon src={Twitter} />
+        <Social.Icon src={Twitter} alt="Twitter" />
       </Social.Link>
     </Social>
   </Wrapper>

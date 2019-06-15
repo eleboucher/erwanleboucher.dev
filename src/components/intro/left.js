@@ -26,7 +26,7 @@ const Left = () => (
     `}
     render={data => (
       <Wrapper>
-        <Me fixed={data.me.childImageSharp.fixed} />
+        <Me fixed={data.me.childImageSharp.fixed} alt="me" />
       </Wrapper>
     )}
   />
