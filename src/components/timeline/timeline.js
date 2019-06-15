@@ -83,28 +83,48 @@ const TimeLineComponent = () => (
     <TimeLine>
       <TimeLine.Info>
         <TimeLine.Date>2016</TimeLine.Date>
-        <TimeLine.Head as="a" href="https://www.st-jo.fr/">
+        <TimeLine.Head
+          as="a"
+          href="https://www.st-jo.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Lycée Saint Joseph Le Havre
         </TimeLine.Head>
         <TimeLine.Text>Baccalauréat Scientifique</TimeLine.Text>
       </TimeLine.Info>
       <TimeLine.Info>
         <TimeLine.Date>Since Nov 2017</TimeLine.Date>
-        <TimeLine.Head as="a" href="https://www.42.fr/">
+        <TimeLine.Head
+          as="a"
+          href="https://www.42.fr/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Ecole 42
         </TimeLine.Head>
         <TimeLine.Text>Computer Science</TimeLine.Text>
       </TimeLine.Info>
       <TimeLine.Info>
         <TimeLine.Date>Oct 2018</TimeLine.Date>
-        <TimeLine.Head as="a" href="https://navya.tech/press/navya-x-42-2">
+        <TimeLine.Head
+          as="a"
+          href="https://navya.tech/press/navya-x-42-2"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           NAVYA X 42 First Place
         </TimeLine.Head>
         <TimeLine.Text>Coding Contest</TimeLine.Text>
       </TimeLine.Info>
       <TimeLine.Info>
         <TimeLine.Date>Nov 2018 - May 2019</TimeLine.Date>
-        <TimeLine.Head as="a" href="https://gitguardian.com">
+        <TimeLine.Head
+          as="a"
+          href="https://gitguardian.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Git Guardian
         </TimeLine.Head>
         <TimeLine.Text>Full-Stack intern developer</TimeLine.Text>

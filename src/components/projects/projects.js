@@ -153,7 +153,11 @@ const Projects = () => (
             {repos.map(({ node }) => (
               <Card key={node.name}>
                 <Name>
-                  <StyledLink href={node.url}>
+                  <StyledLink
+                    href={node.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <img src={Repo} alt="Repo" />
                     <RepoName>{node.name}</RepoName>
                   </StyledLink>
@@ -167,6 +171,8 @@ const Projects = () => (
                         css={`
                           color: var(--primary);
                         `}
+                        target="_blank"
+                        rel="noopener noreferrer"
                       >{`#${node.topic.name}`}</StyledLink>
                     </div>
                   ))}

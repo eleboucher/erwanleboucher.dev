@@ -42,7 +42,11 @@ const Footer = () => (
   <Wrapper>
     <Item>
       <Text as="a">Find the Code on</Text>
-      <StyledLink href="https://github.com/genesixx/erwanleboucher.fr">
+      <StyledLink
+        href="https://github.com/genesixx/erwanleboucher.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Icon src={Github} alt="Github" />
       </StyledLink>
     </Item>
