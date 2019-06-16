@@ -46,6 +46,7 @@ const Footer = () => (
         href="https://github.com/genesixx/erwanleboucher.dev"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="erwanleboucher.dev"
       >
         <Icon alt="Github" />
       </StyledLink>

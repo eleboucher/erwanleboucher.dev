@@ -162,6 +162,7 @@ const Projects = () => (
                     href={node.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={node.name}
                   >
                     <RepoName>{node.name}</RepoName>
                   </StyledLink>

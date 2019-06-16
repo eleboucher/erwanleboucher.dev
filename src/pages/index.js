@@ -13,7 +13,7 @@ import Projects from '../components/projects'
 const IndexPage = () => {
   const [loading, setLoading] = useState(true)
   useEffect(() => {
-    setTimeout(() => setLoading(false), 200)
+    setLoading(false)
   }, [])
   return (
     <>
