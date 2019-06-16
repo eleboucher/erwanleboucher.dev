@@ -96,7 +96,7 @@ const Topics = styled.div`
 `
 
 const Tags = styled.span`
-  color: var(--lightAccent);
+  color: var(--primary);
 `
 const TopicName = styled.span`
   font-size: 16px;

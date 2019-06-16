@@ -29,15 +29,15 @@ Social.Link = styled.a`
   :hover {
     filter: grayscale(1);
   }
-`
-Social.Icon = styled.img`
-  height: 50px;
+  > svg {
+    height: 50px;
 
-  transition: opacity 0.2s linear;
-  cursor: pointer;
+    transition: opacity 0.2s linear;
+    cursor: pointer;
 
-  &:hover {
-    opacity: 0.7;
+    &:hover {
+      opacity: 0.7;
+    }
   }
 `
 const Text = styled(RawText)`
@@ -53,29 +53,33 @@ const Right = () => (
         href="mailto:erwanleboucher@gmail.com"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Mail"
       >
-        <Social.Icon as={Mail} alt="mail" />
+        <Mail alt="Mail" />
       </Social.Link>
       <Social.Link
         href="https://github.com/genesixx"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Github"
       >
-        <Social.Icon as={Github} alt="GitHub" />
+        <Github alt="GitHub" />
       </Social.Link>
       <Social.Link
         href="https://www.linkedin.com/in/erwan-leboucher/"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="LinkedIn"
       >
-        <Social.Icon as={LinkedIn} alt="LinkedIn" />
+        <LinkedIn alt="LinkedIn" />
       </Social.Link>
       <Social.Link
         href="https://twitter.com/elebouch"
         target="_blank"
         rel="noopener noreferrer"
+        aria-label="Twitter"
       >
-        <Social.Icon as={Twitter} alt="Twitter" />
+        <Twitter alt="Twitter" />
       </Social.Link>
     </Social>
   </Wrapper>
