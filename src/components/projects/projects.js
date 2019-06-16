@@ -34,12 +34,13 @@ const Card = styled.div`
   border-radius: 6px;
   color: var(--dark);
   grid-gap: 10px;
-  border: 2px solid #d6d6d6;
+  border: 1px solid #ccc;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 0px 18px 0px;
 `
 const Name = styled.div`
   grid-area: title;
-  align-self: center;
+  display: flex;
+  align-items: center;
 `
 
 const RepoName = styled.span`
@@ -79,7 +80,7 @@ const LanguageRound = styled.div`
   align-self: center;
   border-radius: 100%;
 
-  background-color: ${props => props.color};
+  background-color: ${({ color }) => color};
   height: 14px;
   width: 14px;
 `
@@ -94,6 +95,9 @@ const Topics = styled.div`
   }
 `
 
+const Tags = styled.span`
+  color: var(--lightAccent);
+`
 const TopicName = styled.span`
   font-size: 16px;
 `
@@ -153,12 +157,12 @@ const Projects = () => (
             {repos.map(({ node }) => (
               <Card key={node.name}>
                 <Name>
+                  <Repo alt="Repo" />
                   <StyledLink
                     href={node.url}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <img src={Repo} alt="Repo" />
                     <RepoName>{node.name}</RepoName>
                   </StyledLink>
                 </Name>
@@ -166,23 +170,16 @@ const Projects = () => (
                 <Topics>
                   {node.repositoryTopics.edges.map(({ node }) => (
                     <div key={node.topic.name}>
-                      <StyledLink
-                        href={node.url}
-                        css={`
-                          color: var(--primary);
-                        `}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >{`#${node.topic.name}`}</StyledLink>
+                      <Tags as="span">{`#${node.topic.name}`}</Tags>
                     </div>
                   ))}
                 </Topics>
                 <Stats>
                   <LanguageRound color={node.primaryLanguage.color} />
                   <TopicName>{node.primaryLanguage.name}</TopicName>
-                  <img src={Star} alt="star" />
+                  <Star alt="star" />
                   <TopicName>{node.stargazers.totalCount}</TopicName>
-                  <img src={Forked} alt="fork" />
+                  <Forked alt="fork" />
                   <TopicName>{node.forks.totalCount}</TopicName>
                 </Stats>
               </Card>

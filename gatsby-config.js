@@ -40,6 +40,14 @@ module.exports = {
         refetchInterval: 60 * 30,
       },
     },
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: /\.svg$/, // See below to configure properly
+        },
+      },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-sitemap`,

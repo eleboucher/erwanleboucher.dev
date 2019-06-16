@@ -54,28 +54,28 @@ const Right = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Social.Icon src={Mail} alt="mail" />
+        <Social.Icon as={Mail} alt="mail" />
       </Social.Link>
       <Social.Link
         href="https://github.com/genesixx"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Social.Icon src={Github} alt="GitHub" />
+        <Social.Icon as={Github} alt="GitHub" />
       </Social.Link>
       <Social.Link
         href="https://www.linkedin.com/in/erwan-leboucher/"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Social.Icon src={LinkedIn} alt="LinkedIn" />
+        <Social.Icon as={LinkedIn} alt="LinkedIn" />
       </Social.Link>
       <Social.Link
         href="https://twitter.com/elebouch"
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Social.Icon src={Twitter} alt="Twitter" />
+        <Social.Icon as={Twitter} alt="Twitter" />
       </Social.Link>
     </Social>
   </Wrapper>

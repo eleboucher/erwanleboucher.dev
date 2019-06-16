@@ -10,7 +10,6 @@ const Pannel = styled(RawPannel)`
   min-height: 50vh;
 `
 const Text = styled(RawText)`
-  color: var(--white);
   font-weight: bold;
 `
 const StyledLink = styled.a`
@@ -19,14 +18,11 @@ const StyledLink = styled.a`
   text-align: center;
   transition: opacity 0.2s linear;
   cursor: pointer;
+  color: var(--white);
 
   &:hover {
     opacity: 0.7;
   }
-`
-
-const Img = styled.img`
-  height: 100px;
 `
 
 const About = () => (
@@ -45,7 +41,7 @@ const About = () => (
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Img src={Download} alt="download my resume" />
+          <Download height={100} alt="download my resume" />
           <Text>Download Here</Text>
         </StyledLink>
       </Pannel>

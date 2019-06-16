@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Icon = styled.img`
+const Icon = styled(Github)`
   height: 50px;
   margin-left: 5px;
 `
@@ -47,7 +47,7 @@ const Footer = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Icon src={Github} alt="Github" />
+        <Icon alt="Github" />
       </StyledLink>
     </Item>
     <Item>
