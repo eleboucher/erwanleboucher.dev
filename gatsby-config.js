@@ -37,7 +37,7 @@ module.exports = {
         headers: {
           Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
         },
-        refetchInterval: 60 * 30,
+        refetchInterval: 1800,
       },
     },
     {
