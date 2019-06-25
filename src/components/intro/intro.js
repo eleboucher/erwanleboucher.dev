@@ -44,7 +44,7 @@ const Intro = () => (
       <Text>
         I'm a {calculateAge()} year old Full-Stack developer living in Paris.
         Enthusiast about anything related to new technology, science or
-        engineering. I'm as well interested by cars, especially Formula 1,
+        engineering. I'm as well interested in cars, especially Formula 1,
         Sci-fi and musics.
       </Text>
     </About>
