@@ -118,14 +118,14 @@ const TimeLineComponent = () => (
         <TimeLine.Text>Coding Contest</TimeLine.Text>
       </TimeLine.Info>
       <TimeLine.Info>
-        <TimeLine.Date>Nov 2018 - May 2019</TimeLine.Date>
+        <TimeLine.Date>Nov 2018 - June 2019</TimeLine.Date>
         <TimeLine.Head
           as="a"
           href="https://gitguardian.com"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Git Guardian
+          GitGuardian
         </TimeLine.Head>
         <TimeLine.Text>Full-Stack intern developer</TimeLine.Text>
       </TimeLine.Info>
