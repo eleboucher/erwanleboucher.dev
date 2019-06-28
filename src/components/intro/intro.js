@@ -42,10 +42,10 @@ const Intro = () => (
     <Right />
     <About>
       <Text>
-        I'm a {calculateAge()} year old Full-Stack developer living in Paris.
-        Enthusiast about anything related to new technology, science or
-        engineering. I'm as well interested in cars, especially Formula 1,
-        Sci-fi and musics.
+        I'm a {calculateAge()} year old Full-Stack developer living in Paris
+        wanting to broaden new horizons. Enthusiast about anything related to
+        new technologies, science or engineering, I am interested in cars,
+        especially Formula 1, Sci-fi and music.
       </Text>
     </About>
   </Wrapper>
