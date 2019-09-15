@@ -22,7 +22,9 @@ const TimeLine = styled.div`
 `
 
 TimeLine.Info = styled.div`
-  margin-left: 100px;
+  :not(:first-of-type) {
+    margin-left: 100px;
+  }
 
   @media (max-width: ${({ theme }) => theme.breakpoint.L}) {
     margin-left: 50px;
@@ -78,57 +80,56 @@ TimeLine.Date = styled.h4`
   }
 `
 
+const timeLineScript = [
+  {
+    date: '2016',
+    link: 'https://www.st-jo.fr/',
+    head: 'Lycée Saint Joseph Le Havre',
+    text: 'Baccalauréat Scientifique',
+  },
+  {
+    date: '2017-2019',
+    link: 'https://www.42.fr/',
+    head: 'Ecole 42',
+    text: 'Computer Science',
+  },
+  {
+    date: 'Oct 2018',
+    link: 'https://navya.tech/press/navya-x-42-2',
+    head: 'NAVYA X 42 First Place',
+    text: 'Coding Contest',
+  },
+  {
+    date: 'Nov 2018 - July 2019',
+    link: 'https://gitguardian.com',
+    head: 'GitGuardian',
+    text: 'Full-Stack intern developer',
+  },
+  {
+    date: 'Since Sep 2019',
+    link: 'https://www.viacash.com',
+    head: 'Barzahlen',
+    text: 'Junior Web Engineer',
+  },
+]
+
 const TimeLineComponent = () => (
   <Pannel title="Journey" primary>
     <TimeLine>
-      <TimeLine.Info>
-        <TimeLine.Date>2016</TimeLine.Date>
-        <TimeLine.Head
-          as="a"
-          href="https://www.st-jo.fr/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Lycée Saint Joseph Le Havre
-        </TimeLine.Head>
-        <TimeLine.Text>Baccalauréat Scientifique</TimeLine.Text>
-      </TimeLine.Info>
-      <TimeLine.Info>
-        <TimeLine.Date>Since Nov 2017</TimeLine.Date>
-        <TimeLine.Head
-          as="a"
-          href="https://www.42.fr/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ecole 42
-        </TimeLine.Head>
-        <TimeLine.Text>Computer Science</TimeLine.Text>
-      </TimeLine.Info>
-      <TimeLine.Info>
-        <TimeLine.Date>Oct 2018</TimeLine.Date>
-        <TimeLine.Head
-          as="a"
-          href="https://navya.tech/press/navya-x-42-2"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          NAVYA X 42 First Place
-        </TimeLine.Head>
-        <TimeLine.Text>Coding Contest</TimeLine.Text>
-      </TimeLine.Info>
-      <TimeLine.Info>
-        <TimeLine.Date>Nov 2018 - June 2019</TimeLine.Date>
-        <TimeLine.Head
-          as="a"
-          href="https://gitguardian.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          GitGuardian
-        </TimeLine.Head>
-        <TimeLine.Text>Full-Stack intern developer</TimeLine.Text>
-      </TimeLine.Info>
+      {timeLineScript.map(({ date, link, head, text }) => (
+        <TimeLine.Info>
+          <TimeLine.Date>{date}</TimeLine.Date>
+          <TimeLine.Head
+            as="a"
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {head}
+          </TimeLine.Head>
+          <TimeLine.Text>{text}</TimeLine.Text>
+        </TimeLine.Info>
+      ))}
     </TimeLine>
   </Pannel>
 )
