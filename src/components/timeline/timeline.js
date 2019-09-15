@@ -27,11 +27,11 @@ TimeLine.Info = styled.div`
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoint.L}) {
-    margin-left: 50px;
+    margin-left: 50px !important;
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoint.S}) {
-    margin-left: 20px;
+    margin-left: 20px !important;
     margin-top: 30px;
   }
 `
