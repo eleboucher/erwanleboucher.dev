@@ -6,7 +6,7 @@ import useInView from '../hooks/useInView'
 import { SubTitle } from './typography'
 
 const Pannel = styled.div`
-  min-height: 90vh;
+  min-height: 75vh;
 
   padding: 20px 10px;
   display: flex;
