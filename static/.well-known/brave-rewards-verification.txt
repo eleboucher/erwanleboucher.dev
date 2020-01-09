@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: erwanleboucher.dev
+Token: 3764450ce02af679a189bcbc7d1387677f83aeb0e4fdfb5db7e3c2f9e86cb06a
