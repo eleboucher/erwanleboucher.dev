@@ -109,7 +109,7 @@ const timeLineScript = [
     date: 'Since Sep 2019',
     link: 'https://www.viacash.com',
     head: 'Barzahlen',
-    text: 'Junior Web Engineer',
+    text: 'Software Engineer',
   },
 ]
 
