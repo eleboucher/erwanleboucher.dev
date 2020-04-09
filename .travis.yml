@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - '10'
+  - 'lts'
 cache:
   directories:
     - node_modules
@@ -15,4 +15,4 @@ deploy:
   on:
     branch: master
 before_script:
-  - 'npm run build'
+  - 'yarn build'
