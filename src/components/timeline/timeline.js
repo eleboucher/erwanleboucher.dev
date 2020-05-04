@@ -103,7 +103,7 @@ const timeLineScript = [
     date: 'Nov 2018 - July 2019',
     link: 'https://gitguardian.com',
     head: 'GitGuardian',
-    text: 'Full-Stack intern developer',
+    text: 'Full-Stack developer',
   },
   {
     date: 'Since Sep 2019',
