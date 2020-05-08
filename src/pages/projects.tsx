@@ -49,7 +49,7 @@ const ProjectsPage = () => {
   return (
     <Layout>
       <SEO title="Projects" />
-      <Section title="Personal Projects">
+      <Section title="Projects">
         {ProjectsItems}
         <Link
           href="https://github.com/genesixx"
