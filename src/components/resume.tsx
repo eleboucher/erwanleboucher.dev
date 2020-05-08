@@ -16,7 +16,7 @@ const Resume = () => {
 
   return (
     <StyledLink
-      href={resume.publicURL}
+      href={resume.file.publicURL}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="resume"
