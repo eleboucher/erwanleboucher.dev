@@ -1,16 +1,30 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
 :root {
-  --primary: #1770a2;
-  --lightAccent: #4086ba;
-  --darkAccent: #f22b4c;
+  --primary: #2c4251;
+  --lightAccent: #66666e;
   --white: #fff;
-  --dark: #0f0a0a;
+  --dark: #222;
 }
 
-body {
-  margin: 0;
+html {
+  font-family: "Questrial", Open-Sans, sans-serif;
   font-display: swap;
-  font-family: 'Open Sans', sans-serif;
-  background-color: var(--primary);
+  font-size: 16px;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  margin: 8px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Archivo Black", sans-serif;
+}
+
+p {
+  margin: 10px 0;
 }

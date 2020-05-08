@@ -1,10 +1,11 @@
-require('dotenv').config()
+require("dotenv").config()
+
 module.exports = {
   siteMetadata: {
     title: `Erwan Leboucher`,
     description: `French Full-Stack Developer`,
     author: `@elebouch`,
-    siteUrl: 'https://erwanleboucher.dev',
+    siteUrl: "https://erwanleboucher.dev",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -16,6 +17,19 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      options: {
+        fonts: [
+          {
+            family: `Questrial`,
+          },
+          {
+            family: `Archivo Black`,
+          },
+        ],
+      },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `data`,
@@ -23,17 +37,11 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: "gatsby-source-graphql",
       options: {
-        trackingId: 'UA-31910784-2',
-      },
-    },
-    {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        typeName: 'GitHub',
-        fieldName: 'github',
-        url: 'https://api.github.com/graphql',
+        typeName: "GitHub",
+        fieldName: "github",
+        url: "https://api.github.com/graphql",
         headers: {
           Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
         },
@@ -41,7 +49,7 @@ module.exports = {
       },
     },
     {
-      resolve: 'gatsby-plugin-react-svg',
+      resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
           include: /\.svg$/, // See below to configure properly
@@ -50,22 +58,21 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Erwan Leboucher`,
         short_name: `elebouch`,
         start_url: `/`,
-        background_color: `#e9eae6`,
-        theme_color: `#33375b`,
+        background_color: `#FFFFFF`,
+        theme_color: `#2C4251`,
         display: `standalone`,
         icon: `src/images/favicon.png`,
         include_favicon: true,
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.app/offline
-    'gatsby-plugin-offline',
+    // To learn more, visit: https://gatsby.dev/offline
+    `gatsby-plugin-offline`,
   ],
 }

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Socials renders correctly 1`] = `
+<div
+  className="sc-AxjAm hWafyX"
+>
+  <a
+    aria-label="Github"
+    className="sc-AxirZ ksDzST"
+    href="https://github.com/genesixx"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <test-file-stub
+      alt="GitHub"
+    />
+  </a>
+  <a
+    aria-label="LinkedIn"
+    className="sc-AxirZ ksDzST"
+    href="https://www.linkedin.com/in/erwan-leboucher/"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <test-file-stub
+      alt="LinkedIn"
+    />
+  </a>
+  <a
+    aria-label="Mail"
+    className="sc-AxirZ ksDzST"
+    href="mailto:erwanleboucher@gmail.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <test-file-stub
+      alt="Mail"
+    />
+  </a>
+  <a
+    aria-label="Twitter"
+    className="sc-AxirZ ksDzST"
+    href="https://twitter.com/elebouch"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <test-file-stub
+      alt="Twitter"
+    />
+  </a>
+</div>
+`;

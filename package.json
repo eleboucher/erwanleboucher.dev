@@ -1,51 +1,52 @@
 {
   "name": "erwanleboucher.dev",
   "private": true,
-  "description": "My portfolio",
+  "description": "Personal Portfolio",
   "version": "0.1.0",
   "author": "Erwan Leboucher <erwanleboucher@gmail.com>",
   "dependencies": {
-    "gatsby": "^2.20.12",
-    "gatsby-image": "^2.3.1",
-    "gatsby-plugin-google-analytics": "^2.2.2",
-    "gatsby-plugin-manifest": "^2.3.3",
-    "gatsby-plugin-offline": "^3.1.2",
-    "gatsby-plugin-react-helmet": "^3.2.1",
+    "@types/react-helmet": "^5.0.15",
+    "gatsby": "^2.21.13",
+    "gatsby-image": "^2.4.1",
+    "gatsby-plugin-manifest": "^2.4.2",
+    "gatsby-plugin-offline": "^3.2.1",
+    "gatsby-plugin-prefetch-google-fonts": "^1.4.3",
+    "gatsby-plugin-react-helmet": "^3.3.1",
     "gatsby-plugin-react-svg": "^3.0.0",
-    "gatsby-plugin-sharp": "^2.5.3",
-    "gatsby-plugin-sitemap": "^2.3.1",
-    "gatsby-source-filesystem": "^2.2.2",
-    "gatsby-source-graphql": "^2.3.2",
-    "gatsby-transformer-sharp": "^2.4.3",
+    "gatsby-plugin-sharp": "^2.6.1",
+    "gatsby-source-filesystem": "^2.3.1",
+    "gatsby-source-graphql": "^2.5.1",
+    "gatsby-transformer-sharp": "^2.5.1",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^5.2.1",
-    "react-spring": "^8.0.27",
+    "react-helmet": "^6.0.0",
     "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.0",
+    "babel-jest": "^26.0.1",
+    "babel-preset-gatsby": "^0.4.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.0.1",
+    "prettier": "2.0.5",
+    "react-test-renderer": "^16.13.1"
   },
   "keywords": [
     "gatsby"
   ],
-  "no-default-export": true,
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "start": "yarn develop",
-    "format": "prettier --write \"src/**/*.js\"",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
-    "deploy:github": "yarn build && node ./scripts/deploy-github"
-  },
-  "devDependencies": {
-    "gh-pages": "^2.1.1",
-    "prettier": "^2.0.4"
+    "format": "prettier --write \"**/*.{js,jsx,json,md,tsx}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/genesixx/erwanleboucher.dev"
-  },
-  "bugs": {
-    "url": "https://github.com/genesixx/erwanleboucher.dev/issues"
   }
 }
