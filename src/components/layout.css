@@ -1,6 +1,5 @@
 :root {
   --primary: #2c4251;
-  --lightAccent: #66666e;
   --white: #fff;
   --dark: #222;
 }
@@ -27,4 +26,15 @@ h4 {
 
 p {
   margin: 10px 0;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --primary: #dbdbdc;
+    --white: #222;
+    --dark: #fff;
+  }
+  body {
+    background-color: var(--white);
+  }
 }
