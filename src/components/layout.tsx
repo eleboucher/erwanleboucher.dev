@@ -43,6 +43,20 @@ const Wrapper = styled.div`
   }
 `
 
+const SkipLink = styled.a`
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: white;
+  padding: 8px;
+  z-index: 100;
+
+  :focus {
+    top: 0;
+  }
+`
+
 const Layout = ({ children, ...props }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -56,8 +70,9 @@ const Layout = ({ children, ...props }) => {
 
   return (
     <Container {...props}>
+      <SkipLink href="#maincontent">Skip to main</SkipLink>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <Wrapper>{children}</Wrapper>
+      <Wrapper id="maincontent">{children}</Wrapper>
     </Container>
   )
 }
