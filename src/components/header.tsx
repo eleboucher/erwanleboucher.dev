@@ -41,10 +41,6 @@ const Link = styled(RawLink)`
   font-family: "Archivo Black", sans-serif;
   font-weight: bold;
   color: var(--dark);
-
-  @media (max-width: 800px) {
-    margin-right: 0px;
-  }
 `
 
 const Header = ({ siteTitle }) => (

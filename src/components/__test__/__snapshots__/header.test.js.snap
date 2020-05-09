@@ -6,7 +6,7 @@ exports[`Header renders correctly 1`] = `
     className="sc-AxjAm ikxNPC"
   >
     <a
-      className="sc-AxirZ dribLd sc-AxhCb hnmItF"
+      className="sc-AxirZ dribLd sc-AxhCb gCMPnZ"
       href="/"
     >
       Default Starter
@@ -15,19 +15,19 @@ exports[`Header renders correctly 1`] = `
       className="sc-AxiKw elWQB"
     >
       <a
-        className="sc-AxhCb hnmItF"
+        className="sc-AxhCb gCMPnZ"
         href="/"
       >
         About
       </a>
       <a
-        className="sc-AxhCb hnmItF"
+        className="sc-AxhCb gCMPnZ"
         href="/journey"
       >
         Journey
       </a>
       <a
-        className="sc-AxhCb hnmItF"
+        className="sc-AxhCb gCMPnZ"
         href="/projects"
       >
         Projects
