@@ -40,7 +40,7 @@ const Link = styled(RawLink)`
 `
 
 const Header = ({ siteTitle }) => (
-  <>
+  <header>
     <HeaderWrapper>
       <Link as={Title} to="/">
         {siteTitle}
@@ -51,7 +51,7 @@ const Header = ({ siteTitle }) => (
         <Link to="/projects">Projects</Link>
       </Navs>
     </HeaderWrapper>
-  </>
+  </header>
 )
 
 Header.propTypes = {
