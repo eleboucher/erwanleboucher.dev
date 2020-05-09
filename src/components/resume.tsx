@@ -5,7 +5,7 @@ import { StyledLink } from "./socials"
 
 import File from "../images/file.svg"
 
-const Resume = () => {
+const Resume = ({ size }) => {
   const resume = useStaticQuery(graphql`
     {
       file(name: { eq: "resume" }) {
@@ -20,7 +20,7 @@ const Resume = () => {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="resume"
-      size={50}
+      size={size}
     >
       <File alt="resume" loading="lazy" />
     </StyledLink>
