@@ -8,6 +8,17 @@ const SectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   color: var(--dark);
+
+  animation: fadein 0.5s;
+
+  @keyframes fadein {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 `
 
 const Title = styled.span`

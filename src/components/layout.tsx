@@ -30,17 +30,6 @@ const Wrapper = styled.div`
   @media (max-width: 800px) {
     margin: 0;
   }
-
-  animation: fadein 0.5s;
-
-  @keyframes fadein {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
 `
 
 const SkipLink = styled.a`
