@@ -17,6 +17,8 @@ exports[`Section renders correctly 1`] = `
   -ms-flex-direction: column;
   flex-direction: column;
   color: var(--dark);
+  -webkit-animation: fadein 0.5s;
+  animation: fadein 0.5s;
 }
 
 .c2 {
