@@ -57,7 +57,7 @@ const SkipLink = styled.a`
   }
 `
 
-const Layout = ({ children, ...props }) => {
+const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -69,7 +69,7 @@ const Layout = ({ children, ...props }) => {
   `)
 
   return (
-    <Container {...props}>
+    <Container>
       <SkipLink href="#maincontent">Skip to main</SkipLink>
       <Header siteTitle={data.site.siteMetadata.title} />
       <Wrapper id="maincontent">{children}</Wrapper>
