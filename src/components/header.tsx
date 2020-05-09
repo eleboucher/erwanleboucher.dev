@@ -31,6 +31,7 @@ const Navs = styled.div`
   margin-right: 10px;
 
   @media (max-width: 800px) {
+    margin-top: 10px;
     margin-right: 0px;
   }
 `
