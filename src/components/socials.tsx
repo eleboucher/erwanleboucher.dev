@@ -11,13 +11,15 @@ const Social = styled.div`
   display: flex;
   align-items: center;
   margin: 10px;
+
+  > a {
+    &:not(:first-child) {
+      margin-left: 20px;
+    }
+  }
 `
 
 export const StyledLink = styled.a`
-  &:not(:first-child) {
-    margin-left: 20px;
-  }
-
   :hover {
     filter: grayscale(1);
   }

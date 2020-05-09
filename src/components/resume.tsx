@@ -21,6 +21,7 @@ const Resume = ({ size }) => {
       rel="noopener noreferrer"
       aria-label="resume"
       size={size}
+      style={{ marginLeft: 10 }}
     >
       <File alt="resume" loading="lazy" />
     </StyledLink>

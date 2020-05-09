@@ -13,7 +13,7 @@ exports[`Socials renders correctly 1`] = `
   margin: 10px;
 }
 
-.c1:not(:first-child) {
+.c0 > a:not(:first-child) {
   margin-left: 20px;
 }
 
