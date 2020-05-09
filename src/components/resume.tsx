@@ -22,7 +22,7 @@ const Resume = () => {
       aria-label="resume"
       size={50}
     >
-      <File alt="resume" />
+      <File alt="resume" loading="lazy" />
     </StyledLink>
   )
 }

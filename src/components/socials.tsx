@@ -43,7 +43,7 @@ const Socials = ({ size }) => (
       aria-label="Github"
       size={size}
     >
-      <Github alt="GitHub" />
+      <Github alt="GitHub" loading="lazy" />
     </StyledLink>
     <StyledLink
       href="https://www.linkedin.com/in/erwan-leboucher/"
@@ -52,7 +52,7 @@ const Socials = ({ size }) => (
       aria-label="LinkedIn"
       size={size}
     >
-      <LinkedIn alt="LinkedIn" />
+      <LinkedIn alt="LinkedIn" loading="lazy" />
     </StyledLink>
     <StyledLink
       href="mailto:erwanleboucher@gmail.com"
@@ -61,7 +61,7 @@ const Socials = ({ size }) => (
       aria-label="Mail"
       size={size}
     >
-      <Mail alt="Mail" />
+      <Mail alt="Mail" loading="lazy" />
     </StyledLink>
     <StyledLink
       href="https://twitter.com/elebouch"
@@ -70,7 +70,7 @@ const Socials = ({ size }) => (
       aria-label="Twitter"
       size={size}
     >
-      <Twitter alt="Twitter" />
+      <Twitter alt="Twitter" loading="lazy" />
     </StyledLink>
   </Social>
 )
