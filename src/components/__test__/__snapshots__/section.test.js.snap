@@ -1,14 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Section renders correctly 1`] = `
+.c1 {
+  width: 100%;
+  height: 3px;
+  background-color: var(--dark);
+  margin: 10px 0;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  color: var(--dark);
+}
+
+.c2 {
+  font-family: "Archivo Black",sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
 <div
-  className="sc-AxirZ hQNQma"
+  className="c0"
 >
   <div
-    className="sc-AxjAm gUIqk"
+    className="c1"
   />
   <span
-    className="sc-AxiKw eOeWbt"
+    className="c2"
   >
     test
   </span>

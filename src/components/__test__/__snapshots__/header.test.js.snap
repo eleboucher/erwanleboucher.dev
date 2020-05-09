@@ -1,33 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header renders correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c1 {
+  margin: 10px 0px;
+  color: var(--dark);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-family: "Archivo Black",sans-serif;
+  font-size: 36px;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.c2 {
+  margin-right: 10px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-family: "Archivo Black",sans-serif;
+  font-weight: bold;
+  color: var(--dark);
+}
+
+@media (max-width:800px) {
+  .c0 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width:800px) {
+  .c3 {
+    margin-top: 10px;
+    margin-right: 0px;
+  }
+}
+
 <header>
   <div
-    className="sc-AxjAm ikxNPC"
+    className="c0"
   >
     <a
-      className="sc-AxirZ dribLd sc-AxhCb gCMPnZ"
+      className="c1 c2"
       href="/"
     >
       Default Starter
     </a>
     <div
-      className="sc-AxiKw dVWRsb"
+      className="c3"
     >
       <a
-        className="sc-AxhCb gCMPnZ"
+        className="c2"
         href="/"
       >
         About
       </a>
       <a
-        className="sc-AxhCb gCMPnZ"
+        className="c2"
         href="/journey"
       >
         Journey
       </a>
       <a
-        className="sc-AxhCb gCMPnZ"
+        className="c2"
         href="/projects"
       >
         Projects

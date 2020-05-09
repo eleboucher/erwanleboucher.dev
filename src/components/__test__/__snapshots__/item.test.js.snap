@@ -1,16 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Item renders correctly 1`] = `
+.c0 {
+  margin: 15px 0;
+}
+
+.c1 {
+  font-size: 26px;
+  margin: 0 0 5px 0;
+}
+
+.c2 {
+  font-size: 14px;
+  color: var(--primary);
+  margin: 0 0 15px 0;
+}
+
 <div
-  className="sc-AxjAm cFQoNO"
+  className="c0"
 >
   <p
-    className="sc-AxirZ eSQAuU"
+    className="c1"
   >
     test
   </p>
   <p
-    className="sc-AxiKw icjPNi"
+    className="c2"
   >
     test
   </p>
