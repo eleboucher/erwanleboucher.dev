@@ -1,36 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header renders correctly 1`] = `
-<div
-  className="sc-AxjAm ikxNPC"
->
-  <a
-    className="sc-AxirZ dribLd sc-AxhCb gCMPnZ"
-    href="/"
-  >
-    Default Starter
-  </a>
+<header>
   <div
-    className="sc-AxiKw vIZpJ"
+    className="sc-AxjAm ikxNPC"
   >
     <a
-      className="sc-AxhCb gCMPnZ"
+      className="sc-AxirZ dribLd sc-AxhCb gCMPnZ"
       href="/"
     >
-      About
+      Default Starter
     </a>
-    <a
-      className="sc-AxhCb gCMPnZ"
-      href="/journey"
+    <div
+      className="sc-AxiKw vIZpJ"
     >
-      Journey
-    </a>
-    <a
-      className="sc-AxhCb gCMPnZ"
-      href="/projects"
-    >
-      Projects
-    </a>
+      <a
+        className="sc-AxhCb gCMPnZ"
+        href="/"
+      >
+        About
+      </a>
+      <a
+        className="sc-AxhCb gCMPnZ"
+        href="/journey"
+      >
+        Journey
+      </a>
+      <a
+        className="sc-AxhCb gCMPnZ"
+        href="/projects"
+      >
+        Projects
+      </a>
+    </div>
   </div>
-</div>
+</header>
 `;

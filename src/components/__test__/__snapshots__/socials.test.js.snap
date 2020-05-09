@@ -13,6 +13,7 @@ exports[`Socials renders correctly 1`] = `
   >
     <test-file-stub
       alt="GitHub"
+      loading="lazy"
     />
   </a>
   <a
@@ -24,6 +25,7 @@ exports[`Socials renders correctly 1`] = `
   >
     <test-file-stub
       alt="LinkedIn"
+      loading="lazy"
     />
   </a>
   <a
@@ -35,6 +37,7 @@ exports[`Socials renders correctly 1`] = `
   >
     <test-file-stub
       alt="Mail"
+      loading="lazy"
     />
   </a>
   <a
@@ -46,6 +49,7 @@ exports[`Socials renders correctly 1`] = `
   >
     <test-file-stub
       alt="Twitter"
+      loading="lazy"
     />
   </a>
 </div>
