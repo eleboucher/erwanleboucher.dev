@@ -1,13 +1,11 @@
 import React from "react"
-import styled from "styled-components"
 
-import Layout from "../components/layout"
 import Section from "../components/section"
 import SEO from "../components/seo"
 import Item from "../components/item"
 
 const WorkPage = () => (
-  <Layout>
+  <>
     <SEO title="Journey" />
     <Section title="Work experience">
       <Item
@@ -70,7 +68,7 @@ const WorkPage = () => (
     <Section title="Education">
       <Item title="Ecole 42" description="2019"></Item>
     </Section>
-  </Layout>
+  </>
 )
 
 export default WorkPage
