@@ -1,6 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header renders correctly 1`] = `
+.c6 {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background-color: var(--white);
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+  border-radius: 20px;
+  border: 2px solid var(--primary);
+}
+
+.c6::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fad21c;
+  top: 1px;
+  left: 2px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.c4 {
+  display: none;
+}
+
+.c4:checked + .c5::after {
+  background-color: transparent;
+  box-shadow: 5px 5px 0 0 var(--dark);
+  left: 13px;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.c4:checked + .c5 {
+  background-color: #000;
+  border: 2px solid var(--dark);
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -94,6 +139,17 @@ exports[`Header renders correctly 1`] = `
       >
         Projects
       </a>
+      <input
+        checked={false}
+        className="c4"
+        id="switch"
+        onChange={[Function]}
+        type="checkbox"
+      />
+      <label
+        className="c5 c6"
+        htmlFor="switch"
+      />
     </div>
   </div>
 </header>
