@@ -15,6 +15,8 @@ body {
   margin: 8px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--white);
 }
 
 h1,
@@ -28,13 +30,8 @@ p {
   margin: 10px 0;
 }
 
-@media screen and (prefers-color-scheme: dark) {
-  :root {
-    --primary: #dbdbdc;
-    --white: #222;
-    --dark: #fff;
-  }
-  body {
-    background-color: var(--white);
-  }
+[data-theme="dark"] {
+  --primary: #dbdbdc;
+  --white: #222;
+  --dark: #fff;
 }

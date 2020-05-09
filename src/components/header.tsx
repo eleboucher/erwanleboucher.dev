@@ -4,6 +4,7 @@ import React from "react"
 import styled from "styled-components"
 
 import Divider from "./divider"
+import ThemeSwitcher from "./themeSwitcher"
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -54,6 +55,7 @@ const Header = ({ siteTitle }) => (
         <Link to="/">About</Link>
         <Link to="/journey">Journey</Link>
         <Link to="/projects">Projects</Link>
+        <ThemeSwitcher />
       </Navs>
     </HeaderWrapper>
   </header>
