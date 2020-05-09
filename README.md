@@ -6,6 +6,7 @@
 <h1 align="center">
   erwanleboucher.dev
 </h1>
+
 [![Build Status](https://travis-ci.org/genesixx/erwanleboucher.dev.svg?branch=master)](https://travis-ci.org/genesixx/erwanleboucher.dev)
 
 This is my personal website, It displays my journey as a software developer.
