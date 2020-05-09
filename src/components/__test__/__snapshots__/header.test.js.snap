@@ -6,28 +6,28 @@ exports[`Header renders correctly 1`] = `
     className="sc-AxjAm ikxNPC"
   >
     <a
-      className="sc-AxirZ dribLd sc-AxhCb gCMPnZ"
+      className="sc-AxirZ dribLd sc-AxhCb hnmItF"
       href="/"
     >
       Default Starter
     </a>
     <div
-      className="sc-AxiKw vIZpJ"
+      className="sc-AxiKw elWQB"
     >
       <a
-        className="sc-AxhCb gCMPnZ"
+        className="sc-AxhCb hnmItF"
         href="/"
       >
         About
       </a>
       <a
-        className="sc-AxhCb gCMPnZ"
+        className="sc-AxhCb hnmItF"
         href="/journey"
       >
         Journey
       </a>
       <a
-        className="sc-AxhCb gCMPnZ"
+        className="sc-AxhCb hnmItF"
         href="/projects"
       >
         Projects

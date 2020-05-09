@@ -29,6 +29,10 @@ const Navs = styled.div`
   display: flex;
   align-items: center;
   margin-right: 10px;
+
+  @media (max-width: 800px) {
+    margin-right: 0px;
+  }
 `
 
 const Link = styled(RawLink)`
@@ -37,6 +41,10 @@ const Link = styled(RawLink)`
   font-family: "Archivo Black", sans-serif;
   font-weight: bold;
   color: var(--dark);
+
+  @media (max-width: 800px) {
+    margin-right: 0px;
+  }
 `
 
 const Header = ({ siteTitle }) => (
