@@ -3,7 +3,7 @@ require("dotenv").config()
 module.exports = {
   siteMetadata: {
     title: `Erwan Leboucher`,
-    description: `French Full-Stack Developer`,
+    description: `French software developer, currently living in Berlin, Germany.`,
     author: `@elebouch`,
     siteUrl: "https://erwanleboucher.dev",
   },
