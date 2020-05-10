@@ -5,7 +5,7 @@ import SEO from "../components/seo"
 import Item from "../components/item"
 
 const WorkPage = () => (
-  <>
+  <article>
     <SEO title="Journey" />
     <Section title="Work experience">
       <Item
@@ -68,7 +68,7 @@ const WorkPage = () => (
     <Section title="Education">
       <Item title="Ecole 42" description="2019"></Item>
     </Section>
-  </>
+  </article>
 )
 
 export default WorkPage

@@ -47,7 +47,7 @@ const ProjectsPage = () => {
   ))
 
   return (
-    <>
+    <article>
       <SEO title="Projects" />
       <Section title="Projects">
         {ProjectsItems}
@@ -61,7 +61,7 @@ const ProjectsPage = () => {
           More on Github
         </Link>
       </Section>
-    </>
+    </article>
   )
 }
 
