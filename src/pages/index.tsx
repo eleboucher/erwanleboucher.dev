@@ -26,7 +26,7 @@ const IndexPage = () => (
         Python. I'm also curious about web design and devops.
       </p>
       <p>
-        Enthusiast about anything related to new technologies, science or
+        I'm enthusiastic about anything related to new technologies, science or
         engineering, I am interested in cars, especially Formula 1 and Sci-fi.
       </p>
       <p>You can find me there:</p>
