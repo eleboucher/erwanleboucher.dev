@@ -11,6 +11,7 @@ exports[`Header renders correctly 1`] = `
   transition: background-color 0.3s ease-in;
   border-radius: 20px;
   border: 2px solid var(--primary);
+  cursor: pointer;
 }
 
 .c6::after {
