@@ -16,6 +16,7 @@ const Label = styled.label`
   transition: background-color 0.3s ease-in;
   border-radius: 20px;
   border: 2px solid var(--primary);
+  cursor: pointer;
 
   ::after {
     content: "";
