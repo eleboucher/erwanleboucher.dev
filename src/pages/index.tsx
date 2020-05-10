@@ -14,7 +14,7 @@ const Image = styled.div`
 `
 
 const IndexPage = () => (
-  <>
+  <article>
     <SEO title="Home" />
     <Section title="About">
       <Image>
@@ -22,8 +22,8 @@ const IndexPage = () => (
       </Image>
       <p>
         I'm a French software developer, currently living in Berlin, Germany.
-        I'm a passionate developer and love writing code in Javascript, Go or
-        Python.
+        I'm a passionate developer, loving to write code in Javascript, Go or
+        Python. I'm also curious about web design and devops.
       </p>
       <p>
         Enthusiast about anything related to new technologies, science or
@@ -34,7 +34,7 @@ const IndexPage = () => (
       <p>You can also find my resume bellow:</p>
       <Resume size={50} />
     </Section>
-  </>
+  </article>
 )
 
 export default IndexPage
