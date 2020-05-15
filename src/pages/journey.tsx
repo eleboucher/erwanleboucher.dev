@@ -1,8 +1,8 @@
 import React from "react"
 
+import Item from "../components/item"
 import Section from "../components/section"
 import SEO from "../components/seo"
-import Item from "../components/item"
 
 const WorkPage = () => (
   <article>
@@ -46,10 +46,10 @@ const WorkPage = () => (
       </Item>
     </Section>
 
-    <Section title="Involvements & Hackathons">
+    <Section title="Involvements &amp; Hackathons">
       <Item
         title="Android OS open-source community"
-        description="January 2016 – November 2017"
+        description="February 2015 – November 2017"
       >
         Adding improvements and features on the Android system and kernel, with
         Java and C. Member of multiple organizations such as
