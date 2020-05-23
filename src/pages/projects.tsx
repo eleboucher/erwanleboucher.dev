@@ -12,7 +12,7 @@ const Link = styled.a`
 `
 
 const ProjectsItem = ({ project }) => {
-  const formatedLanguages = project.languages?.edges?.map((edges, index) => {
+  const formattedLanguages = project.languages?.edges?.map((edges, index) => {
     const language = edges?.node.name
     if (project.languages?.edges.length === 1) return `(${language})`
     switch (index) {
@@ -32,7 +32,7 @@ const ProjectsItem = ({ project }) => {
           ${project.forks.totalCount}`}
     >
       <p>{project.description}</p>
-      <span>{formatedLanguages}</span>
+      <span>{formattedLanguages}</span>
     </Item>
   )
 }
