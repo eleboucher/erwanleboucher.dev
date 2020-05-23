@@ -50,6 +50,10 @@ const SEO = ({ description, lang, meta, title }) => {
           content: metaDescription,
         },
         {
+          property: `keywords`,
+          content: "Erwan Leboucher, developer, software engineer, full-stack",
+        },
+        {
           property: `og:type`,
           content: `website`,
         },
