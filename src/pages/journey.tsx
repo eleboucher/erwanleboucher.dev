@@ -18,7 +18,9 @@ const WorkPage = () => (
           N26, bunq, Amazon.de in retails such as DM, Rewe, Penny.
         </span>
         <ul>
-          <li>Integrated Alipay payment solution into their payment platform.</li>
+          <li>
+            Integrated Alipay payment solution into their payment platform.
+          </li>
           <li>
             Designed and developed an iOS and Android application to find the
             nearest retail partners with React Native.
