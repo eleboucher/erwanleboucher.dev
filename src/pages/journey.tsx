@@ -18,10 +18,10 @@ const WorkPage = () => (
           N26, bunq, Amazon.de in retails such as DM, Rewe, Penny.
         </span>
         <ul>
-          <li>Integrated Alipay payment solution.</li>
+          <li>Integrated Alipay payment solution into the payment solution.</li>
           <li>
-            Developed an iOS and Android application to find the nearest retail
-            partners in React Native.
+            Designed and developed an iOS and Android application to find the
+            nearest retail partners with React Native.
           </li>
         </ul>
         (Golang, Ruby on Rails, Postgresql, RabbitMQ)
@@ -40,7 +40,10 @@ const WorkPage = () => (
             Involved in the main website redesign, now viewed by more than 50k
             people per month.
           </li>
-          <li>Built a B2B dashboard used by some Fortune 500</li>
+          <li>
+            Built a B2B dashboard used by some Fortune 500 with Django and
+            React.
+          </li>
         </ul>
         (Django, Python, React, Postgresql, Golang)
       </Item>
