@@ -4,6 +4,12 @@
   --dark: #222;
 }
 
+[data-theme="dark"] {
+  --primary: #dbdbdc;
+  --white: #222;
+  --dark: #fff;
+}
+
 html {
   font-family: "Questrial", Open-Sans, sans-serif;
   font-display: swap;
@@ -28,10 +34,4 @@ h4 {
 
 p {
   margin: 10px 0;
-}
-
-[data-theme="dark"] {
-  --primary: #dbdbdc;
-  --white: #222;
-  --dark: #fff;
 }
