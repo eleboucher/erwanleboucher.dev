@@ -40,7 +40,7 @@ exports[`Socials renders correctly 1`] = `
   <a
     aria-label="Github"
     className="c1"
-    href="https://github.com/genesixx"
+    href="https://github.com/eleboucher"
     rel="noopener noreferrer"
     target="_blank"
   >

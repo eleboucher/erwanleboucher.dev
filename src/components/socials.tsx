@@ -39,7 +39,7 @@ export const StyledLink = styled.a`
 const Socials = ({ size }) => (
   <Social>
     <StyledLink
-      href="https://github.com/genesixx"
+      href="https://github.com/eleboucher"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Github"

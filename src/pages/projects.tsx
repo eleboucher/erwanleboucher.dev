@@ -52,7 +52,7 @@ const ProjectsPage = () => {
       <Section title="Projects">
         {ProjectsItems}
         <Link
-          href="https://github.com/genesixx"
+          href="https://github.com/eleboucher"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Github"
@@ -68,7 +68,7 @@ const ProjectsPage = () => {
 const githubQuery = graphql`
   {
     github {
-      user(login: "genesixx") {
+      user(login: "eleboucher") {
         pinnedItems(first: 10) {
           edges {
             node {
