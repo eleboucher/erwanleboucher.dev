@@ -6,6 +6,7 @@ import LinkedIn from "../images/linkedin.svg"
 import Twitter from "../images/twitter.svg"
 import Github from "../images/github.svg"
 import Mail from "../images/mail.svg"
+import Sourcerer from "../images/sourcerer.svg"
 
 const Social = styled.div`
   display: flex;
@@ -73,6 +74,15 @@ const Socials = ({ size }) => (
       size={size}
     >
       <Twitter alt="Twitter" loading="lazy" />
+    </StyledLink>
+    <StyledLink
+      href="https://sourcerer.io/eleboucher"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Sourcerer"
+      size={size}
+    >
+      <Sourcerer alt="Sourcerer" loading="lazy" />
     </StyledLink>
   </Social>
 )
