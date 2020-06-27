@@ -55,6 +55,7 @@ const Header = ({ siteTitle }) => (
         <Link to="/">About</Link>
         <Link to="/journey">Journey</Link>
         <Link to="/projects">Projects</Link>
+        <Link to="/blog">Blog</Link>
         <ThemeSwitcher />
       </Navs>
     </HeaderWrapper>
