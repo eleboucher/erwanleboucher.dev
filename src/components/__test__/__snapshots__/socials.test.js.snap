@@ -85,5 +85,17 @@ exports[`Socials renders correctly 1`] = `
       loading="lazy"
     />
   </a>
+  <a
+    aria-label="Sourcerer"
+    className="c1"
+    href="https://sourcerer.io/eleboucher"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <test-file-stub
+      alt="Sourcerer"
+      loading="lazy"
+    />
+  </a>
 </div>
 `;
