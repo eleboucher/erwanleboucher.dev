@@ -140,6 +140,12 @@ exports[`Header renders correctly 1`] = `
       >
         Projects
       </a>
+      <a
+        className="c2"
+        href="/blog"
+      >
+        Blog
+      </a>
       <input
         checked={false}
         className="c4"
