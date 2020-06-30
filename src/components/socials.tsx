@@ -13,12 +13,7 @@ const Social = styled.div`
   display: flex;
   align-items: center;
   margin: 10px;
-
-  > a {
-    &:not(:first-child) {
-      margin-left: 20px;
-    }
-  }
+  flex-wrap: wrap;
 `
 
 export const StyledLink = styled.a`
@@ -28,6 +23,7 @@ export const StyledLink = styled.a`
 
   > svg {
     color: var(--dark);
+    padding: 10px;
     height: ${props => props.size}px;
     transition: opacity 0.2s linear;
     cursor: pointer;
