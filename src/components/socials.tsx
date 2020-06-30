@@ -7,6 +7,7 @@ import Twitter from "../images/twitter.svg"
 import Github from "../images/github.svg"
 import Mail from "../images/mail.svg"
 import Sourcerer from "../images/sourcerer.svg"
+import Dribbble from "../images/dribbble.svg"
 
 const Social = styled.div`
   display: flex;
@@ -83,6 +84,15 @@ const Socials = ({ size }) => (
       size={size}
     >
       <Sourcerer alt="Sourcerer" loading="lazy" />
+    </StyledLink>
+    <StyledLink
+      href="https://dribbble.com/eleboucher"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Sourcerer"
+      size={size}
+    >
+      <Dribbble alt="Dribbble" loading="lazy" />
     </StyledLink>
   </Social>
 )
