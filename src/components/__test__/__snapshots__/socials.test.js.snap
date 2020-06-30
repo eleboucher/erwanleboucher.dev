@@ -97,5 +97,17 @@ exports[`Socials renders correctly 1`] = `
       loading="lazy"
     />
   </a>
+  <a
+    aria-label="Sourcerer"
+    className="c1"
+    href="https://dribbble.com/eleboucher"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <test-file-stub
+      alt="Dribbble"
+      loading="lazy"
+    />
+  </a>
 </div>
 `;
