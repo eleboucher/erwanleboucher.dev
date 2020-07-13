@@ -50,15 +50,23 @@ const Input = styled.input`
   }
 `
 
-const useThemeSwitcher = (
-  initialState: boolean = false
-): [boolean, ChangeEventHandler<HTMLInputElement>] => {
+const useThemeSwitcher = (): [
+  boolean,
+  ChangeEventHandler<HTMLInputElement>
+] => {
+  const initialState =
+    (window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+    false
   const [enabled, setEnabled] = useState(initialState)
 
   useEffect(() => {
-    const currentTheme = localStorage.getItem("theme")
-      ? localStorage.getItem("theme")
-      : null
+    let currentTheme = null
+    if (localStorage.getItem("theme")) {
+      currentTheme = localStorage.getItem("theme")
+    } else if (enabled) {
+      "dark"
+    }
 
     if (currentTheme) {
       document.documentElement.setAttribute("data-theme", currentTheme)
