@@ -20,6 +20,8 @@ The project use:
 - React
 - Styled Components
 - Travis-CI
+- Jest
+- React Testing Library
 
 ## 🚀 Quick start
 
