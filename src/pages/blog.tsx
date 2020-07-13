@@ -45,7 +45,7 @@ const BlogPage = () => (
     </Section>
     <Section title="External Post">
       {externalPost.map(post => (
-        <a href={post.url}>
+        <a href={post.url} key={post.title}>
           <PostWrapper>
             <Item title={post.title} description={post.date}>
               <p>{post.description}</p>
