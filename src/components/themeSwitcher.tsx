@@ -7,6 +7,8 @@ import React, {
 } from "react"
 import styled from "styled-components"
 
+const windowGlobal = typeof window !== "undefined" && window
+
 const Label = styled.label`
   position: relative;
   display: inline-block;
@@ -55,8 +57,8 @@ const useThemeSwitcher = (): [
   ChangeEventHandler<HTMLInputElement>
 ] => {
   const initialState =
-    (window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches) ||
+    (windowGlobal.matchMedia &&
+      windowGlobal.matchMedia("(prefers-color-scheme: dark)").matches) ||
     false
   const [enabled, setEnabled] = useState(initialState)
 
