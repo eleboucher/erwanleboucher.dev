@@ -1,0 +1,6 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Projects renders correctly 1`] = `
+"<article><div class=\\"sc-AxirZ dqAfRA\\"><div class=\\"sc-AxjAm gUIqk\\"></div><span class=\\"sc-AxiKw eOeWbt\\">Projects</span><div class=\\"sc-AxhCb xKost\\"><p class=\\"sc-AxhUy HUQrh\\"><a href=\\"https://github.com/eleboucher/erwanleboucher.dev\\" class=\\"sc-AxheI bGBkVa\\">erwanleboucher.dev</a></p><p class=\\"sc-AxgMl jeRSjJ\\">stars: 3 | forks:
+          0</p><p>Personal Website using the GatsbyJS. Minimalistic website to display my journey as a software developer.</p><span>(JavaScript, CSS, HTML, TypeScript)</span></div><a href=\\"https://github.com/eleboucher\\" target=\\"_blank\\" rel=\\"noopener noreferrer\\" aria-label=\\"Github\\" style=\\"margin-top: 30px; font-weight: bold;\\" class=\\"sc-AxheI bGBkVa\\">More on Github</a></div></article>"
+`;
