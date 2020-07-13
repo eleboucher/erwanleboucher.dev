@@ -40,10 +40,10 @@ const externalPost = [
 const BlogPage = () => (
   <article>
     <SEO title="Journey" />
-    <Section title="Blog Post">
+    <Section title="Blog Posts">
       <h2>Coming soon ...</h2>
     </Section>
-    <Section title="External Post">
+    <Section title="External Posts">
       {externalPost.map(post => (
         <a href={post.url} key={post.title}>
           <PostWrapper>
