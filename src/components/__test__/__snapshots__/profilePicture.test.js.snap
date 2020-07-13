@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfilePicture renders correctly 1`] = `"<div class=\\"sc-AxjAm Oxgzp gatsby-image-wrapper\\" style=\\"position: relative; overflow: hidden; display: inline-block;\\"><picture><source><img alt=\\"\\" loading=\\"lazy\\" style=\\"position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: 0; transition: opacity 500ms;\\"></picture><noscript><picture><source srcset=\\"undefined\\" /><img loading=\\"lazy\\" src=\\"\\" alt=\\"\\" style=\\"position:absolute;top:0;left:0;opacity:1;width:100%;height:100%;object-fit:cover;object-position:center\\"/></picture></noscript></div>"`;
