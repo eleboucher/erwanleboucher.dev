@@ -1,33 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Item renders correctly 1`] = `
-.c0 {
-  margin: 15px 0;
-}
-
-.c1 {
-  font-size: 26px;
-  margin: 0 0 5px 0;
-}
-
-.c2 {
-  font-size: 14px;
-  color: var(--primary);
-  margin: 0 0 15px 0;
-}
-
-<div
-  className="c0"
->
-  <p
-    className="c1"
-  >
-    test
-  </p>
-  <p
-    className="c2"
-  >
-    test
-  </p>
-</div>
-`;
+exports[`Item renders correctly 1`] = `"<div class=\\"sc-AxjAm cFQoNO\\"><p class=\\"sc-AxirZ eSQAuU\\">test</p><p class=\\"sc-AxiKw icjPNi\\">test</p></div>"`;

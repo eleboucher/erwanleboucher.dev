@@ -1,14 +1,12 @@
 import React from "react"
-import renderer from "react-test-renderer"
+import { render } from "@testing-library/react"
 import "jest-styled-components"
 
 import Item from "../item"
 
 describe("Item", () => {
   it("renders correctly", () => {
-    const tree = renderer
-      .create(<Item title="test" description="test" />)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(<Item title="test" description="test" />)
+    expect(container.innerHTML).toMatchSnapshot()
   })
 })

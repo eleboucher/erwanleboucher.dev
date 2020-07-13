@@ -94,6 +94,7 @@ const ThemeSwitcher = () => {
         id="switch"
         checked={enabled}
         onChange={onChange}
+        data-testid="theme-checkbox"
       />
       <Label htmlFor="switch"></Label>
     </>

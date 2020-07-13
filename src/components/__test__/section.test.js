@@ -1,12 +1,12 @@
 import React from "react"
-import renderer from "react-test-renderer"
+import { render } from "@testing-library/react"
 import "jest-styled-components"
 
 import Section from "../section"
 
 describe("Section", () => {
   it("renders correctly", () => {
-    const tree = renderer.create(<Section title="test" />).toJSON()
-    expect(tree).toMatchSnapshot()
+    const {container} = render(<Section title="test" />)
+    expect(container.innerHTML).toMatchSnapshot()
   })
 })

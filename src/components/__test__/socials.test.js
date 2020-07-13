@@ -1,12 +1,12 @@
 import React from "react"
-import renderer from "react-test-renderer"
+import { render } from "@testing-library/react"
 import "jest-styled-components"
 
 import Socials from "../socials"
 
 describe("Socials", () => {
   it("renders correctly", () => {
-    const tree = renderer.create(<Socials />).toJSON()
-    expect(tree).toMatchSnapshot()
+    const {container} = render(<Socials />)
+    expect(container.innerHTML).toMatchSnapshot()
   })
 })

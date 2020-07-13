@@ -1,14 +1,12 @@
 import React from "react"
-import renderer from "react-test-renderer"
+import { render } from "@testing-library/react"
 import "jest-styled-components"
 
 import Header from "../header"
 
 describe("Header", () => {
   it("renders correctly", () => {
-    const tree = renderer
-      .create(<Header siteTitle="Default Starter" />)
-      .toJSON()
-    expect(tree).toMatchSnapshot()
+    const { container } = render(<Header siteTitle="Default Starter" />)
+    expect(container.innerHTML).toMatchSnapshot()
   })
 })
