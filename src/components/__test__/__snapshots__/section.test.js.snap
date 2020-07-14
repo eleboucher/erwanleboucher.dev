@@ -1,3 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Section renders correctly 1`] = `"<div class=\\"sc-AxirZ dqAfRA\\"><div class=\\"sc-AxjAm gUIqk\\"></div><span class=\\"sc-AxiKw eOeWbt\\">test</span></div>"`;
+exports[`Section renders correctly 1`] = `"<div class=\\"sc-AxirZ dqAfRA\\"><div class=\\"sc-AxjAm lnFVSZ\\"></div><span class=\\"sc-AxiKw eOeWbt\\">test</span></div>"`;
