@@ -1,3 +1,162 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header renders correctly 1`] = `"<header><div class=\\"sc-AxiKw hXILaJ\\"><a class=\\"sc-AxhCb bWXZBt sc-AxgMl judfSi\\" href=\\"/\\">Default Starter</a><div class=\\"sc-AxhUy jWIRsq\\"><a class=\\"sc-AxgMl judfSi\\" href=\\"/\\">About</a><a class=\\"sc-AxgMl judfSi\\" href=\\"/journey\\">Journey</a><a class=\\"sc-AxgMl judfSi\\" href=\\"/projects\\">Projects</a><a class=\\"sc-AxgMl judfSi\\" href=\\"/blog\\">Blog</a><input type=\\"checkbox\\" id=\\"switch\\" data-testid=\\"theme-checkbox\\" class=\\"sc-AxirZ cymzFC\\"><label for=\\"switch\\" class=\\"sc-AxjAm rpoTh\\"></label></div></div></header>"`;
+exports[`Header renders correctly 1`] = `
+.c6 {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+  background-color: var(--white);
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+  border-radius: 20px;
+  border: 2px solid var(--primary);
+  cursor: pointer;
+}
+
+.c6::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fad21c;
+  top: 1px;
+  left: 2px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.c4 {
+  display: none;
+}
+
+.c4:checked + .c5::after {
+  background-color: transparent;
+  box-shadow: 5px 5px 0 0 var(--dark);
+  left: 13px;
+  -webkit-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+.c4:checked + .c5 {
+  background-color: #000;
+  border: 2px solid var(--dark);
+  -webkit-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.c1 {
+  margin: 10px 0px;
+  color: var(--dark);
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-family: "Archivo Black",sans-serif;
+  font-size: 36px;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.c2 {
+  margin-right: 10px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-family: "Archivo Black",sans-serif;
+  font-weight: bold;
+  color: var(--dark);
+}
+
+@media (max-width:800px) {
+  .c0 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width:800px) {
+  .c3 {
+    margin-top: 10px;
+    margin-right: 0px;
+  }
+}
+
+<header>
+  <div
+    class="c0"
+  >
+    <a
+      class="c1 c2"
+      href="/"
+    >
+      Default Starter
+    </a>
+    <div
+      class="c3"
+    >
+      <a
+        class="c2"
+        href="/"
+      >
+        About
+      </a>
+      <a
+        class="c2"
+        href="/journey"
+      >
+        Journey
+      </a>
+      <a
+        class="c2"
+        href="/projects"
+      >
+        Projects
+      </a>
+      <a
+        class="c2"
+        href="/blog"
+      >
+        Blog
+      </a>
+      <input
+        class="c4"
+        data-testid="theme-checkbox"
+        id="switch"
+        type="checkbox"
+      />
+      <label
+        class="c5 c6"
+        for="switch"
+      />
+    </div>
+  </div>
+</header>
+`;

@@ -7,6 +7,6 @@ import Header from "../header"
 describe("Header", () => {
   it("renders correctly", () => {
     const { container } = render(<Header siteTitle="Default Starter" />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

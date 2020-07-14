@@ -7,6 +7,6 @@ import Item from "../item"
 describe("Item", () => {
   it("renders correctly", () => {
     const { container } = render(<Item title="test" description="test" />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

@@ -7,6 +7,6 @@ import Layout from "../layout"
 describe("Layout", () => {
   it("renders correctly", () => {
     const { container } = render(<Layout />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

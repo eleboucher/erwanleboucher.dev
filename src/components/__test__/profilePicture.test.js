@@ -7,6 +7,6 @@ import ProfilePicture from "../profilePicture"
 describe("ProfilePicture", () => {
   it("renders correctly", () => {
     const { container } = render(<ProfilePicture />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

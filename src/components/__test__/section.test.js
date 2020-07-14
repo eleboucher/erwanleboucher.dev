@@ -6,7 +6,7 @@ import Section from "../section"
 
 describe("Section", () => {
   it("renders correctly", () => {
-    const {container} = render(<Section title="test" />)
-    expect(container.innerHTML).toMatchSnapshot()
+    const { container } = render(<Section title="test" />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

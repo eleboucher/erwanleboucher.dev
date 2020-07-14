@@ -7,7 +7,7 @@ import ThemeSwitcher from "../themeSwitcher"
 describe("ThemeSwitcher", () => {
   it("renders correctly", () => {
     const { container } = render(<ThemeSwitcher />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 
   it("it should be checked when pressed and theme has been changed", () => {

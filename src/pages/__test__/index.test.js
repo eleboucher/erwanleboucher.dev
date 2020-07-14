@@ -7,6 +7,6 @@ import Index from "../index"
 describe("Index", () => {
   it("renders correctly", () => {
     const { container } = render(<Index />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

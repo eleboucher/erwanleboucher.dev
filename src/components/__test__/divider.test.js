@@ -7,6 +7,6 @@ import Divider from "../divider"
 describe("Divider", () => {
   it("renders correctly", () => {
     const { container } = render(<Divider />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

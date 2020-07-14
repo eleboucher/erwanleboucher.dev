@@ -6,7 +6,7 @@ import Socials from "../socials"
 
 describe("Socials", () => {
   it("renders correctly", () => {
-    const {container} = render(<Socials />)
-    expect(container.innerHTML).toMatchSnapshot()
+    const { container } = render(<Socials />)
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

@@ -7,6 +7,6 @@ import Projects from "../projects"
 describe("Projects", () => {
   it("renders correctly", () => {
     const { container } = render(<Projects />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

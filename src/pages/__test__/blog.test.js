@@ -7,6 +7,6 @@ import Blog from "../blog"
 describe("Blog", () => {
   it("renders correctly", () => {
     const { container } = render(<Blog />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })

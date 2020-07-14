@@ -1,3 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Divider renders correctly 1`] = `"<div class=\\"sc-AxjAm lnFVSZ\\"></div>"`;
+exports[`Divider renders correctly 1`] = `
+.c0 {
+  width: 100%;
+  height: 3px;
+  background-color: var(--dark);
+  margin: 10px 0;
+  -webkit-animation: reveal 0.7s forwards;
+  animation: reveal 0.7s forwards;
+}
+
+<div
+  class="c0"
+/>
+`;

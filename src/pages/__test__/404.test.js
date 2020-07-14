@@ -7,6 +7,6 @@ import NotFound from "../404"
 describe("NotFound", () => {
   it("renders correctly", () => {
     const { container } = render(<NotFound />)
-    expect(container.innerHTML).toMatchSnapshot()
+    expect(container.firstChild).toMatchSnapshot()
   })
 })
