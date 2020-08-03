@@ -209,7 +209,7 @@ exports[`Index renders correctly 1`] = `
     <a
       aria-label="resume"
       class="c6"
-      href="test"
+      href="/resume.pdf"
       rel="noopener noreferrer"
       size="50"
       style="margin-left: 10px;"
