@@ -11,7 +11,6 @@ exports[`ProfilePicture renders correctly 1`] = `
   style="position: relative; overflow: hidden; display: inline-block;"
 >
   <picture>
-    <source />
     <img
       alt=""
       loading="lazy"
