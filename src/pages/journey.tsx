@@ -71,7 +71,7 @@ const WorkPage = () => (
       </Item>
     </Section>
     <Section title="Education">
-      <Item title="Ecole 42" description="2019"></Item>
+      <Item title="Ecole 42" description="2019 | Computer Science"></Item>
     </Section>
   </article>
 )

@@ -174,7 +174,7 @@ exports[`Journey renders correctly 1`] = `
       <p
         class="c5"
       >
-        2019
+        2019 | Computer Science
       </p>
     </div>
   </div>
