@@ -75,10 +75,13 @@ exports[`Journey renders correctly 1`] = `
       </span>
       <ul>
         <li>
-          Integrated Alipay payment solution into their payment platform.
+          Integrated multiple external transaction API such as Alipay or Incomm using Golang.
         </li>
         <li>
-          Designed and developed an iOS and Android application to find the nearest retail partners with React Native.
+          Designed and developed an iOS and Android application to find the nearest retail partners with React Native and Typescript.
+        </li>
+        <li>
+          Engineered a new deployment system written in Golang, affecting 60+ services. Integrated using Golang and Bash with Docker, Gitlab-CI, AWS S3 and Vault.
         </li>
       </ul>
       (Golang, Ruby on Rails, Postgresql, RabbitMQ)
@@ -101,7 +104,7 @@ exports[`Journey renders correctly 1`] = `
       </span>
       <ul>
         <li>
-          Involved in the main website redesign, now viewed by more than 50k people per month.
+          Involved in the main website redesign using GatsbyJS with serverless functions in NodeJS, now viewed by more than 50k people per month.
         </li>
         <li>
           Built a B2B dashboard used by some Fortune 500 with Django and React.
