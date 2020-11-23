@@ -24,16 +24,11 @@ module.exports = {
     },
     `gatsby-plugin-styled-components`,
     {
-      resolve: `gatsby-plugin-prefetch-google-fonts`,
+      resolve: 'gatsby-plugin-web-font-loader',
       options: {
-        fonts: [
-          {
-            family: `Questrial`,
-          },
-          {
-            family: `Archivo Black`,
-          },
-        ],
+        google: {
+          families: ['Questrial', 'Archivo Black']
+        }
       },
     },
     {
