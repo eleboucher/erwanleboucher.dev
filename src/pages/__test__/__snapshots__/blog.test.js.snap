@@ -86,21 +86,6 @@ exports[`Blog renders correctly 1`] = `
     >
       Blog Posts
     </span>
-    <h2>
-      Coming soon ...
-    </h2>
-  </div>
-  <div
-    class="c0"
-  >
-    <div
-      class="c1"
-    />
-    <span
-      class="c2"
-    >
-      External Posts
-    </span>
     <a
       href="https://bit.ly/2YDhxDJ"
     >
@@ -118,7 +103,7 @@ exports[`Blog renders correctly 1`] = `
           <p
             class="c6"
           >
-            Oct 6, 2017
+            10/6/2017
           </p>
           <p>
             Vous devez sûrement entendre, si vous intéressez à Android, les mots “Rom Custom”, “CyanogenMod”, “LineageOS”… Mais vous avez aucune idée de ce qu’il s’agit. Voilà un article qui pourra, vous éclairez !
@@ -143,7 +128,7 @@ exports[`Blog renders correctly 1`] = `
           <p
             class="c6"
           >
-            Feb 16, 2017
+            2/16/2017
           </p>
           <p>
             Vous êtes très nombreux à bidouiller votre appareil Android. Nous nous sommes intéressés à un composant essentiel de votre système : le kernel.

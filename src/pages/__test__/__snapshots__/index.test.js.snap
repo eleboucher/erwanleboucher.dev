@@ -202,23 +202,6 @@ exports[`Index renders correctly 1`] = `
         />
       </a>
     </div>
-    <p>
-      You can also find my resume bellow:
-    </p>
-    <a
-      aria-label="resume"
-      class="c6"
-      href="/resume.pdf"
-      rel="noopener noreferrer"
-      size="50"
-      style="margin-left: 10px;"
-      target="_blank"
-    >
-      <test-file-stub
-        alt="resume"
-        loading="lazy"
-      />
-    </a>
   </div>
 </article>
 `;
