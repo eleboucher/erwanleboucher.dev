@@ -32,8 +32,8 @@ const IndexPage = () => (
       </p>
       <p>You can find me there:</p>
       <Socials size={50} />
-      <p>You can also find my resume bellow:</p>
-      <Resume size={50} />
+      {/* <p>You can also find my resume bellow:</p>
+      <Resume size={50} /> */}
     </Section>
   </article>
 )
