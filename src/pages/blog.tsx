@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState, useCallback } from "react"
 
 import Item from "../components/item"
 import Section from "../components/section"
@@ -18,13 +18,13 @@ const PostWrapper = styled.div`
   }
 `
 
-const externalPost = [
+const oldPost = [
   {
     title: "Comment fonctionne une Rom Custom?",
     url: "https://bit.ly/2YDhxDJ",
     description:
       "Vous devez sûrement entendre, si vous intéressez à Android, les mots “Rom Custom”, “CyanogenMod”, “LineageOS”… Mais vous avez aucune idée de ce qu’il s’agit. Voilà un article qui pourra, vous éclairez !",
-    date: "Oct 6, 2017",
+    published_at: "2017-10-06T08:44:33Z",
   },
   {
     title: "Kernel et Android : Qu’est-ce que c’est et pourquoi le modifier ?",
@@ -33,36 +33,70 @@ const externalPost = [
     url: "https://bit.ly/3eFpEFw",
     description:
       "Vous êtes très nombreux à bidouiller votre appareil Android. Nous nous sommes intéressés à un composant essentiel de votre système : le kernel.",
-    date: "Feb 16, 2017",
+    published_at: "2017-02-16T08:44:33Z",
   },
 ]
 
-const BlogPage = () => (
-  <article>
-    <SEO title="Journey" />
-    <Section title="Blog Posts">
-      <h2>Coming soon ...</h2>
-    </Section>
-    <Section title="External Posts">
-      {externalPost.map(post => (
-        <a href={post.url} key={post.title}>
-          <PostWrapper>
-            <Item title={post.title} description={post.date}>
-              <p>{post.description}</p>
-            </Item>
-            {post.image && (
-              <img
-                src={post.image}
-                loading="lazy"
-                height="100"
-                style={{ borderRadius: 15 }}
-              />
-            )}
-          </PostWrapper>
-        </a>
-      ))}
-    </Section>
-  </article>
-)
+const BlogPage = () => {
+  const [articles, setArticles] = useState([])
+
+  const fetchArticles = useCallback(async () => {
+    const res = await fetch("https://dev.to/api/articles?username=eleboucher")
+    const articles = await res.json()
+    setArticles(articles)
+  }, [])
+
+  useEffect(() => {
+    fetchArticles()
+  }, [articles, fetchArticles])
+
+  return (
+    <article>
+      <SEO title="Blog" />
+      <Section title="Blog Posts">
+        {articles?.map(post => (
+          <a href={post.url} key={post.title}>
+            <PostWrapper>
+              <Item
+                title={post.title}
+                description={new Date(post.published_at).toLocaleDateString()}
+              >
+                <p>{post.description}</p>
+              </Item>
+              {post.cover_image && (
+                <img
+                  src={post.cover_image}
+                  loading="lazy"
+                  height="100"
+                  style={{ borderRadius: 15 }}
+                />
+              )}
+            </PostWrapper>
+          </a>
+        ))}
+        {oldPost.map(post => (
+          <a href={post.url} key={post.title}>
+            <PostWrapper>
+              <Item
+                title={post.title}
+                description={new Date(post.published_at).toLocaleDateString()}
+              >
+                <p>{post.description}</p>
+              </Item>
+              {post.image && (
+                <img
+                  src={post.image}
+                  loading="lazy"
+                  height="100"
+                  style={{ borderRadius: 15 }}
+                />
+              )}
+            </PostWrapper>
+          </a>
+        ))}
+      </Section>
+    </article>
+  )
+}
 
 export default BlogPage
