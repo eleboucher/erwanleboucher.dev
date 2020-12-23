@@ -20,7 +20,9 @@ const ProfilePicture = () => {
       }
     }
   `)
-  return <Me fixed={image.fileName.childImageSharp.fixed}></Me>
+  return (
+    <Me fixed={image.fileName.childImageSharp.fixed} alt="Erwan Leboucher"></Me>
+  )
 }
 
 export default React.memo(ProfilePicture)
