@@ -20,7 +20,8 @@ const WorkPage = () => (
         <ul>
           <li>
             Integrated multiple external transaction API such as Alipay or
-            Incomm using Golang.
+            Incomm (gift cards) using Golang. Enabling the user to use these
+            services at a retail.
           </li>
           <li>
             Designed and developed an iOS and Android application to find the
@@ -29,7 +30,7 @@ const WorkPage = () => (
           <li>
             Engineered a new deployment system written in Golang, affecting 60+
             services. Integrated using Golang and Bash with Docker, Gitlab-CI,
-            AWS S3 and Vault.
+            AWS S3 and Vault. Reducing the deployment time by 95%.
           </li>
         </ul>
         (Golang, Ruby on Rails, Postgresql, RabbitMQ)
