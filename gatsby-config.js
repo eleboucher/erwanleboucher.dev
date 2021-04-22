@@ -1,35 +1,33 @@
 require("dotenv").config()
-
 module.exports = {
   siteMetadata: {
     title: `Erwan Leboucher`,
     description: `French software developer, currently living in Berlin, Germany.`,
-    author: `@elebouch`,
+    author: `@eleboucher`,
     siteUrl: "https://erwanleboucher.dev",
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
+    "gatsby-plugin-postcss",
+    "gatsby-plugin-image",
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sitemap",
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: "gatsby-plugin-react-svg",
       options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
+        rule: {
+          include: /\.svg$/,
+        },
       },
     },
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
     {
-      resolve: `gatsby-plugin-layout`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        component: require.resolve(`${__dirname}/src/components/layout.tsx`),
+        name: "images",
+        path: "./src/images/",
       },
-    },
-    `gatsby-plugin-styled-components`,
-    {
-      resolve: 'gatsby-plugin-web-font-loader',
-      options: {
-        google: {
-          families: ['Questrial', 'Archivo Black']
-        }
-      },
+      __key: "images",
     },
     {
       resolve: "gatsby-source-graphql",
@@ -44,16 +42,6 @@ module.exports = {
       },
     },
     {
-      resolve: "gatsby-plugin-react-svg",
-      options: {
-        rule: {
-          include: /\.svg$/, // See below to configure properly
-        },
-      },
-    },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Erwan Leboucher`,
@@ -66,8 +54,11 @@ module.exports = {
         include_favicon: true,
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`${__dirname}/src/components/layout.js`),
+      },
+    },
   ],
 }
