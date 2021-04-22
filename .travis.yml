@@ -15,5 +15,5 @@ deploy:
   repo: eleboucher/eleboucher.github.io
   on:
     branch: master
-before_script:
+script:
   - yarn build
