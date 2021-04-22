@@ -17,5 +17,3 @@ deploy:
     branch: master
 before_script:
   - yarn build
-after_success:
-  - yarn coveralls
