@@ -54,6 +54,7 @@ module.exports = {
         include_favicon: true,
       },
     },
+    "gatsby-plugin-offline",
     {
       resolve: `gatsby-plugin-layout`,
       options: {
