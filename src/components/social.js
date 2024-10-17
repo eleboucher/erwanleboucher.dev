@@ -53,32 +53,6 @@ const Socials = ({ size }) => (
         className="p-3 h-24 w-auto cursor-pointer transition-opacity hover:opacity-70"
       />
     </StyledLink>
-    <StyledLink
-      href="https://twitter.com/elebouch"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Twitter"
-      size={size}
-    >
-      <Twitter
-        alt="Twitter"
-        loading="lazy"
-        className="p-3 h-24 w-auto cursor-pointer transition-opacity hover:opacity-70"
-      />
-    </StyledLink>
-    <StyledLink
-      href="https://dribbble.com/eleboucher"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Sourcerer"
-      size={size}
-    >
-      <Dribbble
-        alt="Dribbble"
-        loading="lazy"
-        className="p-3 h-24 w-auto cursor-pointer transition-opacity hover:opacity-70"
-      />
-    </StyledLink>
   </div>
 )
 

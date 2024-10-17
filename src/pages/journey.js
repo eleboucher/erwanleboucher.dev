@@ -7,10 +7,43 @@ import SEO from "../components/seo"
 const Journey = () => (
   <article>
     <SEO title="Journey" />
+    <Item
+      title="Wolt | Senior software engineer"
+      description="10/2021 - Ongoing | Paris, France"
+    >
+      <ul className="list-disc list-inside pl-10 m-3">
+        <li>
+          Led the architecture and development of a high-performance audience
+          builder tool for marketing managers, enabling the creation, analysis,
+          and export of targeted audiences to third-party ad networks
+        </li>
+        <li>
+          Implemented innovative features like periodic audience updates and
+          automatic audience generation to enhance tool functionality and user
+          experience
+        </li>
+        <li>
+          Optimized data pipeline to process over 500 million rows daily,
+          utilizing AWS S3 for artifact storage to ensure rapid performance and
+          scalability, resulting in a 30x faster processing speed
+        </li>
+        <li>
+          Integrated DynamoDB for millisecond query responses in the ordering
+          system, enabling real-time eligibility checks for promotions and
+          boosting system performance
+        </li>
+        <li>
+          Collaborated with cross-functional teams to align tools and systems
+          with business goals, leading to more impactful targeted marketing
+          campaigns and improved user experience
+        </li>
+      </ul>
+      (Golang, React, PostgreSQL, Snowflake, DynamoDB, S3, Kubernetes, Kafka)
+    </Item>
     <Section title="Work experience">
       <Item
         title="viafintech | Software Engineer"
-        description="September 2019 – Present | Berlin Germany"
+        description="09/2019 - 10/2021 | Berlin Germany"
       >
         <span>
           viafintech is a payment service provider. Through viacash, they offer
@@ -29,15 +62,15 @@ const Journey = () => (
           </li>
           <li>
             Engineered a new deployment system written in Golang, affecting 60+
-            services. Integrated using Golang and Bash with Docker, Gitlab-CI,
-            AWS S3 and Vault. Reducing the deployment time by 95%.
+            services. Integrated using Golang and Bash with Docker, GitLab, AWS
+            S3 and Vault. Reducing the deployment time by 95%.
           </li>
         </ul>
         (Golang, Ruby on Rails, Postgresql, RabbitMQ)
       </Item>
       <Item
         title="GitGuardian | Full-Stack Developer"
-        description="November 2018 – July 2019 | Paris, France"
+        description="11/2018 - 07/2019 | Paris, France"
       >
         <span>
           GitGuardian is a solution that scans GitHub activity in real-time for

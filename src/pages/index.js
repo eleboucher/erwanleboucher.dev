@@ -14,14 +14,14 @@ const IndexPage = () => {
           <ProfilePicture />
         </div>
         <p className="my-3">
-          I am a French software developer, currently living in Berlin, Germany.
-          I am a passionate developer, loving to write code in JavaScript, Go
-          and Python, along with being curious about web-design and DevOps.
-        </p>
-        <p className="my-3">
-          Enthusiast about anything related to new technologies, science or
-          engineering, I am as well interested in motorsport, especially Formula
-          1 and Sci-fi.
+          Backend-focused Software Engineer with 5+ years of experience in
+          building scalable, high-performance applications. Expert in Golang,
+          Python, and database optimization, processing 500M+ daily records in a
+          matter of seconds. Skilled in implementing real-time services with
+          millisecond response times. Adept at optimizing complex systems,
+          implementing real-time services with millisecond response times, and
+          leveraging cloud technologies to enhance data processing capabilities
+          and overall system performance.
         </p>
         <p>You can find me there:</p>
         <Socials />
