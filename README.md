@@ -1,32 +1,25 @@
-<p align="center">
-  <a href="https://erwanleboucher.dev">
-    <img alt="erwanleboucher" src="src/images/favicon.png" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  erwanleboucher.dev
-</h1>
+# Live Infrastructure Dashboard
 
-[![Build Status](https://travis-ci.org/eleboucher/erwanleboucher.dev.svg?branch=master)](https://travis-ci.org/eleboucher/erwanleboucher.dev)
+A minimalist, real-time engineering portfolio running on my home Kubernetes cluster.
+It visualizes live telemetry from my homelab (Talos Linux, Flux, K8s) and connects to the GitHub API to track my coding activity.
 
-This is my personal website, It displays my journey as a software developer.
+**Live Site:** [erwanleboucher.dev](https://erwanleboucher.dev)
 
-## 🧐 What's inside?
+## 🏗 Architecture
 
-The project use:
+- **Frontend:** Vue 3 + TypeScript + Tailwind CSS (Single Page Application)
+- **Backend / Metrics:** [Kromgo](https://github.com/kashalls/kromgo) running on Kubernetes
+- **Infrastructure:** Talos Linux, Flux CD, Cloudflare Tunnels
 
-- Gatsby
-- React
-- Tailwind
-- Travis-CI
+## 🛠️ Setup & Development
 
-## 🚀 Quick start
+```bash
+# Install dependencies
+bun install
 
-In the project's directory, run the following commands:
+# Run locally (with Vite Proxy for CORS)
+bun run dev
 
-```shell
-$ yarn install
-$ yarn develop
+# Build for production
+bun run build
 ```
-
-The site is now running at http://localhost:8000 !
