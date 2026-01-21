@@ -31,7 +31,7 @@
     "@vue/tsconfig": "^0.8.1",
     "eslint": "^9.39.2",
     "eslint-plugin-oxlint": "~1.38.0",
-    "eslint-plugin-vue": "~10.6.2",
+    "eslint-plugin-vue": "~10.7.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "oxlint": "~1.38.0",
