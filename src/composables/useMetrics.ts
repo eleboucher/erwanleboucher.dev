@@ -1,5 +1,5 @@
 import { ref, onUnmounted } from 'vue'
-import type { MetricsState, KromgoResponse } from '../types'
+import type { MetricsState, KromgoEndpointResponse } from '../types'
 import {
   KROMGO_BASE,
   FETCH_INTERVAL_MS,
@@ -63,13 +63,13 @@ export function useMetrics() {
   const fetchDuration = ref(0)
   let intervalId: number | null = null
 
-  const fetchMetric = async (key: string): Promise<string> => {
+  const fetchMetric = async (key: string): Promise<KromgoEndpointResponse> => {
     const res = await fetch(`${KROMGO_BASE}/${key}`)
     if (!res.ok) {
       throw new Error(`Failed to fetch ${key}: ${res.status} ${res.statusText}`)
     }
-    const data = (await res.json()) as KromgoResponse
-    return data.message
+    const data = (await res.json()) as KromgoEndpointResponse
+    return data
   }
 
   const fetchAllStats = async () => {
@@ -79,8 +79,11 @@ export function useMetrics() {
       const promises = keys.map(async (dictKey) => {
         const config = metrics.value[dictKey]
         try {
-          const value = await fetchMetric(config.key)
-          if (value !== null) {
+          const response = await fetchMetric(config.key)
+          if (response && response.message !== null) {
+            const value = response.message
+            config.color = response.color
+
             switch (dictKey) {
               case 'cpu':
               case 'mem':

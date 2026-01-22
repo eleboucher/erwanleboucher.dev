@@ -1,5 +1,13 @@
-export interface KromgoResponse {
+export interface KromgoRawResponse {
+  metric: Record<string, unknown>
+  value: [number, string]
+}
+
+export interface KromgoEndpointResponse {
   message: string
+  color: string
+  label: string
+  schemaVersion: number
 }
 
 export interface GitHubEvent {
@@ -15,6 +23,7 @@ export interface MetricConfig {
   unit?: string
   title?: string
   key: string
+  color?: string
 }
 
 export interface MetricsState {

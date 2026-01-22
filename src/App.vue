@@ -2,9 +2,22 @@
 import { computed, onMounted } from 'vue'
 import { useMetrics } from './composables/useMetrics'
 import { PRIMARY_STACK, GITHUB_USER } from './constants'
-import type { SystemStatus } from './types'
+import type { SystemStatus, MetricConfig } from './types'
 
 const { metrics, loading, error, fetchDuration, startPolling } = useMetrics()
+
+const getMetricColorClasses = (metric: MetricConfig) => {
+  switch (metric.color) {
+    case 'green':
+      return 'border-emerald-500/50 hover:border-emerald-500/70'
+    case 'orange':
+      return 'border-orange-500/50 hover:border-orange-500/70'
+    case 'red':
+      return 'border-red-500/50 hover:border-red-500/70'
+    default:
+      return 'border-zinc-800 hover:border-blue-500/30'
+  }
+}
 
 const systemStatus = computed((): SystemStatus => {
   if (error.value)
@@ -97,6 +110,7 @@ onMounted(() => {
             :key="key"
             class="stat-card group"
             role="article"
+            :class="getMetricColorClasses(m)"
             :aria-label="`${m.title}: ${m.val}`"
           >
             <span class="stat-title group-hover:text-zinc-400">
@@ -112,7 +126,7 @@ onMounted(() => {
             :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
             target="_blank"
             rel="noopener noreferrer"
-            class="stat-card group cursor-pointer hover:border-zinc-600"
+            class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
             :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
           >
             <span class="stat-title group-hover:text-zinc-400 flex justify-between">
@@ -127,7 +141,7 @@ onMounted(() => {
           </a>
 
           <div
-            class="stat-card group"
+            class="stat-card group border-zinc-800 hover:border-blue-500/30"
             role="article"
             :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
           >
@@ -153,6 +167,7 @@ onMounted(() => {
             }"
             :key="key"
             class="stat-card group"
+            :class="getMetricColorClasses(m)"
             role="article"
             :aria-label="`${m.title}: ${m.val}`"
           >
@@ -233,8 +248,8 @@ onMounted(() => {
 }
 
 .stat-card {
-  @apply bg-zinc-900/30 border border-zinc-800 p-5 rounded transition-all duration-300 relative;
-  @apply hover:border-blue-500/30 hover:bg-zinc-900/60;
+  @apply bg-zinc-900/30 border p-5 rounded transition-all duration-300 relative;
+  @apply hover:bg-zinc-900/60;
 }
 
 .stat-title {
