@@ -1,119 +1,24 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { computed, onMounted } from 'vue'
+import { useMetrics } from './composables/useMetrics'
+import { PRIMARY_STACK, GITHUB_USER } from './constants'
+import type { SystemStatus } from './types'
 
-const KROMGO_BASE = 'https://kromgo.erwanleboucher.dev'
-const GITHUB_USER = 'eleboucher'
+const { metrics, loading, error, fetchDuration, startPolling } = useMetrics()
 
-const metrics = ref({
-  cpu: { val: '--', title: 'CPU Load', key: 'cluster_cpu_usage' },
-  mem: { val: '--', title: 'Memory', key: 'cluster_memory_usage' },
-  pods: { val: '--', title: 'Active Pods', key: 'cluster_pod_count' },
-  uptime: { val: '--', title: 'Uptime', key: 'cluster_age_days' },
-  sla: { val: '--', unit: '%', title: 'SLA (7d)', key: 'global_sla' },
-  cluster_latency: {
-    val: '--',
-    unit: 'ms',
-    title: 'Global P99 (7d)',
-    key: 'cluster_latency_over_7d',
-  },
-  github_contributions: {
-    val: '--',
-    title: 'Contributions (1y)',
-    key: 'gh_contributions_year',
-  },
-  gh_repo: { val: 'Loading...', key: 'gh_last_push_repo' },
-  gh_ago: { val: '--', key: 'gh_last_push_time' },
-  // Tech specs (Footer)
-  talos: { val: 'Unknown', key: 'talos_version' },
-  k8s: { val: 'Unknown', key: 'kubernetes_version' },
-  flux: { val: 'Unknown', key: 'flux_version' },
-  alerts: { val: 0, key: 'cluster_alert_count' },
-  routeros: { val: 'Unknown', key: 'mkt_version' },
-})
-
-const primaryStack = ['Golang', 'Python']
-
-const loading = ref(true)
-const error = ref(false)
-const fetchDuration = ref(0)
-const fetchMetric = async (key: string) => {
-  const res = await fetch(`${KROMGO_BASE}/${key}`)
-  if (!res.ok) throw new Error(`Failed to fetch ${key}`)
-  const data = await res.json()
-  return data.message
-}
-
-const fetchAllStats = async () => {
-  const start = performance.now()
-  try {
-    const keys = Object.keys(metrics.value) as Array<keyof typeof metrics.value>
-    const promises = keys.map(async (dictKey) => {
-      const config = metrics.value[dictKey]
-      const value = await fetchMetric(config.key)
-      if (value !== null) {
-        switch (dictKey) {
-          case 'cpu':
-          case 'mem':
-            config.val = `${parseFloat(value).toFixed(1)}%`
-            break
-          case 'sla':
-            config.val = `${parseFloat(value).toFixed(2)}%`
-            break
-          case 'uptime':
-            config.val = `${parseInt(value, 10)} days`
-            break
-          case 'cluster_latency':
-            config.val = `${parseInt(value, 10)} ms`
-            break
-          case 'gh_ago':
-            config.val = timeAgo(new Date(value))
-            break
-          default:
-            config.val = value
-        }
-      }
-    })
-
-    await Promise.all(promises)
-    loading.value = false
-    error.value = false
-  } catch {
-    error.value = true
-    loading.value = false
-  } finally {
-    const end = performance.now()
-    fetchDuration.value = Math.round(end - start)
-  }
-}
-
-const timeAgo = (date: Date) => {
-  const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000)
-  let interval = seconds / 31536000
-  if (interval > 1) return Math.floor(interval) + 'y ago'
-  interval = seconds / 2592000
-  if (interval > 1) return Math.floor(interval) + 'mo ago'
-  interval = seconds / 86400
-  if (interval > 1) return Math.floor(interval) + 'd ago'
-  interval = seconds / 3600
-  if (interval > 1) return Math.floor(interval) + 'h ago'
-  interval = seconds / 60
-  if (interval > 1) return Math.floor(interval) + 'm ago'
-  return 'just now'
-}
-
-const systemStatus = computed(() => {
+const systemStatus = computed((): SystemStatus => {
   if (error.value)
     return {
-      text: 'Connection Error',
+      text: error.value || 'Connection Error',
       color: 'text-red-500',
       border: 'border-red-500/50',
       bg: 'bg-red-500',
     }
 
-  const alertCount = metrics.value.alerts.val
+  const alertCount = metrics.value.alerts.val as number
   if (alertCount > 0)
     return {
-      text: `${alertCount} Active Alerts`,
+      text: `${alertCount} Active Alert${alertCount > 1 ? 's' : ''}`,
       color: 'text-orange-400',
       border: 'border-orange-400/50',
       bg: 'bg-orange-400',
@@ -128,8 +33,7 @@ const systemStatus = computed(() => {
 })
 
 onMounted(() => {
-  fetchAllStats()
-  setInterval(fetchAllStats, 60000)
+  startPolling()
 })
 </script>
 
@@ -141,26 +45,49 @@ onMounted(() => {
           <div>
             <h1>Erwan Leboucher</h1>
             <p class="subtitle">Senior Software Engineer • Paris</p>
-            <a href="mailto:erwanleboucher@gmail.com" class="email-link">
+            <a
+              href="mailto:erwanleboucher@gmail.com"
+              class="email-link"
+              aria-label="Send email to erwanleboucher@gmail.com"
+            >
               erwanleboucher@gmail.com
             </a>
           </div>
 
-          <div class="status-badge" :class="[systemStatus.border, systemStatus.color]">
+          <div
+            class="status-badge"
+            :class="[systemStatus.border, systemStatus.color]"
+            role="status"
+            aria-live="polite"
+          >
             <span class="status-dot animate-pulse" :class="systemStatus.bg"></span>
             {{ systemStatus.text }}
           </div>
         </div>
-        <nav class="nav-links">
-          <a href="https://github.com/eleboucher" target="_blank" class="nav-link"> GitHub </a>
-          <a href="https://linkedin.com/in/erwan-leboucher" target="_blank" class="nav-link">
+        <nav class="nav-links" aria-label="Social links">
+          <a
+            href="https://github.com/eleboucher"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-link"
+            aria-label="Visit GitHub profile"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/erwan-leboucher"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="nav-link"
+            aria-label="Visit LinkedIn profile"
+          >
             LinkedIn
           </a>
         </nav>
       </header>
       <main>
-        <section class="metrics-grid section">
-          <h1>GitHub Metrics</h1>
+        <section class="metrics-grid section" aria-labelledby="github-metrics-heading">
+          <h2 id="github-metrics-heading">GitHub Metrics</h2>
           <div></div>
 
           <div
@@ -169,39 +96,51 @@ onMounted(() => {
             }"
             :key="key"
             class="stat-card group"
+            role="article"
+            :aria-label="`${m.title}: ${m.val}`"
           >
             <span class="stat-title group-hover:text-zinc-400">
               {{ m.title }}
             </span>
             <div class="flex items-baseline gap-1">
-              <span class="stat-value">{{ m.val }}</span>
+              <span class="stat-value" :class="{ 'animate-pulse': loading }">
+                {{ m.val }}
+              </span>
             </div>
           </div>
           <a
             :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
             target="_blank"
+            rel="noopener noreferrer"
             class="stat-card group cursor-pointer hover:border-zinc-600"
+            :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
           >
             <span class="stat-title group-hover:text-zinc-400 flex justify-between">
               Latest Code Push
             </span>
             <div class="flex flex-col">
-              <span class="stat-value truncate">{{ metrics.gh_repo.val }}</span>
+              <span class="stat-value truncate" :class="{ 'animate-pulse': loading }">
+                {{ metrics.gh_repo.val }}
+              </span>
               <span class="text-xs text-zinc-400">{{ metrics.gh_ago.val }}</span>
             </div>
           </a>
 
-          <div class="stat-card group">
+          <div
+            class="stat-card group"
+            role="article"
+            :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
+          >
             <span class="stat-title group-hover:text-zinc-400"> Primary Stack </span>
             <div class="flex items-baseline gap-1">
               <span class="stat-value">
-                {{ primaryStack.join(' • ') }}
+                {{ PRIMARY_STACK.join(' • ') }}
               </span>
             </div>
           </div>
         </section>
-        <section class="metrics-grid section">
-          <h1>Cluster Metrics</h1>
+        <section class="metrics-grid section" aria-labelledby="cluster-metrics-heading">
+          <h2 id="cluster-metrics-heading">Cluster Metrics</h2>
           <div></div>
           <div
             v-for="(m, key) in {
@@ -214,23 +153,35 @@ onMounted(() => {
             }"
             :key="key"
             class="stat-card group"
+            role="article"
+            :aria-label="`${m.title}: ${m.val}`"
           >
             <span class="stat-title group-hover:text-zinc-400">
               {{ m.title }}
             </span>
             <div class="flex items-baseline gap-1">
-              <span class="stat-value">{{ m.val }}</span>
+              <span class="stat-value" :class="{ 'animate-pulse': loading }">
+                {{ m.val }}
+              </span>
             </div>
           </div>
         </section>
       </main>
-      <footer class="footer-section">
+      <footer class="footer-section" role="contentinfo">
         <div class="tech-stack">
-          <span class="tech-pill">Talos {{ metrics.talos.val }}</span>
-          <span class="tech-pill">K8s {{ metrics.k8s.val }}</span>
-          <span class="tech-pill">Flux {{ metrics.flux.val }}</span>
-          <span class="tech-pill">RouterOS {{ metrics.routeros.val }}</span>
-          <div class="text-[10px] text-zinc-400 mt-2 text-center">
+          <span class="tech-pill" :aria-label="`Talos version ${metrics.talos.val}`">
+            Talos {{ metrics.talos.val }}
+          </span>
+          <span class="tech-pill" :aria-label="`Kubernetes version ${metrics.k8s.val}`">
+            K8s {{ metrics.k8s.val }}
+          </span>
+          <span class="tech-pill" :aria-label="`Flux version ${metrics.flux.val}`">
+            Flux {{ metrics.flux.val }}
+          </span>
+          <span class="tech-pill" :aria-label="`RouterOS version ${metrics.routeros.val}`">
+            RouterOS {{ metrics.routeros.val }}
+          </span>
+          <div class="text-[10px] text-zinc-400 mt-2 text-center" role="status" aria-live="polite">
             Dashboard updated in {{ fetchDuration }}ms
           </div>
         </div>
