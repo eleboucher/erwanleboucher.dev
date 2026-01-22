@@ -30,15 +30,10 @@ const loading = ref(true)
 const error = ref(false)
 
 const fetchMetric = async (key: string) => {
-  try {
-    const res = await fetch(`${KROMGO_BASE}/${key}`)
-    if (!res.ok) throw new Error(`Failed to fetch ${key}`)
-    const data = await res.json()
-    return data.message
-  } catch (e) {
-    console.warn(`Metric error [${key}]:`, e)
-    return null
-  }
+  const res = await fetch(`${KROMGO_BASE}/${key}`)
+  if (!res.ok) throw new Error(`Failed to fetch ${key}`)
+  const data = await res.json()
+  return data.message
 }
 
 const fetchAllStats = async () => {
