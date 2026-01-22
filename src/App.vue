@@ -103,87 +103,119 @@ onMounted(() => {
           <h2 id="github-metrics-heading">GitHub Metrics</h2>
           <div></div>
 
-          <div
-            v-for="(m, key) in {
-              github_contributions: metrics.github_contributions,
-            }"
-            :key="key"
-            class="stat-card group"
-            role="article"
-            :class="getMetricColorClasses(m)"
-            :aria-label="`${m.title}: ${m.val}`"
-          >
-            <span class="stat-title group-hover:text-zinc-400">
-              {{ m.title }}
-            </span>
-            <div class="flex items-baseline gap-1">
-              <span class="stat-value" :class="{ 'animate-pulse': loading }">
-                {{ m.val }}
-              </span>
+          <template v-if="loading">
+            <div v-for="i in 3" :key="`skeleton-gh-${i}`" class="stat-card skeleton">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-value"></div>
             </div>
-          </div>
-          <a
-            :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
-            :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
-          >
-            <span class="stat-title group-hover:text-zinc-400 flex justify-between">
-              Latest Code Push
-            </span>
-            <div class="flex flex-col">
-              <span class="stat-value truncate" :class="{ 'animate-pulse': loading }">
-                {{ metrics.gh_repo.val }}
-              </span>
-              <span class="text-xs text-zinc-400">{{ metrics.gh_ago.val }}</span>
-            </div>
-          </a>
+          </template>
 
-          <div
-            class="stat-card group border-zinc-800 hover:border-blue-500/30"
-            role="article"
-            :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
-          >
-            <span class="stat-title group-hover:text-zinc-400"> Primary Stack </span>
-            <div class="flex items-baseline gap-1">
-              <span class="stat-value">
-                {{ PRIMARY_STACK.join(' • ') }}
+          <template v-else>
+            <div
+              v-for="(m, key) in {
+                github_contributions: metrics.github_contributions,
+              }"
+              :key="key"
+              class="stat-card group"
+              role="article"
+              :class="getMetricColorClasses(m)"
+              :aria-label="`${m.title}: ${m.val}`"
+            >
+              <span class="stat-title group-hover:text-zinc-400">
+                {{ m.title }}
               </span>
+              <div class="flex items-baseline gap-1">
+                <span class="stat-value">
+                  {{ m.val }}
+                </span>
+              </div>
             </div>
-          </div>
+            <a
+              :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
+              :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
+            >
+              <span class="stat-title group-hover:text-zinc-400 flex justify-between">
+                Latest Code Push
+              </span>
+              <div class="flex flex-col">
+                <span class="stat-value truncate">
+                  {{ metrics.gh_repo.val }}
+                </span>
+                <span class="text-xs text-zinc-400">{{ metrics.gh_ago.val }}</span>
+              </div>
+            </a>
+
+            <div
+              class="stat-card group border-zinc-800 hover:border-blue-500/30"
+              role="article"
+              :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
+            >
+              <span class="stat-title group-hover:text-zinc-400"> Primary Stack </span>
+              <div class="flex items-baseline gap-1">
+                <span class="stat-value">
+                  {{ PRIMARY_STACK.join(' • ') }}
+                </span>
+              </div>
+            </div>
+          </template>
         </section>
         <section class="metrics-grid section" aria-labelledby="cluster-metrics-heading">
           <h2 id="cluster-metrics-heading">Cluster Metrics</h2>
           <div></div>
-          <div
-            v-for="(m, key) in {
-              cpu: metrics.cpu,
-              mem: metrics.mem,
-              pods: metrics.pods,
-              uptime: metrics.uptime,
-              sla: metrics.sla,
-              cluster_latency: metrics.cluster_latency,
-            }"
-            :key="key"
-            class="stat-card group"
-            :class="getMetricColorClasses(m)"
-            role="article"
-            :aria-label="`${m.title}: ${m.val}`"
-          >
-            <span class="stat-title group-hover:text-zinc-400">
-              {{ m.title }}
-            </span>
-            <div class="flex items-baseline gap-1">
-              <span class="stat-value" :class="{ 'animate-pulse': loading }">
-                {{ m.val }}
-              </span>
+
+          <!-- Loading Skeletons -->
+          <template v-if="loading">
+            <div v-for="i in 6" :key="`skeleton-cluster-${i}`" class="stat-card skeleton">
+              <div class="skeleton-title"></div>
+              <div class="skeleton-value"></div>
             </div>
-          </div>
+          </template>
+
+          <!-- Actual Metrics -->
+          <template v-else>
+            <div
+              v-for="(m, key) in {
+                cpu: metrics.cpu,
+                mem: metrics.mem,
+                pods: metrics.pods,
+                uptime: metrics.uptime,
+                sla: metrics.sla,
+                cluster_latency: metrics.cluster_latency,
+              }"
+              :key="key"
+              class="stat-card group"
+              :class="getMetricColorClasses(m)"
+              role="article"
+              :aria-label="`${m.title}: ${m.val}`"
+            >
+              <span class="stat-title group-hover:text-zinc-400">
+                {{ m.title }}
+              </span>
+              <div class="flex items-baseline gap-1">
+                <span class="stat-value">
+                  {{ m.val }}
+                </span>
+              </div>
+            </div>
+          </template>
         </section>
       </main>
       <footer class="footer-section" role="contentinfo">
-        <div class="tech-stack">
+        <!-- Loading Skeleton -->
+        <div v-if="loading" class="tech-stack">
+          <span v-for="i in 4" :key="`skeleton-tech-${i}`" class="tech-pill skeleton">
+            <div class="skeleton-tech"></div>
+          </span>
+          <div class="text-[10px] text-zinc-400 mt-2 text-center">
+            <div class="skeleton-duration"></div>
+          </div>
+        </div>
+
+        <!-- Actual Tech Stack -->
+        <div v-else class="tech-stack">
           <span class="tech-pill" :aria-label="`Talos version ${metrics.talos.val}`">
             Talos {{ metrics.talos.val }}
           </span>
@@ -283,5 +315,26 @@ onMounted(() => {
 
 .tech-pill {
   @apply px-2 py-1 border border-zinc-800 rounded bg-zinc-900/50;
+}
+
+/* Skeleton Loading Styles */
+.skeleton {
+  @apply animate-pulse pointer-events-none;
+}
+
+.skeleton-title {
+  @apply h-3 bg-zinc-700/50 rounded w-24 mb-3;
+}
+
+.skeleton-value {
+  @apply h-8 bg-zinc-700/50 rounded w-32;
+}
+
+.skeleton-tech {
+  @apply h-4 bg-zinc-700/50 rounded w-16;
+}
+
+.skeleton-duration {
+  @apply h-3 bg-zinc-700/50 rounded w-40 mx-auto;
 }
 </style>
