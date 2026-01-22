@@ -8,7 +8,7 @@ const metrics = ref({
   cpu: { val: '--', title: 'CPU Load', key: 'cluster_cpu_usage' },
   mem: { val: '--', title: 'Memory', key: 'cluster_memory_usage' },
   pods: { val: '--', title: 'Active Pods', key: 'cluster_pod_count' },
-  uptime: { val: '--', title: 'Uptime', key: 'cluster_uptime_days' },
+  uptime: { val: '--', title: 'Uptime', key: 'cluster_age_days' },
   sla: { val: '--', unit: '%', title: 'SLA (7d)', key: 'global_sla' },
   cluster_latency: {
     val: '--',
