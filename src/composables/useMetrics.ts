@@ -11,6 +11,7 @@ import {
 } from '../constants'
 
 const timeAgo = (date: Date): string => {
+  console.log(date)
   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000)
 
   let interval = seconds / TIME_UNITS.YEAR
@@ -49,8 +50,8 @@ export function useMetrics() {
       title: 'Contributions (1y)',
       key: 'gh_contributions_year',
     },
-    gh_repo: { val: DEFAULT_LOADING_TEXT, key: 'gh_last_push_repo' },
-    gh_ago: { val: DEFAULT_METRIC_VALUE, key: 'gh_last_push_time' },
+    gh_repo: { val: DEFAULT_LOADING_TEXT, key: 'github_last_push_info' },
+    gh_ago: { val: DEFAULT_METRIC_VALUE, key: 'github_last_push_timestamp' },
     talos: { val: 'Unknown', key: 'talos_version' },
     k8s: { val: 'Unknown', key: 'kubernetes_version' },
     flux: { val: 'Unknown', key: 'flux_version' },
@@ -99,7 +100,7 @@ export function useMetrics() {
                 config.val = `${parseInt(value, 10)} ms`
                 break
               case 'gh_ago':
-                config.val = timeAgo(new Date(value))
+                config.val = timeAgo(new Date(parseInt(value, 10) * 1000))
                 break
               default:
                 config.val = value
