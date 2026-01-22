@@ -16,6 +16,7 @@ const metrics = ref({
   k8s: { val: 'Unknown', key: 'kubernetes_version' },
   flux: { val: 'Unknown', key: 'flux_version' },
   alerts: { val: 0, key: 'cluster_alert_count' },
+  routeros: { val: 'Unknown', key: 'mkt_version' },
 })
 
 const primaryStack = ['Golang', 'Python']
@@ -215,6 +216,7 @@ onMounted(() => {
           <span class="tech-pill">Talos {{ metrics.talos.val }}</span>
           <span class="tech-pill">K8s {{ metrics.k8s.val }}</span>
           <span class="tech-pill">Flux {{ metrics.flux.val }}</span>
+          <span class="tech-pill">RouterOS {{ metrics.routeros.val }}</span>
         </div>
       </footer>
     </div>
