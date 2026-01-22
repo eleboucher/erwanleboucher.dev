@@ -170,8 +170,8 @@ onMounted(() => {
           </a>
         </nav>
       </header>
-      <section>
-        <div class="metrics-grid section">
+      <main>
+        <section class="metrics-grid section">
           <h1>GitHub Metrics</h1>
           <div></div>
           <a
@@ -184,7 +184,7 @@ onMounted(() => {
             </span>
             <div class="flex flex-col">
               <span class="stat-value">{{ githubStats.repo }}</span>
-              <span class="text-xs text-zinc-500">{{ githubStats.ago }}</span>
+              <span class="text-xs text-zinc-400">{{ githubStats.ago }}</span>
             </div>
           </a>
 
@@ -196,8 +196,8 @@ onMounted(() => {
               </span>
             </div>
           </div>
-        </div>
-        <div class="metrics-grid section">
+        </section>
+        <section class="metrics-grid section">
           <h1>Cluster Metrics</h1>
           <div></div>
           <div
@@ -219,16 +219,15 @@ onMounted(() => {
               <span class="stat-value">{{ m.val }}</span>
             </div>
           </div>
-        </div>
-      </section>
-
+        </section>
+      </main>
       <footer class="footer-section">
         <div class="tech-stack">
           <span class="tech-pill">Talos {{ metrics.talos.val }}</span>
           <span class="tech-pill">K8s {{ metrics.k8s.val }}</span>
           <span class="tech-pill">Flux {{ metrics.flux.val }}</span>
           <span class="tech-pill">RouterOS {{ metrics.routeros.val }}</span>
-          <div class="text-[10px] text-zinc-600 mt-2 text-center">
+          <div class="text-[10px] text-zinc-400 mt-2 text-center">
             Dashboard updated in {{ fetchDuration }}ms
           </div>
         </div>
