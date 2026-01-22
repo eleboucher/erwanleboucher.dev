@@ -11,7 +11,6 @@ import {
 } from '../constants'
 
 const timeAgo = (date: Date): string => {
-  console.log(date)
   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000)
 
   let interval = seconds / TIME_UNITS.YEAR
