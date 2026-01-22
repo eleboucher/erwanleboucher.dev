@@ -16,7 +16,13 @@ const metrics = ref({
     title: 'Global P99 (7d)',
     key: 'cluster_latency_over_7d',
   },
-
+  github_contributions: {
+    val: '--',
+    title: 'Contributions (1y)',
+    key: 'gh_contributions_year',
+  },
+  gh_repo: { val: 'Loading...', key: 'gh_last_push_repo' },
+  gh_ago: { val: '--', key: 'gh_last_push_time' },
   // Tech specs (Footer)
   talos: { val: 'Unknown', key: 'talos_version' },
   k8s: { val: 'Unknown', key: 'kubernetes_version' },
@@ -27,11 +33,6 @@ const metrics = ref({
 
 const primaryStack = ['Golang', 'Python']
 
-const githubStats = ref({
-  repo: 'Loading...',
-  ago: '--',
-  url: `https://github.com/${GITHUB_USER}`,
-})
 const loading = ref(true)
 const error = ref(false)
 const fetchDuration = ref(0)
@@ -63,6 +64,9 @@ const fetchAllStats = async () => {
             break
           case 'cluster_latency':
             config.val = `${parseInt(value, 10)} ms`
+            break
+          case 'gh_ago':
+            config.val = timeAgo(new Date(value))
             break
           default:
             config.val = value
@@ -97,21 +101,6 @@ const timeAgo = (date: Date) => {
   return 'just now'
 }
 
-const fetchGithub = async () => {
-  try {
-    const eventsRes = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public`)
-    const events = await eventsRes.json()
-    const push = events.find((e: Record<string, unknown>) => e.type === 'PushEvent')
-    if (push) {
-      githubStats.value.repo = push.repo.name.replace(`${GITHUB_USER}/`, '')
-      githubStats.value.ago = timeAgo(new Date(push.created_at))
-      githubStats.value.url = `https://github.com/${push.repo.name}`
-    }
-  } catch (e) {
-    console.warn('GitHub fetch failed', e)
-  }
-}
-
 const systemStatus = computed(() => {
   if (error.value)
     return {
@@ -140,7 +129,6 @@ const systemStatus = computed(() => {
 
 onMounted(() => {
   fetchAllStats()
-  fetchGithub()
   setInterval(fetchAllStats, 60000)
 })
 </script>
@@ -174,8 +162,23 @@ onMounted(() => {
         <section class="metrics-grid section">
           <h1>GitHub Metrics</h1>
           <div></div>
+
+          <div
+            v-for="(m, key) in {
+              github_contributions: metrics.github_contributions,
+            }"
+            :key="key"
+            class="stat-card group"
+          >
+            <span class="stat-title group-hover:text-zinc-400">
+              {{ m.title }}
+            </span>
+            <div class="flex items-baseline gap-1">
+              <span class="stat-value">{{ m.val }}</span>
+            </div>
+          </div>
           <a
-            :href="githubStats.url"
+            :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
             target="_blank"
             class="stat-card group cursor-pointer hover:border-zinc-600"
           >
@@ -183,8 +186,8 @@ onMounted(() => {
               Latest Code Push
             </span>
             <div class="flex flex-col">
-              <span class="stat-value">{{ githubStats.repo }}</span>
-              <span class="text-xs text-zinc-400">{{ githubStats.ago }}</span>
+              <span class="stat-value truncate">{{ metrics.gh_repo.val }}</span>
+              <span class="text-xs text-zinc-400">{{ metrics.gh_ago.val }}</span>
             </div>
           </a>
 
