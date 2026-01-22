@@ -28,7 +28,7 @@ const githubStats = ref({
 })
 const loading = ref(true)
 const error = ref(false)
-
+const fetchDuration = ref(0)
 const fetchMetric = async (key: string) => {
   const res = await fetch(`${KROMGO_BASE}/${key}`)
   if (!res.ok) throw new Error(`Failed to fetch ${key}`)
@@ -37,6 +37,7 @@ const fetchMetric = async (key: string) => {
 }
 
 const fetchAllStats = async () => {
+  const start = performance.now()
   try {
     const keys = Object.keys(metrics.value) as Array<keyof typeof metrics.value>
     const promises = keys.map(async (dictKey) => {
@@ -66,8 +67,12 @@ const fetchAllStats = async () => {
   } catch {
     error.value = true
     loading.value = false
+  } finally {
+    const end = performance.now()
+    fetchDuration.value = Math.round(end - start)
   }
 }
+
 const timeAgo = (date: Date) => {
   const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000)
   let interval = seconds / 31536000
@@ -82,6 +87,7 @@ const timeAgo = (date: Date) => {
   if (interval > 1) return Math.floor(interval) + 'm ago'
   return 'just now'
 }
+
 const fetchGithub = async () => {
   try {
     const eventsRes = await fetch(`https://api.github.com/users/${GITHUB_USER}/events/public`)
@@ -212,6 +218,9 @@ onMounted(() => {
           <span class="tech-pill">K8s {{ metrics.k8s.val }}</span>
           <span class="tech-pill">Flux {{ metrics.flux.val }}</span>
           <span class="tech-pill">RouterOS {{ metrics.routeros.val }}</span>
+          <div class="text-[10px] text-zinc-600 mt-2 text-center">
+            Dashboard updated in {{ fetchDuration }}ms
+          </div>
         </div>
       </footer>
     </div>
