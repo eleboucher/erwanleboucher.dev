@@ -10,6 +10,12 @@ const metrics = ref({
   pods: { val: '--', title: 'Active Pods', key: 'cluster_pod_count' },
   uptime: { val: '--', title: 'Uptime', key: 'cluster_uptime_days' },
   sla: { val: '--', unit: '%', title: 'SLA (7d)', key: 'global_sla' },
+  cluster_latency: {
+    val: '--',
+    unit: 'ms',
+    title: 'Global P99 (7d)',
+    key: 'cluster_latency_over_7d',
+  },
 
   // Tech specs (Footer)
   talos: { val: 'Unknown', key: 'talos_version' },
@@ -54,6 +60,9 @@ const fetchAllStats = async () => {
             break
           case 'uptime':
             config.val = `${parseInt(value, 10)} days`
+            break
+          case 'cluster_latency':
+            config.val = `${parseInt(value, 10)} ms`
             break
           default:
             config.val = value
@@ -198,6 +207,7 @@ onMounted(() => {
               pods: metrics.pods,
               uptime: metrics.uptime,
               sla: metrics.sla,
+              cluster_latency: metrics.cluster_latency,
             }"
             :key="key"
             class="stat-card group"
