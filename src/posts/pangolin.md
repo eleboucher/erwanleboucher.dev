@@ -4,8 +4,6 @@ date: 2026-03-12
 description: How to make my homelab more sovereign. 
 ---
 
-# Ditching Cloudflare Tunnels: Self-hosting with Pangolin on a VPS
-
 As part of my effort to reduce US dependencies in my day-to-day life, one key tool I relied on was Cloudflare Tunnels. I currently use it on my Kubernetes homelab to expose services to friends and family from anywhere. It's easy to set up and free to use.
 
 However, Cloudflare is a US-based company, and with the current geopolitical climate it has become increasingly difficult to rely on American infrastructure. Cloudflare has already threatened to pull its servers from certain markets rather than comply with local regulations — [a move that highlights how dependent we are on their goodwill](https://arstechnica.com/tech-policy/2026/01/cloudflare-may-pull-servers-out-of-italy-over-order-that-it-block-pirate-sites/), even if the regulations themselves are debatable.
