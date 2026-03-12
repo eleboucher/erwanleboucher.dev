@@ -32,4 +32,4 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.OVH_S3_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.OVH_S3_SECRET_KEY }}
           AWS_DEFAULT_REGION: rbx
-        run: aws s3 sync dist/ s3://erwan-leboucher.dev --delete --acl public-read --endpoint-url https://s3.rbx.io.cloud.ovh.net
+        run: aws s3 sync dist/ s3://erwanleboucher.dev --delete --acl public-read --endpoint-url https://s3.rbx.io.cloud.ovh.net
