@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, watchEffect, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { usePosts } from '@/composables/usePosts'
-import 'highlight.js/styles/a11y-dark.css'
 
 const route = useRoute()
 const router = useRouter()
@@ -10,11 +9,50 @@ const { getPost, renderMarkdown } = usePosts()
 
 const slug = computed(() => route.params.slug as string)
 const post = computed(() => getPost(slug.value))
-const html = computed(() => (post.value ? renderMarkdown(post.value.content) : ''))
+const html = ref('')
+const isLoading = ref(true)
 
-if (!post.value) {
-  router.replace('/blog')
+watchEffect(async () => {
+  if (post.value) {
+    isLoading.value = true
+    html.value = await renderMarkdown(post.value.content)
+    isLoading.value = false
+  }
+})
+
+function handleCopyClick(event: Event) {
+  const target = event.target as HTMLElement
+  const button = target.closest('.copy-btn')
+  if (!button) return
+
+  const wrapper = button.closest('.code-block-wrapper')
+  const code = wrapper?.querySelector('code')?.textContent
+
+  if (!code) return
+
+  navigator.clipboard
+    .writeText(code)
+    .then(() => {
+      button.classList.add('copied')
+
+      setTimeout(() => {
+        button.classList.remove('copied')
+      }, 2000)
+    })
+    .catch((err) => {
+      console.error('Failed to copy code: ', err)
+    })
 }
+
+watch(
+  post,
+  (newPost) => {
+    if (!newPost) {
+      router.replace('/blog')
+    }
+  },
+  { immediate: true },
+)
 </script>
 
 <template>
@@ -29,14 +67,20 @@ if (!post.value) {
         </div>
       </header>
       <main>
-        <article v-if="post" class="prose" v-html="html" />
+        <article
+          v-if="post"
+          class="prose"
+          :class="{ 'is-loading': isLoading }"
+          v-html="html"
+          @click="handleCopyClick"
+        />
       </main>
     </div>
   </div>
 </template>
 
 <style scoped>
-@reference "../app.css";
+@reference '../app.css';
 
 .post-layout {
   @apply min-h-screen flex items-start justify-center py-16 px-6 selection:bg-emerald-500/30;
@@ -68,6 +112,10 @@ if (!post.value) {
 
 .prose {
   @apply max-w-3xl;
+}
+
+.prose.is-loading {
+  @apply opacity-50;
 }
 
 .prose :deep(h1),
@@ -115,8 +163,59 @@ if (!post.value) {
   @apply text-emerald-400 bg-zinc-800/80 px-1.5 py-0.5 rounded text-sm;
 }
 
-.prose :deep(pre) {
-  @apply border border-zinc-700 rounded overflow-x-auto mb-6 text-sm;
+/* Code block wrapper */
+.prose :deep(.code-block-wrapper) {
+  @apply relative mb-8 rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 shadow-xl;
+}
+
+/* Code header with language and copy button */
+.prose :deep(.code-header) {
+  @apply flex items-center justify-between px-4 py-2;
+  @apply bg-zinc-800/50 border-b border-zinc-700;
+}
+
+/* Language badge in header */
+.prose :deep(.code-lang) {
+  @apply text-xs font-medium text-zinc-300 uppercase tracking-wide;
+}
+
+/* Copy button */
+.prose :deep(.copy-btn) {
+  @apply relative flex items-center justify-center;
+  @apply p-4 rounded-md cursor-pointer transition-all duration-150;
+  @apply bg-transparent text-zinc-200 hover:bg-zinc-700 hover:text-white;
+}
+
+.prose :deep(.copy-btn svg) {
+  @apply w-4 h-4 transition-all duration-200;
+}
+
+.prose :deep(.copy-btn .copy-icon),
+.prose :deep(.copy-btn .check-icon) {
+  @apply absolute;
+}
+
+.prose :deep(.copy-btn .check-icon) {
+  @apply text-emerald-400 opacity-0 scale-50;
+}
+
+.prose :deep(.copy-btn .copy-icon) {
+  @apply opacity-100 scale-100;
+}
+
+/* Active "Copied" State */
+.prose :deep(.copy-btn.copied .copy-icon) {
+  @apply opacity-0 scale-50;
+}
+
+.prose :deep(.copy-btn.copied .check-icon) {
+  @apply opacity-100 scale-100;
+}
+
+/* Code block styling */
+.prose :deep(.code-block-wrapper code) {
+  @apply block min-w-full;
+  @apply m-0 p-5 overflow-x-auto text-sm leading-[1.6] antialiased;
 }
 
 .prose :deep(blockquote) {
