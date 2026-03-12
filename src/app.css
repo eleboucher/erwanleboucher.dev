@@ -3,11 +3,10 @@
 
 @theme {
   --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-    monospace;
+    'Atkinson Hyperlegible Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    'Liberation Mono', 'Courier New', monospace;
 }
 
-/* FIX: Apply background to the root so overscroll is dark */
 :root {
   background-color: #18181b; /* zinc-900 */
   color: #f4f4f5; /* zinc-100 */

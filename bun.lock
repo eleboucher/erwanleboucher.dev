@@ -5,6 +5,7 @@
     "": {
       "name": "erwanleboucher.dev",
       "dependencies": {
+        "@fontsource-variable/atkinson-hyperlegible-mono": "^5.2.5",
         "shiki": "^4.0.2",
         "vue": "^3.5.26",
         "vue-router": "^5.0.3",
@@ -116,6 +117,8 @@
     "@eslint/object-schema": ["@eslint/object-schema@3.0.3", "", {}, "sha512-iM869Pugn9Nsxbh/YHRqYiqd23AmIbxJOcpUMOuWCVNdoQJ5ZtwL6h3t0bcZzJUlC3Dq9jCFCESBZnX0GTv7iQ=="],
 
     "@eslint/plugin-kit": ["@eslint/plugin-kit@0.6.1", "", { "dependencies": { "@eslint/core": "^1.1.1", "levn": "^0.4.1" } }, "sha512-iH1B076HoAshH1mLpHMgwdGeTs0CYwL0SPMkGuSebZrwBp16v415e9NZXg2jtrqPVQjf6IANe2Vtlr5KswtcZQ=="],
+
+    "@fontsource-variable/atkinson-hyperlegible-mono": ["@fontsource-variable/atkinson-hyperlegible-mono@5.2.5", "", {}, "sha512-dbbd1cydeIwy0EAVm21o7IfOcAHTc0b4cQ6YE/SEm5BzcJpaXw1/JygAZriTtWkrgVb08iVDLMkSqirYQqvaEA=="],
 
     "@humanfs/core": ["@humanfs/core@0.19.1", "", {}, "sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA=="],
 
