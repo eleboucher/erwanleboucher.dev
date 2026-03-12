@@ -2,6 +2,7 @@
 import { shallowRef, computed, watch, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { usePosts } from '@/composables/usePosts'
+import MainLayout from '@/layouts/MainLayout.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -17,7 +18,6 @@ watch(
   slug,
   (newSlug) => {
     if (post.value) {
-      // Dynamically import the .md file as a Vue Component
       contentComponent.value = defineAsyncComponent(() => import(`../posts/${newSlug}.md`))
     } else {
       router.replace('/blog')
@@ -44,33 +44,23 @@ function handleCopyClick(event: Event) {
 </script>
 
 <template>
-  <div class="post-layout">
-    <div class="content-wrapper" v-if="post">
-      <header class="section">
-        <RouterLink to="/blog" class="back-link">← Blog</RouterLink>
-        <span class="post-date">{{ post.date }}</span>
-        <h1>{{ post.title }}</h1>
-        <p class="post-description">{{ post.description }}</p>
-      </header>
+  <MainLayout v-if="post">
+    <header class="section">
+      <RouterLink to="/blog" class="back-link">← Back</RouterLink>
+      <span class="post-date">{{ post.date }}</span>
+      <h1>{{ post.title }}</h1>
+      <p class="post-description">{{ post.description }}</p>
+    </header>
 
-      <main @click="handleCopyClick">
-        <article class="prose">
-          <component :is="contentComponent" />
-        </article>
-      </main>
-    </div>
-  </div>
+    <main @click="handleCopyClick">
+      <article class="prose">
+        <component :is="contentComponent" />
+      </article>
+    </main>
+  </MainLayout>
 </template>
 <style scoped>
 @reference '../app.css';
-
-.post-layout {
-  @apply min-h-screen flex items-start justify-center py-16 px-6 selection:bg-emerald-500/30;
-}
-
-.content-wrapper {
-  @apply w-full max-w-4xl;
-}
 
 .section {
   @apply flex flex-col mb-12 border-b border-zinc-800 pb-6 gap-4;

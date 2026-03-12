@@ -9,12 +9,28 @@ const modules = import.meta.glob('../posts/*.md', {
 function parseFrontmatter(raw: string) {
   if (!raw.startsWith('---')) return { meta: {} }
   const end = raw.indexOf('\n---', 3)
+  if (end === -1) return { meta: {} }
+
   const block = raw.slice(3, end).trim()
   const meta: Record<string, string> = {}
+
   block.split('\n').forEach((line) => {
     const colon = line.indexOf(':')
-    if (colon !== -1) meta[line.slice(0, colon).trim()] = line.slice(colon + 1).trim()
+    if (colon !== -1) {
+      const key = line.slice(0, colon).trim()
+      let value = line.slice(colon + 1).trim()
+
+      if (
+        (value.startsWith('"') && value.endsWith('"')) ||
+        (value.startsWith("'") && value.endsWith("'"))
+      ) {
+        value = value.slice(1, -1)
+      }
+
+      meta[key] = value
+    }
   })
+
   return { meta }
 }
 

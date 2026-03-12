@@ -3,6 +3,7 @@ import { computed, onMounted } from 'vue'
 import { useMetrics } from '@/composables/useMetrics'
 import { PRIMARY_STACK, GITHUB_USER } from '@/constants'
 import type { SystemStatus, MetricConfig } from '@/types'
+import MainLayout from '@/layouts/MainLayout.vue'
 
 const { metrics, loading, error, fetchDuration, startPolling } = useMetrics()
 
@@ -19,223 +20,149 @@ const getMetricColorClasses = (metric: MetricConfig) => {
   }
 }
 
-const systemStatus = computed((): SystemStatus => {
-  if (error.value)
-    return {
-      text: error.value || 'Connection Error',
-      color: 'text-red-500',
-      border: 'border-red-500/50',
-      bg: 'bg-red-500',
-    }
-
-  const alertCount = metrics.value.alerts.val as number
-  if (alertCount > 0)
-    return {
-      text: `${alertCount} Active Alert${alertCount > 1 ? 's' : ''}`,
-      color: 'text-orange-400',
-      border: 'border-orange-400/50',
-      bg: 'bg-orange-400',
-    }
-
-  return {
-    text: 'All Systems Operational',
-    color: 'text-emerald-400',
-    border: 'border-emerald-400/50',
-    bg: 'bg-emerald-400',
-  }
-})
-
 onMounted(() => {
   startPolling()
 })
 </script>
 
 <template>
-  <div class="dashboard-layout">
-    <div class="content-wrapper">
-      <header class="section">
-        <div class="identity-block">
-          <div>
-            <h1>Erwan Leboucher</h1>
-            <p class="subtitle">Senior Software Engineer • Paris</p>
-            <a
-              href="mailto:erwanleboucher@gmail.com"
-              class="email-link"
-              aria-label="Send email to erwanleboucher@gmail.com"
-            >
-              erwanleboucher@gmail.com
-            </a>
+  <MainLayout>
+    <main>
+      <section class="metrics-grid section" aria-labelledby="github-metrics-heading">
+        <h2 id="github-metrics-heading">GitHub Metrics</h2>
+        <div></div>
+
+        <template v-if="loading">
+          <div v-for="i in 3" :key="`skeleton-gh-${i}`" class="stat-card skeleton">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-value"></div>
           </div>
+        </template>
+
+        <template v-else>
+          <div
+            v-for="(m, key) in {
+              github_contributions: metrics.github_contributions,
+            }"
+            :key="key"
+            class="stat-card group"
+            role="article"
+            :class="getMetricColorClasses(m)"
+            :aria-label="`${m.title}: ${m.val}`"
+          >
+            <span class="stat-title group-hover:text-zinc-400">
+              {{ m.title }}
+            </span>
+            <div class="flex items-baseline gap-1">
+              <span class="stat-value">
+                {{ m.val }}
+              </span>
+            </div>
+          </div>
+          <a
+            :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
+            :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
+          >
+            <span class="stat-title group-hover:text-zinc-400 flex justify-between">
+              Latest Code Push
+            </span>
+            <div class="flex flex-col">
+              <span class="stat-value truncate">
+                {{ metrics.gh_repo.val }}
+              </span>
+              <span class="text-xs text-zinc-400">{{ metrics.gh_ago.val }}</span>
+            </div>
+          </a>
 
           <div
-            class="status-badge"
-            :class="[systemStatus.border, systemStatus.color]"
-            role="status"
-            aria-live="polite"
+            class="stat-card group border-zinc-800 hover:border-blue-500/30"
+            role="article"
+            :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
           >
-            <span class="status-dot animate-pulse" :class="systemStatus.bg"></span>
-            {{ systemStatus.text }}
+            <span class="stat-title group-hover:text-zinc-400"> Primary Stack </span>
+            <div class="flex items-baseline gap-1">
+              <span class="stat-value">
+                {{ PRIMARY_STACK.join(' • ') }}
+              </span>
+            </div>
           </div>
-        </div>
-        <nav class="nav-links" aria-label="Social links">
-          <a
-            href="https://github.com/eleboucher"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="nav-link"
-            aria-label="Visit GitHub profile"
+        </template>
+      </section>
+      <section class="metrics-grid section" aria-labelledby="cluster-metrics-heading">
+        <h2 id="cluster-metrics-heading">Cluster Metrics</h2>
+        <div></div>
+
+        <!-- Loading Skeletons -->
+        <template v-if="loading">
+          <div v-for="i in 6" :key="`skeleton-cluster-${i}`" class="stat-card skeleton">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-value"></div>
+          </div>
+        </template>
+
+        <!-- Actual Metrics -->
+        <template v-else>
+          <div
+            v-for="(m, key) in {
+              cpu: metrics.cpu,
+              mem: metrics.mem,
+              pods: metrics.pods,
+              uptime: metrics.uptime,
+              sla: metrics.sla,
+              cluster_latency: metrics.cluster_latency,
+            }"
+            :key="key"
+            class="stat-card group"
+            :class="getMetricColorClasses(m)"
+            role="article"
+            :aria-label="`${m.title}: ${m.val}`"
           >
-            GitHub
-          </a>
-          <a
-            href="https://linkedin.com/in/erwan-leboucher"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="nav-link"
-            aria-label="Visit LinkedIn profile"
-          >
-            LinkedIn
-          </a>
-          <RouterLink to="/blog" class="nav-link" aria-label="Read the blog"> Blog </RouterLink>
-        </nav>
-      </header>
-      <main>
-        <section class="metrics-grid section" aria-labelledby="github-metrics-heading">
-          <h2 id="github-metrics-heading">GitHub Metrics</h2>
-          <div></div>
-
-          <template v-if="loading">
-            <div v-for="i in 3" :key="`skeleton-gh-${i}`" class="stat-card skeleton">
-              <div class="skeleton-title"></div>
-              <div class="skeleton-value"></div>
-            </div>
-          </template>
-
-          <template v-else>
-            <div
-              v-for="(m, key) in {
-                github_contributions: metrics.github_contributions,
-              }"
-              :key="key"
-              class="stat-card group"
-              role="article"
-              :class="getMetricColorClasses(m)"
-              :aria-label="`${m.title}: ${m.val}`"
-            >
-              <span class="stat-title group-hover:text-zinc-400">
-                {{ m.title }}
+            <span class="stat-title group-hover:text-zinc-400">
+              {{ m.title }}
+            </span>
+            <div class="flex items-baseline gap-1">
+              <span class="stat-value">
+                {{ m.val }}
               </span>
-              <div class="flex items-baseline gap-1">
-                <span class="stat-value">
-                  {{ m.val }}
-                </span>
-              </div>
             </div>
-            <a
-              :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
-              :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
-            >
-              <span class="stat-title group-hover:text-zinc-400 flex justify-between">
-                Latest Code Push
-              </span>
-              <div class="flex flex-col">
-                <span class="stat-value truncate">
-                  {{ metrics.gh_repo.val }}
-                </span>
-                <span class="text-xs text-zinc-400">{{ metrics.gh_ago.val }}</span>
-              </div>
-            </a>
-
-            <div
-              class="stat-card group border-zinc-800 hover:border-blue-500/30"
-              role="article"
-              :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
-            >
-              <span class="stat-title group-hover:text-zinc-400"> Primary Stack </span>
-              <div class="flex items-baseline gap-1">
-                <span class="stat-value">
-                  {{ PRIMARY_STACK.join(' • ') }}
-                </span>
-              </div>
-            </div>
-          </template>
-        </section>
-        <section class="metrics-grid section" aria-labelledby="cluster-metrics-heading">
-          <h2 id="cluster-metrics-heading">Cluster Metrics</h2>
-          <div></div>
-
-          <!-- Loading Skeletons -->
-          <template v-if="loading">
-            <div v-for="i in 6" :key="`skeleton-cluster-${i}`" class="stat-card skeleton">
-              <div class="skeleton-title"></div>
-              <div class="skeleton-value"></div>
-            </div>
-          </template>
-
-          <!-- Actual Metrics -->
-          <template v-else>
-            <div
-              v-for="(m, key) in {
-                cpu: metrics.cpu,
-                mem: metrics.mem,
-                pods: metrics.pods,
-                uptime: metrics.uptime,
-                sla: metrics.sla,
-                cluster_latency: metrics.cluster_latency,
-              }"
-              :key="key"
-              class="stat-card group"
-              :class="getMetricColorClasses(m)"
-              role="article"
-              :aria-label="`${m.title}: ${m.val}`"
-            >
-              <span class="stat-title group-hover:text-zinc-400">
-                {{ m.title }}
-              </span>
-              <div class="flex items-baseline gap-1">
-                <span class="stat-value">
-                  {{ m.val }}
-                </span>
-              </div>
-            </div>
-          </template>
-        </section>
-      </main>
-      <footer class="footer-section" role="contentinfo">
-        <!-- Loading Skeleton -->
-        <div v-if="loading" class="tech-stack">
-          <span v-for="i in 4" :key="`skeleton-tech-${i}`" class="tech-pill skeleton">
-            <div class="skeleton-tech"></div>
-          </span>
-          <div class="text-[10px] text-zinc-400 mt-2 text-center">
-            <div class="skeleton-duration"></div>
           </div>
+        </template>
+      </section>
+    </main>
+    <footer class="footer-section" role="contentinfo">
+      <!-- Loading Skeleton -->
+      <div v-if="loading" class="tech-stack">
+        <span v-for="i in 4" :key="`skeleton-tech-${i}`" class="tech-pill skeleton">
+          <div class="skeleton-tech"></div>
+        </span>
+        <div class="text-[10px] text-zinc-400 mt-2 text-center">
+          <div class="skeleton-duration"></div>
         </div>
+      </div>
 
-        <!-- Actual Tech Stack -->
-        <div v-else class="tech-stack">
-          <span class="tech-pill" :aria-label="`Talos version ${metrics.talos.val}`">
-            Talos {{ metrics.talos.val }}
-          </span>
-          <span class="tech-pill" :aria-label="`Kubernetes version ${metrics.k8s.val}`">
-            K8s {{ metrics.k8s.val }}
-          </span>
-          <span class="tech-pill" :aria-label="`Flux version ${metrics.flux.val}`">
-            Flux {{ metrics.flux.val }}
-          </span>
-          <span class="tech-pill" :aria-label="`RouterOS version ${metrics.routeros.val}`">
-            RouterOS {{ metrics.routeros.val }}
-          </span>
-          <div class="text-[10px] text-zinc-400 mt-2 text-center" role="status" aria-live="polite">
-            Dashboard updated in {{ fetchDuration }}ms
-          </div>
+      <!-- Actual Tech Stack -->
+      <div v-else class="tech-stack">
+        <span class="tech-pill" :aria-label="`Talos version ${metrics.talos.val}`">
+          Talos {{ metrics.talos.val }}
+        </span>
+        <span class="tech-pill" :aria-label="`Kubernetes version ${metrics.k8s.val}`">
+          K8s {{ metrics.k8s.val }}
+        </span>
+        <span class="tech-pill" :aria-label="`Flux version ${metrics.flux.val}`">
+          Flux {{ metrics.flux.val }}
+        </span>
+        <span class="tech-pill" :aria-label="`RouterOS version ${metrics.routeros.val}`">
+          RouterOS {{ metrics.routeros.val }}
+        </span>
+        <div class="text-[10px] text-zinc-400 mt-2 text-center" role="status" aria-live="polite">
+          Dashboard updated in {{ fetchDuration }}ms
         </div>
-      </footer>
-    </div>
-  </div>
+      </div>
+    </footer>
+  </MainLayout>
 </template>
 
 <style scoped>
