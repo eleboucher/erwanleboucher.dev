@@ -1,5 +1,5 @@
 ---
-title: Ditching Cloudflare Tunnels: Self-hosting with Pangolin on a VPS
+title: "Ditching Cloudflare Tunnels: Self-hosting with Pangolin on a VPS"
 date: 2026-03-12
 description: How to make my homelab more sovereign. 
 ---

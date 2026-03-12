@@ -1,24 +1,30 @@
 <script setup lang="ts">
-import { ref, computed, watchEffect, watch } from 'vue'
+import { shallowRef, computed, watch, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { usePosts } from '@/composables/usePosts'
 
 const route = useRoute()
 const router = useRouter()
-const { getPost, renderMarkdown } = usePosts()
+const { getPost } = usePosts()
 
 const slug = computed(() => route.params.slug as string)
 const post = computed(() => getPost(slug.value))
-const html = ref('')
-const isLoading = ref(true)
 
-watchEffect(async () => {
-  if (post.value) {
-    isLoading.value = true
-    html.value = await renderMarkdown(post.value.content)
-    isLoading.value = false
-  }
-})
+// This will hold the pre-rendered component
+const contentComponent = shallowRef()
+
+watch(
+  slug,
+  (newSlug) => {
+    if (post.value) {
+      // Dynamically import the .md file as a Vue Component
+      contentComponent.value = defineAsyncComponent(() => import(`../posts/${newSlug}.md`))
+    } else {
+      router.replace('/blog')
+    }
+  },
+  { immediate: true },
+)
 
 function handleCopyClick(event: Event) {
   const target = event.target as HTMLElement
@@ -28,57 +34,33 @@ function handleCopyClick(event: Event) {
   const wrapper = button.closest('.code-block-wrapper')
   const code = wrapper?.querySelector('code')?.textContent
 
-  if (!code) return
-
-  navigator.clipboard
-    .writeText(code)
-    .then(() => {
+  if (code) {
+    navigator.clipboard.writeText(code).then(() => {
       button.classList.add('copied')
-
-      setTimeout(() => {
-        button.classList.remove('copied')
-      }, 2000)
+      setTimeout(() => button.classList.remove('copied'), 2000)
     })
-    .catch((err) => {
-      console.error('Failed to copy code: ', err)
-    })
+  }
 }
-
-watch(
-  post,
-  (newPost) => {
-    if (!newPost) {
-      router.replace('/blog')
-    }
-  },
-  { immediate: true },
-)
 </script>
 
 <template>
   <div class="post-layout">
-    <div class="content-wrapper">
+    <div class="content-wrapper" v-if="post">
       <header class="section">
         <RouterLink to="/blog" class="back-link">← Blog</RouterLink>
-        <div v-if="post">
-          <span class="post-date">{{ post.date }}</span>
-          <h1>{{ post.title }}</h1>
-          <p class="post-description">{{ post.description }}</p>
-        </div>
+        <span class="post-date">{{ post.date }}</span>
+        <h1>{{ post.title }}</h1>
+        <p class="post-description">{{ post.description }}</p>
       </header>
-      <main>
-        <article
-          v-if="post"
-          class="prose"
-          :class="{ 'is-loading': isLoading }"
-          v-html="html"
-          @click="handleCopyClick"
-        />
+
+      <main @click="handleCopyClick">
+        <article class="prose">
+          <component :is="contentComponent" />
+        </article>
       </main>
     </div>
   </div>
 </template>
-
 <style scoped>
 @reference '../app.css';
 
