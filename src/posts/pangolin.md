@@ -8,7 +8,7 @@ As part of my effort to reduce US dependencies in my day-to-day life, one key to
 
 However, Cloudflare is a US-based company, and with the current geopolitical climate it has become increasingly difficult to rely on American infrastructure. Cloudflare has already threatened to pull its servers from certain markets rather than comply with local regulations — [a move that highlights how dependent we are on their goodwill](https://arstechnica.com/tech-policy/2026/01/cloudflare-may-pull-servers-out-of-italy-over-order-that-it-block-pirate-sites/), even if the regulations themselves are debatable.
 
-Sadly, free non-US alternatives to Cloudflare Tunnels are few and far between. One alternative was to self-host an open source alternative called [Pangolin](https://docs.pangolin.net/) on a VPS, which allows you to have a similar setup without relying on a third party.
+Sadly, free non-US alternatives to Cloudflare Tunnels doesn't exist. One alternative was to self-host an open source alternative called [Pangolin](https://docs.pangolin.net/) on a VPS, which allows you to have a similar setup without relying on a third party.
 
 Choosing a VPS was pretty straightforward to me. It was either Hetzner or OVH. Since I was also hosting my domain DNS on Cloudflare, I chose to go with OVH so I can host my domain DNS on OVH as well, and have the VPS on the same provider. I took the [VPS-1](https://www.ovhcloud.com/en-ie/vps/) which is 5 euro per month and the cheapest option (still pretty overkill for my needs). _(Disclosure: I joined OVH as a software engineer in March 2026, so take that recommendation with the appropriate grain of salt.)_
 
