@@ -18,7 +18,11 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
-    "vue": "^3.5.26"
+    "highlight.js": "^11.11.1",
+    "marked": "^17.0.4",
+    "marked-highlight": "^2.2.3",
+    "vue": "^3.5.26",
+    "vue-router": "^5.0.3"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.18",
