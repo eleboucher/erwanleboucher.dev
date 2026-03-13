@@ -49,6 +49,13 @@ export function useMetrics() {
       title: 'Contributions (1y)',
       key: 'gh_contributions_year',
     },
+    github_followers: { val: DEFAULT_METRIC_VALUE, title: 'Followers', key: 'github_followers' },
+    github_public_repos: {
+      val: DEFAULT_METRIC_VALUE,
+      title: 'Public Repos',
+      key: 'github_public_repos',
+    },
+    github_stars: { val: DEFAULT_METRIC_VALUE, title: 'Stars', key: 'github_stars_total' },
     gh_repo: { val: DEFAULT_LOADING_TEXT, key: 'github_last_push_info' },
     gh_ago: { val: DEFAULT_METRIC_VALUE, key: 'github_last_push_timestamp' },
     talos: { val: 'Unknown', key: 'talos_version' },

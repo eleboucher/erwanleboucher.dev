@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useMetrics } from '@/composables/useMetrics'
+import { usePosts } from '@/composables/usePosts'
 import { PRIMARY_STACK, GITHUB_USER } from '@/constants'
 import type { SystemStatus, MetricConfig } from '@/types'
 import MainLayout from '@/layouts/MainLayout.vue'
+
+const { posts } = usePosts()
 
 const { metrics, loading, error, fetchDuration, startPolling } = useMetrics()
 
@@ -33,7 +36,7 @@ onMounted(() => {
         <div></div>
 
         <template v-if="loading">
-          <div v-for="i in 3" :key="`skeleton-gh-${i}`" class="stat-card skeleton">
+          <div v-for="i in 6" :key="`skeleton-gh-${i}`" class="stat-card skeleton">
             <div class="skeleton-title"></div>
             <div class="skeleton-value"></div>
           </div>
@@ -43,6 +46,9 @@ onMounted(() => {
           <div
             v-for="(m, key) in {
               github_contributions: metrics.github_contributions,
+              github_followers: metrics.github_followers,
+              github_public_repos: metrics.github_public_repos,
+              github_stars: metrics.github_stars,
             }"
             :key="key"
             class="stat-card group"
@@ -59,6 +65,19 @@ onMounted(() => {
               </span>
             </div>
           </div>
+          <RouterLink
+            :to="`/blog/${posts[0].slug}`"
+            class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
+            :aria-label="`Latest post: ${posts[0].title}`"
+          >
+            <span class="stat-title group-hover:text-zinc-400 flex justify-between">
+              Latest Post
+            </span>
+            <div class="flex flex-col">
+              <span class="stat-value truncate">{{ posts[0].title }}</span>
+              <span class="text-sm text-zinc-400">{{ posts[0].date }}</span>
+            </div>
+          </RouterLink>
           <a
             :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
             target="_blank"

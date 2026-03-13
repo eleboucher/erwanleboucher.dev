@@ -34,6 +34,9 @@ export interface MetricsState {
   sla: MetricConfig
   cluster_latency: MetricConfig
   github_contributions: MetricConfig
+  github_followers: MetricConfig
+  github_public_repos: MetricConfig
+  github_stars: MetricConfig
   gh_repo: MetricConfig
   gh_ago: MetricConfig
   talos: MetricConfig
