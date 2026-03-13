@@ -88,7 +88,7 @@ const isActive = (path: string) => route.path === path
 }
 
 .status-badge {
-  @apply flex items-center gap-2 px-3 py-1.5 border rounded bg-zinc-900/50 text-[10px] uppercase tracking-wider;
+  @apply flex items-center gap-2 px-3 py-1.5 border rounded bg-zinc-900/50 text-xs uppercase tracking-wider;
 }
 
 .status-dot {
@@ -120,6 +120,6 @@ const isActive = (path: string) => route.path === path
 }
 
 .email-link {
-  @apply text-xs text-blue-400 hover:text-blue-300 mt-2 block transition-colors;
+  @apply text-sm text-blue-400 hover:text-blue-300 mt-2 block transition-colors;
 }
 </style>

@@ -46,7 +46,7 @@ const { posts } = usePosts()
 }
 
 .post-date {
-  @apply block text-xs font-medium text-zinc-400 uppercase tracking-widest mb-1;
+  @apply block text-sm font-medium text-zinc-400 uppercase tracking-widest mb-1;
 }
 
 .post-title {

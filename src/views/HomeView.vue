@@ -73,7 +73,7 @@ onMounted(() => {
               <span class="stat-value truncate">
                 {{ metrics.gh_repo.val }}
               </span>
-              <span class="text-xs text-zinc-400">{{ metrics.gh_ago.val }}</span>
+              <span class="text-sm text-zinc-400">{{ metrics.gh_ago.val }}</span>
             </div>
           </a>
 
@@ -138,7 +138,7 @@ onMounted(() => {
         <span v-for="i in 4" :key="`skeleton-tech-${i}`" class="tech-pill skeleton">
           <div class="skeleton-tech"></div>
         </span>
-        <div class="text-[10px] text-zinc-400 mt-2 text-center">
+        <div class="text-xs text-zinc-400 mt-2 text-center">
           <div class="skeleton-duration"></div>
         </div>
       </div>
@@ -157,7 +157,7 @@ onMounted(() => {
         <span class="tech-pill" :aria-label="`RouterOS version ${metrics.routeros.val}`">
           RouterOS {{ metrics.routeros.val }}
         </span>
-        <div class="text-[10px] text-zinc-400 mt-2 text-center" role="status" aria-live="polite">
+        <div class="text-xs text-zinc-400 mt-2 text-center" role="status" aria-live="polite">
           Dashboard updated in {{ fetchDuration }}ms
         </div>
       </div>
@@ -192,11 +192,11 @@ onMounted(() => {
 }
 
 .email-link {
-  @apply text-xs text-blue-400 hover:text-blue-300 mt-2 block transition-colors;
+  @apply text-sm text-blue-400 hover:text-blue-300 mt-2 block transition-colors;
 }
 
 .status-badge {
-  @apply flex items-center gap-2 px-3 py-1.5 border rounded bg-zinc-900/50 text-[10px] uppercase tracking-wider transition-colors;
+  @apply flex items-center gap-2 px-3 py-1.5 border rounded bg-zinc-900/50 text-xs uppercase tracking-wider transition-colors;
 }
 
 .status-dot {
@@ -213,7 +213,7 @@ onMounted(() => {
 }
 
 .stat-title {
-  @apply block text-xs font-medium text-zinc-300 uppercase tracking-widest mb-2 transition-colors;
+  @apply block text-sm font-medium text-zinc-300 uppercase tracking-widest mb-2 transition-colors;
 }
 
 .stat-value {
@@ -238,7 +238,7 @@ onMounted(() => {
 }
 
 .tech-stack {
-  @apply flex flex-wrap gap-2 text-[10px] text-zinc-300 uppercase font-medium tracking-wide;
+  @apply flex flex-wrap gap-2 text-xs text-zinc-300 uppercase font-medium tracking-wide;
 }
 
 .tech-pill {

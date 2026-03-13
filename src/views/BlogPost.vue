@@ -84,11 +84,11 @@ function handleCopyClick(event: Event) {
 }
 
 .back-link {
-  @apply text-xs text-zinc-400 hover:text-zinc-200 transition-colors;
+  @apply text-sm text-zinc-400 hover:text-zinc-200 transition-colors;
 }
 
 .post-date {
-  @apply block text-xs font-medium text-zinc-400 uppercase tracking-widest mb-1;
+  @apply block text-sm font-medium text-zinc-400 uppercase tracking-widest mb-1;
 }
 
 .section h1 {
@@ -165,7 +165,7 @@ function handleCopyClick(event: Event) {
 
 /* Language badge in header */
 .prose :deep(.code-lang) {
-  @apply text-xs font-medium text-zinc-300 uppercase tracking-wide;
+  @apply text-sm font-medium text-zinc-300 uppercase tracking-wide;
 }
 
 /* Copy button */
