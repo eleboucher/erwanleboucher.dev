@@ -11,14 +11,20 @@ const { getPost } = usePosts()
 const slug = computed(() => route.params.slug as string)
 const post = computed(() => getPost(slug.value))
 
-// This will hold the pre-rendered component
 const contentComponent = shallowRef()
+const componentCache = new Map<string, ReturnType<typeof defineAsyncComponent>>()
 
 watch(
   slug,
   (newSlug) => {
     if (post.value) {
-      contentComponent.value = defineAsyncComponent(() => import(`../posts/${newSlug}.md`))
+      if (!componentCache.has(newSlug)) {
+        componentCache.set(
+          newSlug,
+          defineAsyncComponent(() => import(`../posts/${newSlug}.md`)),
+        )
+      }
+      contentComponent.value = componentCache.get(newSlug)
     } else {
       router.replace('/blog')
     }
@@ -54,7 +60,12 @@ function handleCopyClick(event: Event) {
 
     <main @click="handleCopyClick">
       <article class="prose">
-        <component :is="contentComponent" />
+        <Suspense>
+          <component :is="contentComponent" />
+          <template #fallback>
+            <p class="loading">Loading…</p>
+          </template>
+        </Suspense>
       </article>
     </main>
   </MainLayout>
@@ -86,8 +97,8 @@ function handleCopyClick(event: Event) {
   @apply max-w-3xl;
 }
 
-.prose.is-loading {
-  @apply opacity-50;
+.prose .loading {
+  @apply text-zinc-500 text-sm;
 }
 
 .prose :deep(h1),
