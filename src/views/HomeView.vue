@@ -5,38 +5,11 @@ import { usePosts } from '@/composables/usePosts'
 import { PRIMARY_STACK, GITHUB_USER } from '@/constants'
 import type { MetricConfig } from '@/types'
 import MainLayout from '@/layouts/MainLayout.vue'
+import SparklineChart from '@/components/SparklineChart.vue'
 
 const { posts } = usePosts()
 const { metrics, loading, fetchDuration, startPolling } = useMetrics()
 
-const buildSparklinePaths = (
-  values: number[] | undefined,
-  w = 100,
-  h = 36,
-): { line: string; area: string } => {
-  if (!values || values.length < 2) return { line: '', area: '' }
-  const min = Math.min(...values)
-  const max = Math.max(...values)
-  const range = max - min || 1
-  const pad = 3
-  const pts = values.map((v, i) => ({
-    x: (i / (values.length - 1)) * w,
-    y: pad + (h - pad) - ((v - min) / range) * (h - pad),
-  }))
-  let d = `M${pts[0].x.toFixed(2)},${pts[0].y.toFixed(2)}`
-  for (let i = 0; i < pts.length - 1; i++) {
-    const p0 = pts[Math.max(0, i - 1)]
-    const p1 = pts[i]
-    const p2 = pts[i + 1]
-    const p3 = pts[Math.min(pts.length - 1, i + 2)]
-    const cp1x = p1.x + (p2.x - p0.x) / 6
-    const cp1y = p1.y + (p2.y - p0.y) / 6
-    const cp2x = p2.x - (p3.x - p1.x) / 6
-    const cp2y = p2.y - (p3.y - p1.y) / 6
-    d += ` C${cp1x.toFixed(2)},${cp1y.toFixed(2)} ${cp2x.toFixed(2)},${cp2y.toFixed(2)} ${p2.x.toFixed(2)},${p2.y.toFixed(2)}`
-  }
-  return { line: d, area: `${d} L${w},${h} L0,${h} Z` }
-}
 
 const COLOR_BORDER: Record<string, string> = {
   green: 'border-emerald-500/50 hover:border-emerald-500/70',
@@ -89,11 +62,12 @@ onMounted(startPolling)
           <div
             v-for="m in githubMetrics"
             :key="m.key"
-            class="stat-card group"
+            class="stat-card group relative overflow-hidden"
             role="article"
             :class="metricBorder(m)"
             :aria-label="`${m.title}: ${m.val}`"
           >
+            <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
             <span class="stat-title group-hover:text-zinc-400">{{ m.title }}</span>
             <span class="stat-value">{{ m.val }}</span>
           </div>
@@ -154,35 +128,7 @@ onMounted(startPolling)
             role="article"
             :aria-label="`${m.title}: ${m.val}`"
           >
-            <svg
-              v-if="m.history && m.history.length > 1"
-              class="sparkline-bg"
-              viewBox="0 0 100 36"
-              preserveAspectRatio="none"
-              aria-hidden="true"
-            >
-              <defs>
-                <linearGradient :id="`sg-${m.key}`" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="white" stop-opacity="0.12" />
-                  <stop offset="100%" stop-color="white" stop-opacity="0" />
-                </linearGradient>
-              </defs>
-              <path
-                :d="buildSparklinePaths(m.history).area"
-                :fill="`url(#sg-${m.key})`"
-                stroke="none"
-              />
-              <path
-                :d="buildSparklinePaths(m.history).line"
-                stroke="white"
-                stroke-width="0.8"
-                stroke-opacity="0.3"
-                fill="none"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                vector-effect="non-scaling-stroke"
-              />
-            </svg>
+            <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
             <span class="stat-title group-hover:text-zinc-400">{{ m.title }}</span>
             <span class="stat-value">{{ m.val }}</span>
           </div>
@@ -234,12 +180,6 @@ onMounted(startPolling)
 .stat-card {
   @apply bg-zinc-900/30 border p-5 rounded transition-all duration-300;
   @apply hover:bg-zinc-900/60;
-}
-
-.sparkline-bg {
-  @apply absolute inset-x-0 bottom-0 w-full;
-  height: 60%;
-  pointer-events: none;
 }
 
 .stat-title {

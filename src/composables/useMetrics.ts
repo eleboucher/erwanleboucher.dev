@@ -79,14 +79,21 @@ export function useMetrics() {
     return data
   }
 
-  const fetchHistory = async (key: string): Promise<number[]> => {
-    const res = await fetch(`${KROMGO_BASE}/${key}?format=history&last=7d`)
+  const fetchHistory = async (key: string, last: string): Promise<number[]> => {
+    const res = await fetch(`${KROMGO_BASE}/${key}?format=history&last=${last}`)
     if (!res.ok) return []
     const data = (await res.json()) as KromgoHistoryResponse
     return data.series?.[0]?.data?.map((p) => p.v) ?? []
   }
 
-  const HISTORY_KEYS: Array<keyof MetricsState> = ['cpu', 'mem', 'pods', 'sla', 'cluster_latency']
+  const HISTORY_KEYS: Array<{ key: keyof MetricsState; last: string }> = [
+    { key: 'cpu', last: '7d' },
+    { key: 'mem', last: '7d' },
+    { key: 'pods', last: '7d' },
+    { key: 'sla', last: '7d' },
+    { key: 'cluster_latency', last: '7d' },
+    { key: 'github_contributions', last: '1y' },
+  ]
 
   const fetchAllStats = () => {
     const start = performance.now()
@@ -113,7 +120,7 @@ export function useMetrics() {
               config.val = `${parseInt(value, 10)} days`
               break
             case 'cluster_latency':
-              config.val = `${parseInt(value, 10)} ms`
+              config.val = `${Math.round(parseFloat(value) * 1000)} ms`
               break
             case 'gh_ago':
               config.val = timeAgo(new Date(parseInt(value, 10) * 1000))
@@ -133,10 +140,10 @@ export function useMetrics() {
       }
     })
 
-    HISTORY_KEYS.forEach(async (dictKey) => {
+    HISTORY_KEYS.forEach(async ({ key: dictKey, last }) => {
       const config = metrics.value[dictKey]
       try {
-        config.history = await fetchHistory(config.key)
+        config.history = await fetchHistory(config.key, last)
       } catch {
         // silently ignore history fetch failures
       }
