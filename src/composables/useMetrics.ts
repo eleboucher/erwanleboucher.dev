@@ -1,5 +1,5 @@
 import { ref, onUnmounted } from 'vue'
-import type { MetricsState, KromgoEndpointResponse } from '../types'
+import type { MetricsState, KromgoEndpointResponse, KromgoHistoryResponse } from '../types'
 import {
   KROMGO_BASE,
   FETCH_INTERVAL_MS,
@@ -79,56 +79,68 @@ export function useMetrics() {
     return data
   }
 
-  const fetchAllStats = async () => {
+  const fetchHistory = async (key: string): Promise<number[]> => {
+    const res = await fetch(`${KROMGO_BASE}/${key}?format=history&last=7d`)
+    if (!res.ok) return []
+    const data = (await res.json()) as KromgoHistoryResponse
+    return data.series?.[0]?.data?.map((p) => p.v) ?? []
+  }
+
+  const HISTORY_KEYS: Array<keyof MetricsState> = ['cpu', 'mem', 'pods', 'sla', 'cluster_latency']
+
+  const fetchAllStats = () => {
     const start = performance.now()
-    try {
-      const keys = Object.keys(metrics.value) as Array<keyof MetricsState>
-      const promises = keys.map(async (dictKey) => {
-        const config = metrics.value[dictKey]
-        try {
-          const response = await fetchMetric(config.key)
-          if (response && response.message !== null) {
-            const value = response.message
-            config.color = response.color
+    const keys = Object.keys(metrics.value) as Array<keyof MetricsState>
+    let remaining = keys.length
 
-            switch (dictKey) {
-              case 'cpu':
-              case 'mem':
-                config.val = `${parseFloat(value).toFixed(METRICS_PRECISION_PERCENTAGE)}%`
-                break
-              case 'sla':
-                config.val = `${parseFloat(value).toFixed(SLA_PRECISION_PERCENTAGE)}%`
-                break
-              case 'uptime':
-                config.val = `${parseInt(value, 10)} days`
-                break
-              case 'cluster_latency':
-                config.val = `${parseInt(value, 10)} ms`
-                break
-              case 'gh_ago':
-                config.val = timeAgo(new Date(parseInt(value, 10) * 1000))
-                break
-              default:
-                config.val = value
-            }
+    keys.forEach(async (dictKey) => {
+      const config = metrics.value[dictKey]
+      try {
+        const response = await fetchMetric(config.key)
+        if (response && response.message !== null) {
+          const value = response.message
+          config.color = response.color
+
+          switch (dictKey) {
+            case 'cpu':
+            case 'mem':
+              config.val = `${parseFloat(value).toFixed(METRICS_PRECISION_PERCENTAGE)}%`
+              break
+            case 'sla':
+              config.val = `${parseFloat(value).toFixed(SLA_PRECISION_PERCENTAGE)}%`
+              break
+            case 'uptime':
+              config.val = `${parseInt(value, 10)} days`
+              break
+            case 'cluster_latency':
+              config.val = `${parseInt(value, 10)} ms`
+              break
+            case 'gh_ago':
+              config.val = timeAgo(new Date(parseInt(value, 10) * 1000))
+              break
+            default:
+              config.val = value
           }
-        } catch (err) {
-          console.warn(`Failed to fetch ${config.key}:`, err)
         }
-      })
+      } catch (err) {
+        console.warn(`Failed to fetch ${config.key}:`, err)
+      } finally {
+        remaining--
+        if (remaining === 0) {
+          loading.value = false
+          fetchDuration.value = Math.round(performance.now() - start)
+        }
+      }
+    })
 
-      await Promise.all(promises)
-      loading.value = false
-      error.value = null
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred'
-      console.error('Failed to fetch metrics:', errorMessage)
-      error.value = errorMessage
-      loading.value = false
-    } finally {
-      const end = performance.now()
-      fetchDuration.value = Math.round(end - start)
-    }
+    HISTORY_KEYS.forEach(async (dictKey) => {
+      const config = metrics.value[dictKey]
+      try {
+        config.history = await fetchHistory(config.key)
+      } catch {
+        // silently ignore history fetch failures
+      }
+    })
   }
 
   const startPolling = () => {

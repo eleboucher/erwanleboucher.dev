@@ -18,12 +18,32 @@ export interface GitHubEvent {
   created_at: string
 }
 
+export interface KromgoHistoryDataPoint {
+  t: number
+  v: number
+}
+
+export interface KromgoHistorySeries {
+  labels: Record<string, unknown>
+  data: KromgoHistoryDataPoint[]
+}
+
+export interface KromgoHistoryResponse {
+  metric: string
+  title: string
+  start: number
+  end: number
+  step: number
+  series: KromgoHistorySeries[]
+}
+
 export interface MetricConfig {
   val: string | number
   unit?: string
   title?: string
   key: string
   color?: string
+  history?: number[]
 }
 
 export interface MetricsState {
