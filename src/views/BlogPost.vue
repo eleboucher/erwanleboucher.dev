@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, computed, watch, defineAsyncComponent } from 'vue'
+import { shallowRef, ref, computed, watch, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { usePosts } from '@/composables/usePosts'
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -13,6 +13,7 @@ const post = computed(() => getPost(slug.value))
 
 const contentComponent = shallowRef()
 const componentCache = new Map<string, ReturnType<typeof defineAsyncComponent>>()
+const copyAnnouncement = ref('')
 
 watch(
   slug,
@@ -43,7 +44,11 @@ function handleCopyClick(event: Event) {
   if (code) {
     navigator.clipboard.writeText(code).then(() => {
       button.classList.add('copied')
-      setTimeout(() => button.classList.remove('copied'), 2000)
+      copyAnnouncement.value = 'Code copied to clipboard'
+      setTimeout(() => {
+        button.classList.remove('copied')
+        copyAnnouncement.value = ''
+      }, 2000)
     })
   }
 }
@@ -58,6 +63,7 @@ function handleCopyClick(event: Event) {
       <p class="post-description">{{ post.description }}</p>
     </header>
 
+    <div aria-live="polite" aria-atomic="true" class="sr-only">{{ copyAnnouncement }}</div>
     <main @click="handleCopyClick">
       <article class="prose">
         <Suspense>
@@ -199,6 +205,23 @@ function handleCopyClick(event: Event) {
 .prose :deep(.code-block-wrapper code) {
   @apply block min-w-full;
   @apply m-0 p-5 overflow-x-auto text-sm leading-[1.6] antialiased;
+  outline: none;
+}
+
+.prose :deep(.code-block-wrapper code:focus-visible) {
+  @apply ring-2 ring-blue-400 ring-offset-2 ring-offset-zinc-900;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .prose :deep(blockquote) {

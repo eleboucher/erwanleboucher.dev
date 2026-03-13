@@ -90,7 +90,8 @@ export default defineConfig({
                   const copyIcon = `<svg class="copy-icon" ${svgAttrs}><path d="M9 9h13v13H9V9z M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" stroke-linecap="round" stroke-linejoin="round"/></svg>`
                   const checkIcon = `<svg class="check-icon" ${svgAttrs}><path d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg>`
                   const header = `<div class="code-header"><span class="code-lang">${lang}</span><button class="copy-btn" aria-label="Copy code">${copyIcon}${checkIcon}</button></div>`
-                  return `<div class="code-block-wrapper" data-lang="${lang}">${header}${html}</div>`
+                  const focusable = html.replace('<code ', '<code tabindex="0" ')
+                  return `<div class="code-block-wrapper" data-lang="${lang}">${header}${focusable}</div>`
                 },
               },
             ],

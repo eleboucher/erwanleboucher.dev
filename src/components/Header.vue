@@ -37,7 +37,7 @@ const isActive = (path: string) => route.path === path
           to="/"
           class="nav-link"
           :class="{ 'nav-link-active': isActive('/') }"
-          aria-label="Visit homepage"
+          :aria-current="isActive('/') ? 'page' : undefined"
         >
           Home
         </RouterLink>
@@ -45,7 +45,7 @@ const isActive = (path: string) => route.path === path
           to="/blog"
           class="nav-link"
           :class="{ 'nav-link-active': isActive('/blog') }"
-          aria-label="Read the blog"
+          :aria-current="isActive('/blog') ? 'page' : undefined"
         >
           Blog
         </RouterLink>
@@ -56,7 +56,6 @@ const isActive = (path: string) => route.path === path
           target="_blank"
           rel="noopener noreferrer"
           class="social-link"
-          aria-label="Visit GitHub profile"
         >
           GitHub
         </a>
@@ -65,7 +64,6 @@ const isActive = (path: string) => route.path === path
           target="_blank"
           rel="noopener noreferrer"
           class="social-link"
-          aria-label="Visit LinkedIn profile"
         >
           LinkedIn
         </a>
