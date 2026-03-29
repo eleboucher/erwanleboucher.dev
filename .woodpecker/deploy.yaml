@@ -1,0 +1,37 @@
+---
+clone:
+  git:
+    image: woodpeckerci/plugin-git
+    settings:
+      skip-verify: true
+
+when:
+  - branch: master
+    event: [push, manual]
+
+steps:
+  - name: Install dependencies
+    image: oven/bun
+    commands:
+      - bun install
+
+  - name: Type check
+    image: oven/bun
+    commands:
+      - bun run type-check
+
+  - name: Build
+    image: oven/bun
+    commands:
+      - bun run build-only
+
+  - name: Deploy to OVHcloud S3
+    image: amazon/aws-cli:latest
+    environment:
+      AWS_ACCESS_KEY_ID:
+        from_secret: OVH_S3_ACCESS_KEY
+      AWS_SECRET_ACCESS_KEY:
+        from_secret: OVH_S3_SECRET_KEY
+      AWS_DEFAULT_REGION: rbx
+    commands:
+      - aws s3 sync dist/ s3://erwanleboucher.dev --delete --acl public-read --endpoint-url https://s3.rbx.io.cloud.ovh.net
