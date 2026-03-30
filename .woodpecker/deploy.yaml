@@ -10,20 +10,18 @@ when:
     event: [push, manual]
 
 steps:
-  - name: Install dependencies
-    image: oven/bun
-    commands:
-      - bun install
-
   - name: Type check
-    image: oven/bun
-    commands:
-      - bun run type-check
+    image: codeberg.org/woodpecker-plugins/node-pm
+    settings:
+      run: type-check
+      frozen_lockfile: true
+      ignore_node_modules: true
 
   - name: Build
-    image: oven/bun
-    commands:
-      - bun run build-only
+    image: codeberg.org/woodpecker-plugins/node-pm
+    settings:
+      run: build-only
+      frozen_lockfile: true
 
   - name: Deploy to OVHcloud S3
     image: amazon/aws-cli:latest
