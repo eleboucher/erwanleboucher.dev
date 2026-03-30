@@ -1,15 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    ":dependencyDashboard",
-    ":label(renovate)",
-    ":automergeBranch",
+    "local>eleboucher/renovate-config",
     ":automergeStableNonMajor",
-    ":automergeDigest",
-    ":disableRateLimiting",
-    ":semanticCommits",
-    ":skipStatusChecks",
-    ":timezone(Europe/Paris)"
+    ":automergeDigest"
   ]
 }
