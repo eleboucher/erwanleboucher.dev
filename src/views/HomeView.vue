@@ -10,7 +10,6 @@ import SparklineChart from '@/components/SparklineChart.vue'
 const { posts } = usePosts()
 const { metrics, loading, fetchDuration, startPolling } = useMetrics()
 
-
 const COLOR_BORDER: Record<string, string> = {
   green: 'border-emerald-500/50 hover:border-emerald-500/70',
   orange: 'border-orange-500/50 hover:border-orange-500/70',
@@ -42,7 +41,13 @@ const versionPills = computed(() => [
   { label: 'RouterOS', metric: metrics.value.routeros },
 ])
 
-onMounted(startPolling)
+onMounted(() => {
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(startPolling)
+  } else {
+    setTimeout(startPolling, 200)
+  }
+})
 </script>
 
 <template>
