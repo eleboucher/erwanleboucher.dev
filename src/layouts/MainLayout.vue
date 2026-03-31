@@ -15,7 +15,7 @@ import Header from '@/components/Header.vue'
 @reference '../app.css';
 
 .main-layout {
-  @apply min-h-screen flex items-start justify-center py-16 px-6 selection:bg-emerald-500/30;
+  @apply min-h-screen flex items-start justify-center py-16 px-6 selection:bg-navy-500/30;
 }
 
 .content-wrapper {

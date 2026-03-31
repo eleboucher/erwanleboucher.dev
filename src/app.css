@@ -2,36 +2,43 @@
 /*@plugin '@tailwindcss/typography';*/
 
 @theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     'Atkinson Hyperlegible Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
+  --color-navy-400: #6d9dc5;
+  --color-navy-500: #4f80a8;
+  --color-surface-950: #0f1118;
+  --color-surface-900: #171b24;
+  --color-surface-800: #222838;
+  --color-surface-700: #2e3548;
+  --color-surface-600: #3d4560;
 }
 
 :root {
-  background-color: #18181b; /* zinc-900 */
-  color: #f4f4f5; /* zinc-100 */
-  color-scheme: dark; /* Tells browser scrollbars to be dark */
+  background-color: #0f1118;
+  color: #f4f4f5;
+  color-scheme: dark;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #18181b; /* Double safety for legacy browsers */
+  background-color: #0f1118;
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Optional: Customize the scrollbar to match the theme */
 ::-webkit-scrollbar {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #18181b;
+  background: #0f1118;
 }
 ::-webkit-scrollbar-thumb {
-  background: #3f3f46; /* zinc-700 */
+  background: #2e3548;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #52525b; /* zinc-600 */
+  background: #3d4560;
 }

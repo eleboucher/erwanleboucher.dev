@@ -10,7 +10,7 @@ const isActive = (path: string) => route.path === path
   <header class="section">
     <div class="identity-block">
       <div>
-        <h1>Erwan Leboucher</h1>
+        <h1 class="font-sans">Erwan Leboucher</h1>
         <p class="subtitle">Senior Software Engineer • Paris</p>
         <a
           href="mailto:erwanleboucher@gmail.com"
@@ -22,11 +22,11 @@ const isActive = (path: string) => route.path === path
       </div>
       <div class="identity-right">
         <div
-          class="status-badge text-emerald-400 border-emerald-400/50"
+          class="status-badge text-navy-400 border-navy-400/50"
           role="status"
           aria-live="polite"
         >
-          <span class="status-dot animate-pulse bg-emerald-400"></span>
+          <span class="status-dot animate-pulse bg-navy-400"></span>
           All Systems Operational
         </div>
       </div>
@@ -76,7 +76,7 @@ const isActive = (path: string) => route.path === path
 @reference '../app.css';
 
 .section {
-  @apply flex flex-col mb-12 border-b border-zinc-800 pb-6 gap-4;
+  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
 }
 
 .identity-block {
@@ -88,7 +88,7 @@ const isActive = (path: string) => route.path === path
 }
 
 .status-badge {
-  @apply flex items-center gap-2 px-3 py-1.5 border rounded bg-zinc-900/50 text-xs uppercase tracking-wider;
+  @apply flex items-center gap-2 px-3 py-1.5 border rounded-md bg-surface-900/60 text-xs uppercase tracking-wider;
 }
 
 .status-dot {
@@ -112,7 +112,7 @@ const isActive = (path: string) => route.path === path
 }
 
 .nav-link-active {
-  @apply text-zinc-100 font-bold border-b border-zinc-700 pb-0.5 hover:border-emerald-400 hover:text-emerald-400;
+  @apply text-zinc-100 font-bold border-b border-surface-700 pb-0.5 hover:border-navy-400 hover:text-navy-400;
 }
 
 .subtitle {
@@ -120,6 +120,6 @@ const isActive = (path: string) => route.path === path
 }
 
 .email-link {
-  @apply text-sm text-blue-400 hover:text-blue-300 mt-2 block transition-colors;
+  @apply text-sm text-navy-400 hover:text-navy-400/80 mt-2 block transition-colors;
 }
 </style>

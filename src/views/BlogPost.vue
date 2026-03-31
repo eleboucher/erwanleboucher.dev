@@ -80,7 +80,7 @@ function handleCopyClick(event: Event) {
 @reference '../app.css';
 
 .section {
-  @apply flex flex-col mb-12 border-b border-zinc-800 pb-6 gap-4;
+  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
 }
 
 .back-link {
@@ -92,7 +92,7 @@ function handleCopyClick(event: Event) {
 }
 
 .section h1 {
-  @apply text-2xl font-bold text-zinc-100 tracking-tight mt-1 mb-2;
+  @apply text-2xl font-sans font-bold text-zinc-100 tracking-tight mt-1 mb-2;
 }
 
 .post-description {
@@ -110,7 +110,7 @@ function handleCopyClick(event: Event) {
 .prose :deep(h1),
 .prose :deep(h2),
 .prose :deep(h3) {
-  @apply font-bold text-zinc-100 mt-12 mb-4;
+  @apply font-sans font-bold text-zinc-100 mt-12 mb-4;
 }
 
 .prose :deep(h1) {
@@ -145,22 +145,22 @@ function handleCopyClick(event: Event) {
 }
 
 .prose :deep(a) {
-  @apply text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors;
+  @apply text-navy-400 hover:text-navy-400/80 underline underline-offset-2 transition-colors;
 }
 
 .prose :deep(code):not(pre code) {
-  @apply text-emerald-400 bg-zinc-800/80 px-1.5 py-0.5 rounded text-sm;
+  @apply text-navy-400 bg-surface-800/80 px-1.5 py-0.5 rounded text-sm;
 }
 
 /* Code block wrapper */
 .prose :deep(.code-block-wrapper) {
-  @apply relative mb-8 rounded-lg overflow-hidden border border-zinc-800 bg-zinc-900 shadow-xl;
+  @apply relative mb-8 rounded-lg overflow-hidden border border-surface-800 bg-surface-900 shadow-xl;
 }
 
 /* Code header with language and copy button */
 .prose :deep(.code-header) {
   @apply flex items-center justify-between px-4 py-2;
-  @apply bg-zinc-800/50 border-b border-zinc-700;
+  @apply bg-surface-800/50 border-b border-surface-700;
 }
 
 /* Language badge in header */
@@ -172,7 +172,7 @@ function handleCopyClick(event: Event) {
 .prose :deep(.copy-btn) {
   @apply relative flex items-center justify-center;
   @apply p-4 rounded-md cursor-pointer transition-all duration-150;
-  @apply bg-transparent text-zinc-200 hover:bg-zinc-700 hover:text-white;
+  @apply bg-transparent text-zinc-200 hover:bg-surface-700 hover:text-white;
 }
 
 .prose :deep(.copy-btn svg) {
@@ -185,7 +185,7 @@ function handleCopyClick(event: Event) {
 }
 
 .prose :deep(.copy-btn .check-icon) {
-  @apply text-emerald-400 opacity-0 scale-50;
+  @apply text-navy-400 opacity-0 scale-50;
 }
 
 .prose :deep(.copy-btn .copy-icon) {
@@ -209,7 +209,7 @@ function handleCopyClick(event: Event) {
 }
 
 .prose :deep(.code-block-wrapper code:focus-visible) {
-  @apply ring-2 ring-blue-400 ring-offset-2 ring-offset-zinc-900;
+  @apply ring-2 ring-navy-400 ring-offset-2 ring-offset-surface-900;
 }
 
 .sr-only {
@@ -225,10 +225,10 @@ function handleCopyClick(event: Event) {
 }
 
 .prose :deep(blockquote) {
-  @apply border-l-2 border-zinc-500 pl-5 text-zinc-400 italic mb-6 py-1;
+  @apply border-l-2 border-navy-500/50 pl-5 text-zinc-400 italic mb-6 py-1;
 }
 
 .prose :deep(hr) {
-  @apply border-zinc-700 my-10;
+  @apply border-surface-700 my-10;
 }
 </style>

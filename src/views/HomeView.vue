@@ -11,12 +11,12 @@ const { posts } = usePosts()
 const { metrics, loading, fetchDuration, startPolling } = useMetrics()
 
 const COLOR_BORDER: Record<string, string> = {
-  green: 'border-emerald-500/50 hover:border-emerald-500/70',
+  green: 'border-navy-500/50 hover:border-navy-500/70',
   orange: 'border-orange-500/50 hover:border-orange-500/70',
   red: 'border-red-500/50 hover:border-red-500/70',
 }
 const metricBorder = (m: MetricConfig) =>
-  COLOR_BORDER[m.color ?? ''] ?? 'border-zinc-800 hover:border-blue-500/30'
+  COLOR_BORDER[m.color ?? ''] ?? 'border-surface-800 hover:border-navy-500/30'
 
 const githubMetrics = computed(() => [
   metrics.value.github_contributions,
@@ -79,7 +79,7 @@ onMounted(() => {
 
           <RouterLink
             :to="`/blog/${posts[0].slug}`"
-            class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
+            class="stat-card group cursor-pointer border-surface-700 hover:border-navy-500/30"
             :aria-label="`Latest post: ${posts[0].title}`"
           >
             <span class="stat-title group-hover:text-zinc-400">Latest Post</span>
@@ -93,7 +93,7 @@ onMounted(() => {
             :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
             target="_blank"
             rel="noopener noreferrer"
-            class="stat-card group cursor-pointer border-zinc-500 hover:border-blue-500/30"
+            class="stat-card group cursor-pointer border-surface-700 hover:border-navy-500/30"
             :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
           >
             <span class="stat-title group-hover:text-zinc-400">Latest Code Push</span>
@@ -104,7 +104,7 @@ onMounted(() => {
           </a>
 
           <div
-            class="stat-card group border-zinc-800 hover:border-blue-500/30"
+            class="stat-card group border-surface-800 hover:border-navy-500/30"
             role="article"
             :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
           >
@@ -171,7 +171,7 @@ onMounted(() => {
 @reference "../app.css";
 
 .section {
-  @apply flex flex-col mb-12 border-b border-zinc-800 pb-6 gap-4;
+  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
 }
 
 .metrics-grid {
@@ -179,12 +179,12 @@ onMounted(() => {
 }
 
 .metrics-grid > h2 {
-  @apply grid-cols-subgrid col-span-full text-xl font-bold text-zinc-100 tracking-tight;
+  @apply grid-cols-subgrid col-span-full text-xl font-sans font-bold text-zinc-100 tracking-tight pl-3 border-l-2 border-navy-500;
 }
 
 .stat-card {
-  @apply bg-zinc-900/30 border p-5 rounded transition-all duration-300;
-  @apply hover:bg-zinc-900/60;
+  @apply bg-surface-900/40 border p-5 rounded-md transition-all duration-400;
+  @apply hover:shadow-[0_0_12px_rgba(79,128,168,0.15)];
 }
 
 .stat-title {
@@ -204,7 +204,7 @@ onMounted(() => {
 }
 
 .tech-pill {
-  @apply px-2 py-1 border border-zinc-800 rounded bg-zinc-900/50;
+  @apply px-2 py-1 border border-surface-800 rounded-md bg-surface-900/60;
 }
 
 .skeleton {
@@ -212,18 +212,18 @@ onMounted(() => {
 }
 
 .skeleton-title {
-  @apply h-3 bg-zinc-700/50 rounded w-24 mb-3;
+  @apply h-3 bg-surface-700/50 rounded w-24 mb-3;
 }
 
 .skeleton-value {
-  @apply h-8 bg-zinc-700/50 rounded w-32;
+  @apply h-8 bg-surface-700/50 rounded w-32;
 }
 
 .skeleton-tech {
-  @apply h-4 bg-zinc-700/50 rounded w-16;
+  @apply h-4 bg-surface-700/50 rounded w-16;
 }
 
 .skeleton-duration {
-  @apply h-3 bg-zinc-700/50 rounded w-40 mx-auto mt-2;
+  @apply h-3 bg-surface-700/50 rounded w-40 mx-auto mt-2;
 }
 </style>

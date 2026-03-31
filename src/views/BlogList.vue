@@ -26,7 +26,7 @@ const { posts } = usePosts()
 @reference "../app.css";
 
 .section {
-  @apply flex flex-col mb-12 border-b border-zinc-800 pb-6 gap-4;
+  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
 }
 
 .section h1 {
@@ -38,11 +38,12 @@ const { posts } = usePosts()
 }
 
 .post-item {
-  @apply border border-zinc-800 rounded;
+  @apply border border-surface-800 rounded-md;
 }
 
 .post-link {
-  @apply block p-5 no-underline hover:bg-zinc-900/60 transition-all duration-300;
+  @apply block p-5 no-underline transition-all duration-300;
+  @apply hover:shadow-[0_0_12px_rgba(79,128,168,0.15)];
 }
 
 .post-date {
@@ -50,7 +51,7 @@ const { posts } = usePosts()
 }
 
 .post-title {
-  @apply block text-base font-bold text-zinc-100 mb-1;
+  @apply block text-base font-sans font-bold text-zinc-100 mb-1;
 }
 
 .post-description {
