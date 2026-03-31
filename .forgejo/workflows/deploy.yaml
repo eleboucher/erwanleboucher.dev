@@ -1,0 +1,36 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: docker
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Type check
+        run: bun run type-check
+
+      - name: Build
+        run: bun run build-only
+
+      - name: Deploy to OVHcloud S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.OVH_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.OVH_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: rbx
+        run: |
+          curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
+          unzip -q awscliv2.zip
+          ./aws/install
+          aws s3 sync dist/ s3://erwanleboucher.dev --delete --acl public-read --endpoint-url https://s3.rbx.io.cloud.ovh.net
