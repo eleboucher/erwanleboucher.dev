@@ -3,8 +3,8 @@ import Header from '@/components/Header.vue'
 </script>
 
 <template>
-  <div class="main-layout">
-    <div class="content-wrapper">
+  <div class="layout">
+    <div class="container">
       <Header />
       <slot />
     </div>
@@ -14,11 +14,11 @@ import Header from '@/components/Header.vue'
 <style scoped>
 @reference '../app.css';
 
-.main-layout {
-  @apply min-h-screen flex items-start justify-center py-16 px-6 selection:bg-navy-500/30;
+.layout {
+  @apply min-h-screen flex items-start justify-center py-20 px-6;
 }
 
-.content-wrapper {
+.container {
   @apply w-full max-w-4xl;
 }
 </style>

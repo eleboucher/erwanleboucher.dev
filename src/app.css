@@ -1,44 +1,66 @@
 @import 'tailwindcss';
-/*@plugin '@tailwindcss/typography';*/
 
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --font-mono:
     'Atkinson Hyperlegible Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
-  --color-navy-400: #6d9dc5;
-  --color-navy-500: #4f80a8;
-  --color-surface-950: #0f1118;
-  --color-surface-900: #171b24;
-  --color-surface-800: #222838;
-  --color-surface-700: #2e3548;
-  --color-surface-600: #3d4560;
+
+  /* Anthracite base — dark gray with a cool blue undertone */
+  --color-anthracite-950: #101218;
+  --color-anthracite-900: #16181f;
+  --color-anthracite-850: #1c1e28;
+  --color-anthracite-800: #252834;
+  --color-anthracite-700: #313544;
+  --color-anthracite-600: #3e4358;
+
+  /* Navy accent */
+  --color-navy-700: #1e3d66;
+  --color-navy-600: #2a5080;
+  --color-navy-500: #3672a4;
+  --color-navy-400: #4a8ec8;
+  --color-navy-300: #6baad8;
+
+  /* Text tones */
+  --color-cream-100: #f4f4f5;
+  --color-cream-200: #e4e4e7;
+  --color-cream-300: #d4d4d8;
+  --color-cream-400: #b0b0b8;
+  --color-cream-500: #909099;
+
+  --color-teal: #7bbcbe;
+  --color-teal-dim: #62a3a5;
 }
 
 :root {
-  background-color: #0f1118;
-  color: #f4f4f5;
+  background-color: var(--color-anthracite-950);
+  color: var(--color-cream-200);
   color-scheme: dark;
 }
 
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: #0f1118;
+  background-color: var(--color-anthracite-950);
+  background-image: radial-gradient(circle, var(--color-anthracite-800) 0.5px, transparent 0.5px);
+  background-size: 24px 24px;
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;
 }
 
+::selection {
+  background-color: color-mix(in srgb, var(--color-navy-400) 30%, transparent);
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f1118;
+  background: var(--color-anthracite-950);
 }
 ::-webkit-scrollbar-thumb {
-  background: #2e3548;
-  border-radius: 4px;
+  background: var(--color-anthracite-700);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3d4560;
+  background: var(--color-anthracite-600);
 }

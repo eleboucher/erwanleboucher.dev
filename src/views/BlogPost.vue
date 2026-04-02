@@ -56,61 +56,58 @@ function handleCopyClick(event: Event) {
 
 <template>
   <MainLayout v-if="post">
-    <header class="section">
-      <RouterLink to="/blog" class="back-link">← Back</RouterLink>
+    <header class="post-header">
+      <RouterLink to="/blog" class="back-link">&larr; Back</RouterLink>
       <span class="post-date">{{ post.date }}</span>
-      <h1>{{ post.title }}</h1>
-      <p class="post-description">{{ post.description }}</p>
+      <h1 class="post-title">{{ post.title }}</h1>
+      <p class="post-desc">{{ post.description }}</p>
     </header>
 
-    <div aria-live="polite" aria-atomic="true" class="sr-only">{{ copyAnnouncement }}</div>
-    <main @click="handleCopyClick">
-      <article class="prose">
+    <div aria-live="polite" aria-atomic="true" class="sr-only!">{{ copyAnnouncement }}</div>
+    <main>
+      <article class="prose" @click="handleCopyClick">
         <Suspense>
           <component :is="contentComponent" />
           <template #fallback>
-            <p class="loading">Loading…</p>
+            <p class="text-sm text-cream-500">Loading...</p>
           </template>
         </Suspense>
       </article>
     </main>
   </MainLayout>
 </template>
+
 <style scoped>
 @reference '../app.css';
 
-.section {
-  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
+.post-header {
+  @apply flex flex-col gap-3 mb-16 pb-6 border-b border-anthracite-800;
 }
 
 .back-link {
-  @apply text-sm text-zinc-400 hover:text-zinc-200 transition-colors;
+  @apply text-sm text-cream-500 hover:text-cream-200 transition-colors;
 }
 
 .post-date {
-  @apply block text-sm font-medium text-zinc-400 uppercase tracking-widest mb-1;
+  @apply text-xs text-teal uppercase tracking-[0.15em] mt-2;
 }
 
-.section h1 {
-  @apply text-2xl font-sans font-bold text-zinc-100 tracking-tight mt-1 mb-2;
+.post-title {
+  @apply text-2xl font-bold text-cream-100 tracking-tight leading-tight;
 }
 
-.post-description {
-  @apply text-base text-zinc-400 m-0 leading-relaxed;
+.post-desc {
+  @apply text-base text-cream-400 m-0 leading-relaxed;
 }
 
 .prose {
   @apply max-w-3xl;
 }
 
-.prose .loading {
-  @apply text-zinc-500 text-sm;
-}
-
 .prose :deep(h1),
 .prose :deep(h2),
 .prose :deep(h3) {
-  @apply font-sans font-bold text-zinc-100 mt-12 mb-4;
+  @apply font-bold text-cream-100 mt-14 mb-4;
 }
 
 .prose :deep(h1) {
@@ -124,16 +121,16 @@ function handleCopyClick(event: Event) {
 }
 
 .prose :deep(p) {
-  @apply text-base text-zinc-200 leading-7 mb-6;
+  @apply text-base text-cream-200 leading-7 mb-6;
 }
 
-.prose :deep(ul) {
-  @apply list-disc text-base text-zinc-200 pl-6 mb-6 leading-7;
-}
-
+.prose :deep(ul),
 .prose :deep(ol) {
-  @apply list-decimal text-base text-zinc-200 pl-6 mb-6 leading-7;
+  @apply text-base text-cream-200 pl-6 mb-6 leading-7;
 }
+
+.prose :deep(ul) { @apply list-disc; }
+.prose :deep(ol) { @apply list-decimal; }
 
 .prose :deep(li) {
   @apply mb-2 pl-1;
@@ -145,63 +142,40 @@ function handleCopyClick(event: Event) {
 }
 
 .prose :deep(a) {
-  @apply text-navy-400 hover:text-navy-400/80 underline underline-offset-2 transition-colors;
+  @apply text-navy-300 hover:text-navy-400 underline underline-offset-2 transition-colors;
 }
 
 .prose :deep(code):not(pre code) {
-  @apply text-navy-400 bg-surface-800/80 px-1.5 py-0.5 rounded text-sm;
+  @apply text-navy-300 bg-anthracite-850 px-1.5 py-0.5 text-sm;
 }
 
-/* Code block wrapper */
 .prose :deep(.code-block-wrapper) {
-  @apply relative mb-8 rounded-lg overflow-hidden border border-surface-800 bg-surface-900 shadow-xl;
+  @apply relative mb-8 overflow-hidden border border-anthracite-800 bg-anthracite-900;
 }
 
-/* Code header with language and copy button */
 .prose :deep(.code-header) {
   @apply flex items-center justify-between px-4 py-2;
-  @apply bg-surface-800/50 border-b border-surface-700;
+  @apply bg-anthracite-850 border-b border-anthracite-800;
 }
 
-/* Language badge in header */
 .prose :deep(.code-lang) {
-  @apply text-sm font-medium text-zinc-300 uppercase tracking-wide;
+  @apply text-sm font-medium text-cream-400 uppercase tracking-wide;
 }
 
-/* Copy button */
 .prose :deep(.copy-btn) {
   @apply relative flex items-center justify-center;
-  @apply p-4 rounded-md cursor-pointer transition-all duration-150;
-  @apply bg-transparent text-zinc-200 hover:bg-surface-700 hover:text-white;
+  @apply p-4 cursor-pointer transition-all duration-150;
+  @apply bg-transparent text-cream-300 hover:bg-anthracite-800 hover:text-cream-100;
+
+  svg { @apply w-4 h-4 transition-all duration-200; }
+  .copy-icon, .check-icon { @apply absolute; }
+  .check-icon { @apply text-navy-400 opacity-0 scale-50; }
+  .copy-icon { @apply opacity-100 scale-100; }
+
+  &.copied .copy-icon { @apply opacity-0 scale-50; }
+  &.copied .check-icon { @apply opacity-100 scale-100; }
 }
 
-.prose :deep(.copy-btn svg) {
-  @apply w-4 h-4 transition-all duration-200;
-}
-
-.prose :deep(.copy-btn .copy-icon),
-.prose :deep(.copy-btn .check-icon) {
-  @apply absolute;
-}
-
-.prose :deep(.copy-btn .check-icon) {
-  @apply text-navy-400 opacity-0 scale-50;
-}
-
-.prose :deep(.copy-btn .copy-icon) {
-  @apply opacity-100 scale-100;
-}
-
-/* Active "Copied" State */
-.prose :deep(.copy-btn.copied .copy-icon) {
-  @apply opacity-0 scale-50;
-}
-
-.prose :deep(.copy-btn.copied .check-icon) {
-  @apply opacity-100 scale-100;
-}
-
-/* Code block styling */
 .prose :deep(.code-block-wrapper code) {
   @apply block min-w-full;
   @apply m-0 p-5 overflow-x-auto text-sm leading-[1.6] antialiased;
@@ -209,26 +183,14 @@ function handleCopyClick(event: Event) {
 }
 
 .prose :deep(.code-block-wrapper code:focus-visible) {
-  @apply ring-2 ring-navy-400 ring-offset-2 ring-offset-surface-900;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+  @apply ring-2 ring-navy-400 ring-offset-2 ring-offset-anthracite-900;
 }
 
 .prose :deep(blockquote) {
-  @apply border-l-2 border-navy-500/50 pl-5 text-zinc-400 italic mb-6 py-1;
+  @apply border-l-2 border-navy-500/50 pl-5 text-cream-400 italic mb-6 py-1;
 }
 
 .prose :deep(hr) {
-  @apply border-surface-700 my-10;
+  @apply border-anthracite-800 my-10;
 }
 </style>

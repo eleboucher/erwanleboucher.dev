@@ -13,11 +13,11 @@ const { posts } = usePosts()
           <RouterLink :to="`/blog/${post.slug}`" class="post-link">
             <span class="post-date">{{ post.date }}</span>
             <span class="post-title">{{ post.title }}</span>
-            <p class="post-description">{{ post.description }}</p>
+            <span class="post-desc">{{ post.description }}</span>
           </RouterLink>
         </li>
       </ul>
-      <p v-if="posts.length === 0" class="empty-state">No posts yet.</p>
+      <p v-if="posts.length === 0" class="text-sm text-cream-500">No posts yet.</p>
     </main>
   </MainLayout>
 </template>
@@ -25,40 +25,35 @@ const { posts } = usePosts()
 <style scoped>
 @reference "../app.css";
 
-.section {
-  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
-}
-
-.section h1 {
-  @apply text-xl font-bold text-zinc-100 tracking-tight;
-}
-
 .post-list {
-  @apply list-none p-0 m-0 flex flex-col gap-4;
+  @apply list-none p-0 m-0 flex flex-col;
 }
 
 .post-item {
-  @apply border border-surface-800 rounded-md;
+  @apply border-b border-anthracite-800;
+}
+
+.post-item:first-child {
+  @apply border-t;
 }
 
 .post-link {
-  @apply block p-5 no-underline transition-all duration-300;
-  @apply hover:shadow-[0_0_12px_rgba(79,128,168,0.15)];
+  @apply block py-6 no-underline transition-colors duration-200;
+}
+
+.post-link:hover .post-title {
+  @apply text-navy-300;
 }
 
 .post-date {
-  @apply block text-sm font-medium text-zinc-400 uppercase tracking-widest mb-1;
+  @apply block text-xs text-teal uppercase tracking-[0.15em] mb-2;
 }
 
 .post-title {
-  @apply block text-base font-sans font-bold text-zinc-100 mb-1;
+  @apply block text-base font-bold text-cream-100 mb-1 transition-colors;
 }
 
-.post-description {
-  @apply text-sm text-zinc-400 m-0;
-}
-
-.empty-state {
-  @apply text-sm text-zinc-400;
+.post-desc {
+  @apply block text-sm text-cream-400 leading-relaxed;
 }
 </style>

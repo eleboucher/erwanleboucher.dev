@@ -7,36 +7,24 @@ const isActive = (path: string) => route.path === path
 </script>
 
 <template>
-  <header class="section">
-    <div class="identity-block">
+  <header class="header">
+    <div class="identity">
       <div>
-        <h1 class="font-sans">Erwan Leboucher</h1>
-        <p class="subtitle">Senior Software Engineer • Paris</p>
-        <a
-          href="mailto:erwanleboucher@gmail.com"
-          class="email-link"
-          aria-label="Send email to erwanleboucher@gmail.com"
-        >
-          erwanleboucher@gmail.com
-        </a>
+        <h1 class="name">Erwan Leboucher</h1>
+        <p class="subtitle">Senior Software Engineer — Paris</p>
       </div>
-      <div class="identity-right">
-        <div
-          class="status-badge text-navy-400 border-navy-400/50"
-          role="status"
-          aria-live="polite"
-        >
-          <span class="status-dot animate-pulse bg-navy-400"></span>
-          All Systems Operational
-        </div>
+      <div class="status-badge" role="status" aria-live="polite">
+        <span class="status-dot"></span>
+        Systems Operational
       </div>
     </div>
-    <nav class="nav-links" aria-label="Main navigation">
-      <div>
+
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav-group">
         <RouterLink
           to="/"
           class="nav-link"
-          :class="{ 'nav-link-active': isActive('/') }"
+          :class="{ active: isActive('/') }"
           :aria-current="isActive('/') ? 'page' : undefined"
         >
           Home
@@ -44,18 +32,25 @@ const isActive = (path: string) => route.path === path
         <RouterLink
           to="/blog"
           class="nav-link"
-          :class="{ 'nav-link-active': isActive('/blog') }"
+          :class="{ active: isActive('/blog') }"
           :aria-current="isActive('/blog') ? 'page' : undefined"
         >
           Blog
         </RouterLink>
       </div>
-      <div class="ml-auto mr-0">
+      <div class="nav-group">
+        <a
+          href="mailto:erwanleboucher@gmail.com"
+          class="nav-link external"
+          aria-label="Send email to erwanleboucher@gmail.com"
+        >
+          Email
+        </a>
         <a
           href="https://github.com/eleboucher"
           target="_blank"
           rel="noopener noreferrer"
-          class="social-link"
+          class="nav-link external"
         >
           GitHub
         </a>
@@ -63,7 +58,7 @@ const isActive = (path: string) => route.path === path
           href="https://linkedin.com/in/erwan-leboucher"
           target="_blank"
           rel="noopener noreferrer"
-          class="social-link"
+          class="nav-link external"
         >
           LinkedIn
         </a>
@@ -75,51 +70,47 @@ const isActive = (path: string) => route.path === path
 <style scoped>
 @reference '../app.css';
 
-.section {
-  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
+.header {
+  @apply flex flex-col gap-6 mb-16 pb-6 border-b border-anthracite-800;
 }
 
-.identity-block {
-  @apply flex flex-col md:flex-row justify-between items-start;
+.identity {
+  @apply flex flex-col md:flex-row justify-between items-start gap-4;
 }
 
-.identity-right {
-  @apply flex items-center gap-4 mt-4 md:mt-0;
-}
-
-.status-badge {
-  @apply flex items-center gap-2 px-3 py-1.5 border rounded-md bg-surface-900/60 text-xs uppercase tracking-wider;
-}
-
-.status-dot {
-  @apply w-1.5 h-1.5 rounded-full;
-}
-
-.social-links {
-  @apply flex gap-4 text-sm;
-}
-
-.social-link {
-  @apply text-zinc-400 hover:text-zinc-200 transition-colors;
-}
-
-.nav-links {
-  @apply flex flex-wrap gap-6 text-sm;
-}
-
-.nav-link {
-  @apply text-zinc-400 hover:text-zinc-200 transition-colors;
-}
-
-.nav-link-active {
-  @apply text-zinc-100 font-bold border-b border-surface-700 pb-0.5 hover:border-navy-400 hover:text-navy-400;
+.name {
+  @apply text-3xl font-bold text-cream-100 tracking-tight leading-none;
 }
 
 .subtitle {
-  @apply text-sm text-zinc-400 mt-1;
+  @apply text-sm text-cream-400 mt-2 tracking-wide;
 }
 
-.email-link {
-  @apply text-sm text-navy-400 hover:text-navy-400/80 mt-2 block transition-colors;
+.status-badge {
+  @apply flex items-center gap-2 text-xs text-teal uppercase tracking-widest;
+}
+
+.status-dot {
+  @apply w-1.5 h-1.5 rounded-full bg-teal animate-pulse;
+}
+
+.nav {
+  @apply flex flex-wrap justify-between gap-6 text-sm;
+}
+
+.nav-group {
+  @apply flex gap-6;
+}
+
+.nav-link {
+  @apply text-cream-400 hover:text-cream-100 transition-colors duration-200;
+}
+
+.nav-link.active {
+  @apply text-cream-100 border-b border-navy-400;
+}
+
+.nav-link.external {
+  @apply text-cream-500 hover:text-cream-300;
 }
 </style>

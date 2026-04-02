@@ -16,7 +16,7 @@ const COLOR_BORDER: Record<string, string> = {
   red: 'border-red-500/50 hover:border-red-500/70',
 }
 const metricBorder = (m: MetricConfig) =>
-  COLOR_BORDER[m.color ?? ''] ?? 'border-surface-800 hover:border-navy-500/30'
+  COLOR_BORDER[m.color ?? ''] ?? 'border-anthracite-800 hover:border-navy-500/30'
 
 const githubMetrics = computed(() => [
   metrics.value.github_contributions,
@@ -55,114 +55,111 @@ onMounted(() => {
     <main>
       <section class="metrics-grid section" aria-labelledby="github-metrics-heading">
         <h2 id="github-metrics-heading">GitHub Metrics</h2>
-
-        <template v-if="loading">
-          <div v-for="i in 6" :key="`skeleton-gh-${i}`" class="stat-card skeleton">
-            <div class="skeleton-title"></div>
-            <div class="skeleton-value"></div>
-          </div>
-        </template>
-
-        <template v-else>
-          <div
-            v-for="m in githubMetrics"
-            :key="m.key"
-            class="stat-card group relative overflow-hidden"
-            role="article"
-            :class="metricBorder(m)"
-            :aria-label="`${m.title}: ${m.val}`"
-          >
-            <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
-            <span class="stat-title group-hover:text-zinc-400">{{ m.title }}</span>
-            <span class="stat-value">{{ m.val }}</span>
-          </div>
-
-          <RouterLink
-            :to="`/blog/${posts[0].slug}`"
-            class="stat-card group cursor-pointer border-surface-700 hover:border-navy-500/30"
-            :aria-label="`Latest post: ${posts[0].title}`"
-          >
-            <span class="stat-title group-hover:text-zinc-400">Latest Post</span>
-            <div class="flex flex-col">
-              <span class="stat-value truncate">{{ posts[0].title }}</span>
-              <span class="text-sm text-zinc-400">{{ posts[0].date }}</span>
+          <template v-if="loading">
+            <div v-for="i in 6" :key="`skeleton-gh-${i}`" class="card skeleton">
+              <div class="skeleton-label"></div>
+              <div class="skeleton-value"></div>
             </div>
-          </RouterLink>
+          </template>
 
-          <a
-            :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="stat-card group cursor-pointer border-surface-700 hover:border-navy-500/30"
-            :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
-          >
-            <span class="stat-title group-hover:text-zinc-400">Latest Code Push</span>
-            <div class="flex flex-col">
-              <span class="stat-value truncate">{{ metrics.gh_repo.val }}</span>
-              <span class="text-sm text-zinc-400">{{ metrics.gh_ago.val }}</span>
+          <template v-else>
+            <div
+              v-for="m in githubMetrics"
+              :key="m.key"
+              class="card group relative overflow-hidden"
+              role="article"
+              :class="metricBorder(m)"
+              :aria-label="`${m.title}: ${m.val}`"
+            >
+              <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
+              <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
+              <span class="card-value">{{ m.val }}</span>
             </div>
-          </a>
 
-          <div
-            class="stat-card group border-surface-800 hover:border-navy-500/30"
-            role="article"
-            :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
-          >
-            <span class="stat-title group-hover:text-zinc-400">Primary Stack</span>
-            <span class="stat-value">{{ PRIMARY_STACK.join(' • ') }}</span>
-          </div>
-        </template>
+            <RouterLink
+              :to="`/blog/${posts[0].slug}`"
+              class="card card-link group border-anthracite-800"
+              :aria-label="`Latest post: ${posts[0].title}`"
+            >
+              <span class="card-label group-hover:text-cream-300">Latest Post</span>
+              <div class="flex flex-col">
+                <span class="card-value truncate">{{ posts[0].title }}</span>
+                <span class="text-sm text-teal-dim mt-1">{{ posts[0].date }}</span>
+              </div>
+            </RouterLink>
+
+            <a
+              :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="card card-link group border-anthracite-800"
+              :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
+            >
+              <span class="card-label group-hover:text-cream-300">Latest Push</span>
+              <div class="flex flex-col">
+                <span class="card-value truncate">{{ metrics.gh_repo.val }}</span>
+                <span class="text-sm text-teal-dim mt-1">{{ metrics.gh_ago.val }}</span>
+              </div>
+            </a>
+
+            <div
+              class="card group border-anthracite-800 hover:border-anthracite-700"
+              role="article"
+              :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
+            >
+              <span class="card-label group-hover:text-cream-300">Stack</span>
+              <span class="card-value">{{ PRIMARY_STACK.join(' / ') }}</span>
+            </div>
+          </template>
       </section>
 
       <section class="metrics-grid section" aria-labelledby="cluster-metrics-heading">
         <h2 id="cluster-metrics-heading">Cluster Metrics</h2>
+          <template v-if="loading">
+            <div v-for="i in 6" :key="`skeleton-cluster-${i}`" class="card skeleton">
+              <div class="skeleton-label"></div>
+              <div class="skeleton-value"></div>
+            </div>
+          </template>
 
-        <template v-if="loading">
-          <div v-for="i in 6" :key="`skeleton-cluster-${i}`" class="stat-card skeleton">
-            <div class="skeleton-title"></div>
-            <div class="skeleton-value"></div>
-          </div>
-        </template>
-
-        <template v-else>
-          <div
-            v-for="m in clusterMetrics"
-            :key="m.key"
-            class="stat-card group relative overflow-hidden"
-            :class="metricBorder(m)"
-            role="article"
-            :aria-label="`${m.title}: ${m.val}`"
-          >
-            <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
-            <span class="stat-title group-hover:text-zinc-400">{{ m.title }}</span>
-            <span class="stat-value">{{ m.val }}</span>
-          </div>
-        </template>
+          <template v-else>
+            <div
+              v-for="m in clusterMetrics"
+              :key="m.key"
+              class="card group relative overflow-hidden"
+              :class="metricBorder(m)"
+              role="article"
+              :aria-label="`${m.title}: ${m.val}`"
+            >
+              <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
+              <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
+              <span class="card-value">{{ m.val }}</span>
+            </div>
+          </template>
       </section>
     </main>
 
-    <footer class="footer-section" role="contentinfo">
-      <div class="tech-stack">
-        <template v-if="loading">
-          <span v-for="i in 4" :key="i" class="tech-pill skeleton">
-            <div class="skeleton-tech"></div>
-          </span>
-          <div class="skeleton-duration skeleton"></div>
-        </template>
-        <template v-else>
+    <footer class="footer" role="contentinfo">
+      <template v-if="loading">
+        <span v-for="i in 4" :key="i" class="pill skeleton">
+          <div class="skeleton-pill"></div>
+        </span>
+      </template>
+      <template v-else>
+        <div class="pill-row">
           <span
             v-for="p in versionPills"
             :key="p.label"
-            class="tech-pill"
+            class="pill"
             :aria-label="`${p.label} version ${p.metric.val}`"
           >
             {{ p.label }} {{ p.metric.val }}
           </span>
-          <div class="text-xs text-zinc-400 mt-2 text-center" role="status" aria-live="polite">
-            Dashboard updated in {{ fetchDuration }}ms
-          </div>
-        </template>
-      </div>
+        </div>
+        <div class="fetch-time" role="status" aria-live="polite">
+          fetched in {{ fetchDuration }}ms
+        </div>
+      </template>
     </footer>
   </MainLayout>
 </template>
@@ -171,7 +168,7 @@ onMounted(() => {
 @reference "../app.css";
 
 .section {
-  @apply flex flex-col mb-12 border-b border-surface-800 pb-6 gap-4;
+  @apply flex flex-col mb-12 border-b border-anthracite-800 pb-6 gap-4;
 }
 
 .metrics-grid {
@@ -179,51 +176,57 @@ onMounted(() => {
 }
 
 .metrics-grid > h2 {
-  @apply grid-cols-subgrid col-span-full text-xl font-sans font-bold text-zinc-100 tracking-tight pl-3 border-l-2 border-navy-500;
+  @apply grid-cols-subgrid col-span-full text-xl font-bold text-cream-100 tracking-tight pl-3 border-l-2 border-navy-500;
 }
 
-.stat-card {
-  @apply bg-surface-900/40 border p-5 rounded-md transition-all duration-400;
-  @apply hover:shadow-[0_0_12px_rgba(79,128,168,0.15)];
+.card {
+  @apply bg-anthracite-900/40 border p-5 rounded-md transition-all duration-400;
+  @apply hover:shadow-[0_0_12px_rgba(74,142,200,0.15)];
 }
 
-.stat-title {
-  @apply block text-sm font-medium text-zinc-300 uppercase tracking-widest mb-2 transition-colors;
+.card-link {
+  @apply cursor-pointer no-underline border-l-2 border-l-navy-500/50;
+  @apply hover:border-l-navy-400;
+  @apply hover:shadow-[0_0_16px_rgba(74,142,200,0.2)];
 }
 
-.stat-value {
-  @apply text-2xl font-bold text-zinc-100;
+.card-label {
+  @apply block text-xs text-cream-500 uppercase tracking-[0.15em] mb-2 transition-colors;
 }
 
-.footer-section {
-  @apply space-y-6;
+.card-value {
+  @apply text-2xl font-bold text-cream-100;
 }
 
-.tech-stack {
-  @apply flex flex-wrap gap-2 text-xs text-zinc-300 uppercase font-medium tracking-wide;
+.footer {
+  @apply pt-6 border-t border-anthracite-800;
 }
 
-.tech-pill {
-  @apply px-2 py-1 border border-surface-800 rounded-md bg-surface-900/60;
+.pill-row {
+  @apply flex flex-wrap gap-2;
+}
+
+.pill {
+  @apply px-2.5 py-1 border border-anthracite-800 rounded-md text-xs text-cream-400 uppercase tracking-wider;
+}
+
+.fetch-time {
+  @apply text-xs text-cream-500 mt-3;
 }
 
 .skeleton {
   @apply animate-pulse pointer-events-none;
 }
 
-.skeleton-title {
-  @apply h-3 bg-surface-700/50 rounded w-24 mb-3;
+.skeleton-label {
+  @apply h-3 bg-anthracite-800/60 w-24 mb-3;
 }
 
 .skeleton-value {
-  @apply h-8 bg-surface-700/50 rounded w-32;
+  @apply h-8 bg-anthracite-800/60 w-32;
 }
 
-.skeleton-tech {
-  @apply h-4 bg-surface-700/50 rounded w-16;
-}
-
-.skeleton-duration {
-  @apply h-3 bg-surface-700/50 rounded w-40 mx-auto mt-2;
+.skeleton-pill {
+  @apply h-4 bg-anthracite-800/60 w-16;
 }
 </style>

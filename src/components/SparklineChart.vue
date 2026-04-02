@@ -3,8 +3,24 @@ import { computed } from 'vue'
 
 const props = defineProps<{ values: number[]; id: string }>()
 
+const smooth = (values: number[], radius: number): number[] => {
+  return values.map((_, i) => {
+    const start = Math.max(0, i - radius)
+    const end = Math.min(values.length - 1, i + radius)
+    let sum = 0
+    let count = 0
+    for (let j = start; j <= end; j++) {
+      sum += values[j]
+      count++
+    }
+    return sum / count
+  })
+}
+
 const buildPaths = (values: number[], w = 100, h = 36): { line: string; area: string } => {
   if (values.length < 2) return { line: '', area: '' }
+  const radius = Math.max(1, Math.round(values.length / 30))
+  values = smooth(values, radius)
   const min = Math.min(...values)
   const max = Math.max(...values)
   const range = max - min || 1
@@ -41,16 +57,16 @@ const paths = computed(() => buildPaths(props.values))
   >
     <defs>
       <linearGradient :id="`sg-${id}`" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="white" stop-opacity="0.12" />
-        <stop offset="100%" stop-color="white" stop-opacity="0" />
+        <stop offset="0%" stop-color="#4a8ec8" stop-opacity="0.15" />
+        <stop offset="100%" stop-color="#4a8ec8" stop-opacity="0" />
       </linearGradient>
     </defs>
     <path :d="paths.area" :fill="`url(#sg-${id})`" stroke="none" />
     <path
       :d="paths.line"
-      stroke="white"
+      stroke="#4a8ec8"
       stroke-width="0.8"
-      stroke-opacity="0.3"
+      stroke-opacity="0.4"
       fill="none"
       stroke-linecap="round"
       stroke-linejoin="round"
