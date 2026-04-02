@@ -54,9 +54,11 @@ function postsMetaPlugin(): Plugin {
           title: meta.title ?? 'Untitled',
           date: meta.date ?? '',
           description: meta.description ?? '',
+          posted: meta.posted === 'true' || false,
         }
       })
-      return `export default ${JSON.stringify(posts)}`
+
+      return `export default ${JSON.stringify(posts.filter((post) => post.posted))}`
     },
   }
 }

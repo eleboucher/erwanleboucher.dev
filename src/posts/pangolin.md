@@ -1,7 +1,8 @@
 ---
 title: "Ditching Cloudflare Tunnels: Self-hosting with Pangolin on a VPS"
 date: 2026-03-12
-description: How to make my homelab more sovereign. 
+description: How to make my homelab more sovereign.
+posted: true
 ---
 
 As part of my effort to reduce US dependencies in my day-to-day life, one key tool I relied on was Cloudflare Tunnels. I currently use it on my Kubernetes homelab to expose services to friends and family from anywhere. It's easy to set up and free to use.

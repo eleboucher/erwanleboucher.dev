@@ -2,6 +2,7 @@
 title: "How AI made me feel worse about myself"
 date: 2026-03-30
 description: The imposter syndrome is now worse.
+posted: true
 ---
 
 I love coding. I always have. Ever since I was 13 years old, I was always fascinated by the idea that a few lines of code could create something visible, something we could interact with. I remember my first project from OpenClassrooms (back then called "SiteDuZero"), it was a simple hangman game in Python. I loved it. I was proud of myself, which back then was not a common feeling for me.
