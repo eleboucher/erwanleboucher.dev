@@ -55,86 +55,85 @@ onMounted(() => {
     <main>
       <section class="metrics-grid section" aria-labelledby="github-metrics-heading">
         <h2 id="github-metrics-heading">GitHub Metrics</h2>
-          <template v-if="loading">
-            <div v-for="i in 6" :key="`skeleton-gh-${i}`" class="card skeleton">
-              <div class="skeleton-label"></div>
-              <div class="skeleton-value"></div>
+        <template v-if="loading">
+          <div v-for="i in 6" :key="`skeleton-gh-${i}`" class="card skeleton">
+            <div class="skeleton-label"></div>
+            <div class="skeleton-value"></div>
+          </div>
+        </template>
+
+        <template v-else>
+          <div
+            v-for="m in githubMetrics"
+            :key="m.key"
+            class="card group relative overflow-hidden"
+            role="article"
+            :class="metricBorder(m)"
+            :aria-label="`${m.title}: ${m.val}`"
+          >
+            <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
+            <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
+            <span class="card-value">{{ m.val }}</span>
+          </div>
+
+          <a
+            :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="card card-link group border-anthracite-800"
+            :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
+          >
+            <span class="card-label group-hover:text-cream-300">Latest Push</span>
+            <div class="flex flex-col">
+              <span class="card-value truncate">{{ metrics.gh_repo.val }}</span>
+              <span class="text-sm text-cream-500 mt-1">{{ metrics.gh_ago.val }}</span>
             </div>
-          </template>
+          </a>
 
-          <template v-else>
-            <div
-              v-for="m in githubMetrics"
-              :key="m.key"
-              class="card group relative overflow-hidden"
-              role="article"
-              :class="metricBorder(m)"
-              :aria-label="`${m.title}: ${m.val}`"
-            >
-              <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
-              <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
-              <span class="card-value">{{ m.val }}</span>
-            </div>
-
-            <RouterLink
-              :to="`/blog/${posts[0].slug}`"
-              class="card card-link card-post group col-span-full border-anthracite-800"
-              :aria-label="`Latest post: ${posts[0].title}`"
-            >
-              <span class="card-label group-hover:text-cream-300">Latest Post</span>
-              <span class="card-value">{{ posts[0].title }}</span>
-              <p class="text-sm text-cream-400 mt-2 leading-relaxed">{{ posts[0].description }}</p>
-              <span class="text-xs text-cream-500 mt-2 block">{{ posts[0].date }}</span>
-            </RouterLink>
-
-            <a
-              :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="card card-link group border-anthracite-800"
-              :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
-            >
-              <span class="card-label group-hover:text-cream-300">Latest Push</span>
-              <div class="flex flex-col">
-                <span class="card-value truncate">{{ metrics.gh_repo.val }}</span>
-                <span class="text-sm text-teal-dim mt-1">{{ metrics.gh_ago.val }}</span>
-              </div>
-            </a>
-
-            <div
-              class="card group border-anthracite-800 hover:border-anthracite-700"
-              role="article"
-              :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
-            >
-              <span class="card-label group-hover:text-cream-300">Stack</span>
-              <span class="card-value">{{ PRIMARY_STACK.join(' / ') }}</span>
-            </div>
-          </template>
+          <div
+            class="card group border-anthracite-800 hover:border-anthracite-700"
+            role="article"
+            :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
+          >
+            <span class="card-label group-hover:text-cream-300">Stack</span>
+            <span class="card-value">{{ PRIMARY_STACK.join(' / ') }}</span>
+          </div>
+          <RouterLink
+            :to="`/blog/${posts[0].slug}`"
+            class="card card-link group col-span-full border-anthracite-800"
+            :aria-label="`Latest post: ${posts[0].title}`"
+          >
+            <span class="card-label group-hover:text-cream-300">Latest Post</span>
+            <span class="card-value">{{ posts[0].title }}</span>
+            <p class="text-sm text-cream-400 mt-2 leading-relaxed">{{ posts[0].description }}</p>
+            <span class="text-xs text-cream-500 mt-3 block">{{ posts[0].date }}</span>
+          </RouterLink>
+        </template>
       </section>
 
       <section class="metrics-grid section" aria-labelledby="cluster-metrics-heading">
         <h2 id="cluster-metrics-heading">Cluster Metrics</h2>
-          <template v-if="loading">
-            <div v-for="i in 6" :key="`skeleton-cluster-${i}`" class="card skeleton">
-              <div class="skeleton-label"></div>
-              <div class="skeleton-value"></div>
-            </div>
-          </template>
+        <template v-if="loading">
+          <div v-for="i in 6" :key="`skeleton-cluster-${i}`" class="card skeleton">
+            <div class="skeleton-label"></div>
+            <div class="skeleton-value"></div>
+          </div>
+        </template>
 
-          <template v-else>
-            <div
-              v-for="m in clusterMetrics"
-              :key="m.key"
-              class="card group relative overflow-hidden"
-              :class="metricBorder(m)"
-              role="article"
-              :aria-label="`${m.title}: ${m.val}`"
-            >
-              <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
-              <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
-              <span class="card-value">{{ m.val }}</span>
-            </div>
-          </template>
+        <template v-else>
+          <div
+            v-for="m in clusterMetrics"
+            :key="m.key"
+            class="card group relative overflow-hidden"
+            :class="metricBorder(m)"
+            role="article"
+            :aria-label="`${m.title}: ${m.val}`"
+          >
+            <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
+            <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
+            <span class="card-value">{{ m.val }}</span>
+          </div>
+        </template>
       </section>
     </main>
 

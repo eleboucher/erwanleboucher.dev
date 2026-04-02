@@ -89,7 +89,7 @@ function handleCopyClick(event: Event) {
 }
 
 .post-date {
-  @apply text-xs text-teal uppercase tracking-[0.15em] mt-2;
+  @apply text-xs text-navy-300 uppercase tracking-[0.15em] mt-2;
 }
 
 .post-title {

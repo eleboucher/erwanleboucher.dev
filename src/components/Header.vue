@@ -79,7 +79,7 @@ const isActive = (path: string) => route.path === path
 }
 
 .name {
-  @apply text-3xl font-bold text-cream-100 tracking-tight leading-none;
+  @apply text-4xl font-bold text-cream-100 tracking-tight leading-none;
 }
 
 .subtitle {
@@ -87,11 +87,11 @@ const isActive = (path: string) => route.path === path
 }
 
 .status-badge {
-  @apply flex items-center gap-2 text-xs text-teal uppercase tracking-widest;
+  @apply flex items-center gap-2 text-xs text-navy-300 uppercase tracking-widest;
 }
 
 .status-dot {
-  @apply w-1.5 h-1.5 rounded-full bg-teal animate-pulse;
+  @apply w-1.5 h-1.5 rounded-full bg-navy-300 animate-pulse;
 }
 
 .nav {

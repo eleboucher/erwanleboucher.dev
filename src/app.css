@@ -22,14 +22,12 @@
   --color-navy-300: #6baad8;
 
   /* Text tones */
-  --color-cream-100: #f4f4f5;
-  --color-cream-200: #e4e4e7;
-  --color-cream-300: #d4d4d8;
-  --color-cream-400: #b0b0b8;
-  --color-cream-500: #909099;
+  --color-cream-100: #f8f8fa;
+  --color-cream-200: #ededf0;
+  --color-cream-300: #e0e0e6;
+  --color-cream-400: #d0d0d8;
+  --color-cream-500: #b8b8c2;
 
-  --color-teal: #7bbcbe;
-  --color-teal-dim: #62a3a5;
 }
 
 :root {
