@@ -63,6 +63,14 @@ const isActive = (path: string) =>
         >
           LinkedIn
         </a>
+        <a
+          href="https://keyoxide.org/erwan@erwanleboucher.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link external"
+        >
+          Keyoxide
+        </a>
       </div>
     </nav>
   </header>
