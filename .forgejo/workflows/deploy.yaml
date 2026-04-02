@@ -38,4 +38,5 @@ jobs:
           curl -fsSL "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o awscliv2.zip
           unzip -q awscliv2.zip
           ./aws/install
-          aws s3 sync dist/ s3://erwanleboucher.dev --delete --acl public-read --endpoint-url https://s3.rbx.io.cloud.ovh.net
+          aws s3 sync dist/ s3://erwanleboucher.dev --delete --acl public-read --endpoint-url https://s3.rbx.io.cloud.ovh.net --exclude ".well-known/openpgpkey/hu/*" --exclude ".well-known/openpgpkey/*/hu/*"
+          aws s3 sync dist/.well-known/openpgpkey/ s3://erwanleboucher.dev/.well-known/openpgpkey/ --acl public-read --endpoint-url https://s3.rbx.io.cloud.ovh.net --content-type application/octet-stream
