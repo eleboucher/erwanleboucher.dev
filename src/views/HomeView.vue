@@ -78,14 +78,13 @@ onMounted(() => {
 
             <RouterLink
               :to="`/blog/${posts[0].slug}`"
-              class="card card-link group border-anthracite-800"
+              class="card card-link card-post group col-span-full border-anthracite-800"
               :aria-label="`Latest post: ${posts[0].title}`"
             >
               <span class="card-label group-hover:text-cream-300">Latest Post</span>
-              <div class="flex flex-col">
-                <span class="card-value truncate">{{ posts[0].title }}</span>
-                <span class="text-sm text-teal-dim mt-1">{{ posts[0].date }}</span>
-              </div>
+              <span class="card-value">{{ posts[0].title }}</span>
+              <p class="text-sm text-cream-400 mt-2 leading-relaxed">{{ posts[0].description }}</p>
+              <span class="text-xs text-cream-500 mt-2 block">{{ posts[0].date }}</span>
             </RouterLink>
 
             <a
