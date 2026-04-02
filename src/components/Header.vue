@@ -3,7 +3,8 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const isActive = (path: string) => route.path === path
+const isActive = (path: string) =>
+  path === '/' ? route.path === '/' : route.path.startsWith(path)
 </script>
 
 <template>
