@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { shallowRef, ref, computed, watch, defineAsyncComponent } from 'vue'
+import { shallowRef, ref, computed, watch, defineAsyncComponent, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { usePosts } from '@/composables/usePosts'
 import MainLayout from '@/layouts/MainLayout.vue'
@@ -14,6 +14,18 @@ const post = computed(() => getPost(slug.value))
 const contentComponent = shallowRef()
 const componentCache = new Map<string, ReturnType<typeof defineAsyncComponent>>()
 const copyAnnouncement = ref('')
+const showScrollTop = ref(false)
+
+function onScroll() {
+  showScrollTop.value = window.scrollY > 400
+}
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
+onMounted(() => window.addEventListener('scroll', onScroll, { passive: true }))
+onUnmounted(() => window.removeEventListener('scroll', onScroll))
 
 watch(
   slug,
@@ -74,6 +86,16 @@ function handleCopyClick(event: Event) {
         </Suspense>
       </article>
     </main>
+    <Transition name="fade">
+      <button
+        v-if="showScrollTop"
+        class="scroll-top"
+        aria-label="Scroll to top"
+        @click="scrollToTop"
+      >
+        &uarr;
+      </button>
+    </Transition>
   </MainLayout>
 </template>
 
@@ -192,5 +214,23 @@ function handleCopyClick(event: Event) {
 
 .prose :deep(hr) {
   @apply border-anthracite-800 my-10;
+}
+
+.scroll-top {
+  @apply fixed bottom-8 right-8 w-10 h-10 rounded-md;
+  @apply bg-anthracite-800 border border-anthracite-700 text-cream-300;
+  @apply hover:bg-anthracite-700 hover:text-cream-100;
+  @apply cursor-pointer transition-all duration-200;
+  @apply flex items-center justify-center text-sm;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
