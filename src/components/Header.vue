@@ -80,6 +80,14 @@ const isActive = (path: string) =>
           Keyoxide
         </a>
         <a
+          href="https://ko-fi.com/eleboucher"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link external"
+        >
+          Sponsor
+        </a>
+        <a
           href="/rss.xml"
           target="_blank"
           rel="noopener noreferrer"
