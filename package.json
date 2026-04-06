@@ -38,6 +38,7 @@
     "eslint": "^10.0.0",
     "eslint-plugin-oxlint": "~1.58.0",
     "eslint-plugin-vue": "~10.8.0",
+    "feed": "^5.2.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "oxlint": "~1.58.0",

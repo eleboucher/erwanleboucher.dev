@@ -1,11 +1,12 @@
 import { fileURLToPath, URL } from 'node:url'
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { defineConfig, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Markdown from 'unplugin-vue-markdown/vite'
 import Shiki from '@shikijs/markdown-it'
 import tailwindcss from '@tailwindcss/vite'
+import { Feed } from 'feed'
 
 function parseFrontmatter(raw: string): Record<string, string> {
   if (!raw.startsWith('---')) return {}
@@ -63,6 +64,56 @@ function postsMetaPlugin(): Plugin {
   }
 }
 
+const SITE_URL = 'https://erwanleboucher.dev'
+
+function rssFeedPlugin(): Plugin {
+  const postsDir = fileURLToPath(new URL('./src/posts', import.meta.url))
+
+  return {
+    name: 'rss-feed',
+    writeBundle(options) {
+      const outDir = options.dir ?? 'dist'
+      const files = readdirSync(postsDir).filter((f) => f.endsWith('.md'))
+      const posts = files
+        .map((file) => {
+          const raw = readFileSync(join(postsDir, file), 'utf-8')
+          const meta = parseFrontmatter(raw)
+          return {
+            slug: file.replace(/\.md$/, ''),
+            title: meta.title ?? 'Untitled',
+            date: meta.date ?? '',
+            description: meta.description ?? '',
+            posted: meta.posted === 'true',
+          }
+        })
+        .filter((p) => p.posted)
+        .sort((a, b) => b.date.localeCompare(a.date))
+
+      const feed = new Feed({
+        title: 'Erwan Leboucher',
+        description: 'Blog posts by Erwan Leboucher',
+        id: SITE_URL,
+        link: SITE_URL,
+        language: 'en',
+        feedLinks: { rss: `${SITE_URL}/rss.xml` },
+        copyright: '',
+      })
+
+      for (const p of posts) {
+        feed.addItem({
+          title: p.title,
+          id: `${SITE_URL}/#/blog/${p.slug}`,
+          link: `${SITE_URL}/#/blog/${p.slug}`,
+          description: p.description,
+          date: new Date(p.date),
+        })
+      }
+
+      writeFileSync(join(outDir, 'rss.xml'), feed.rss2())
+    },
+  }
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -105,6 +156,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
     }),
     tailwindcss(),
+    rssFeedPlugin(),
   ],
 
   resolve: {

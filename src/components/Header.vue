@@ -56,6 +56,14 @@ const isActive = (path: string) =>
           GitHub
         </a>
         <a
+          href="https://git.erwanleboucher.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link external"
+        >
+          Forgejo
+        </a>
+        <a
           href="https://linkedin.com/in/erwan-leboucher"
           target="_blank"
           rel="noopener noreferrer"
@@ -70,6 +78,15 @@ const isActive = (path: string) =>
           class="nav-link external"
         >
           Keyoxide
+        </a>
+        <a
+          href="/rss.xml"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-link external"
+          aria-label="RSS Feed"
+        >
+          RSS
         </a>
       </div>
     </nav>
