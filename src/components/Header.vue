@@ -133,7 +133,7 @@ const isActive = (path: string) =>
 }
 
 .nav-group {
-  @apply flex gap-6;
+  @apply flex flex-wrap gap-6;
 }
 
 .nav-link {
