@@ -42,7 +42,7 @@
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "oxlint": "~1.59.0",
-    "prettier": "3.8.1",
+    "prettier": "3.8.2",
     "tailwindcss": "^4.1.18",
     "typescript": "~6.0.0",
     "unplugin-vue-markdown": "^30.0.0",
