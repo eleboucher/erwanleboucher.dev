@@ -12,7 +12,7 @@ const isActive = (path: string) =>
     <div class="identity">
       <div>
         <h1 class="name">Erwan Leboucher</h1>
-        <p class="subtitle">Senior Software Engineer — Paris</p>
+        <p class="subtitle">Senior Software Engineer — Paris · he/him</p>
       </div>
       <div class="status-badge" role="status" aria-live="polite">
         <span class="status-dot"></span>
