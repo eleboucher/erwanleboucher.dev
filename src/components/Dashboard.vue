@@ -79,7 +79,11 @@ onMounted(() => {
     </div>
 
     <a
-      :href="isLoaded(metrics.gh_repo.key) ? `https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}` : undefined"
+      :href="
+        isLoaded(metrics.gh_repo.key)
+          ? `https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`
+          : undefined
+      "
       target="_blank"
       rel="noopener noreferrer"
       class="card card-link group border-anthracite-800"

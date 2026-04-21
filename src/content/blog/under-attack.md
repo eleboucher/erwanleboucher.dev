@@ -65,7 +65,7 @@ I needed to block things further upstream, at the VPS level, before they even re
 Since we already had CrowdSec running on our VPS alongside Pangolin [link of the article](/blog/pangolin). the fix was to push blocking logic there. First thing I noticed: the generated Docker Compose file from Pangolin had CrowdSec running in test mode — so it was doing absolutely nothing:
 
 ```yaml title="docker-compose.yml" "crowdsec (broken)"
-  container_name: crowdsec
+container_name: crowdsec
 ```
 
 Removing -t was step one. Then I added two CrowdSec scenarios.

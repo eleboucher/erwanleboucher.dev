@@ -1,11 +1,13 @@
 import { defineConfig } from 'astro/config'
 import vue from '@astrojs/vue'
 import sitemap from '@astrojs/sitemap'
-import tailwindcss from '@tailwindcss/vite'
 import expressiveCode from 'astro-expressive-code'
+
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   site: 'https://erwanleboucher.dev',
+
   integrations: [
     expressiveCode({
       themes: ['github-dark'],
@@ -48,6 +50,7 @@ export default defineConfig({
     vue(),
     sitemap(),
   ],
+
   vite: {
     // @ts-expect-error — @tailwindcss/vite Plugin type is incompatible with Astro's bundled Vite PluginOption
     plugins: [tailwindcss()],
