@@ -13,7 +13,7 @@ responsible in case my git server goes down :oldmanyellatthecloud:. it was runni
 ![Pangolin Logs](./images/under-attack/pangolin-logs.png)
 
 The culprit became clear quickly. Looking at the Pangolin logs, we saw the same IP ranges hammering the server repeatedly. A quick lookup confirmed they all belonged to Meta's ASN. We then dug into the access logs to confirm — `meta-externalagent/1.1` all the way down.
-Every single spike we observed came from meta-externalagent/1.1, Meta's AI crawler. And we're not alone — according to a Fastly report on 2025 AI crawler traffic, Meta accounts for 52% of all global AI crawler traffic.
+Every single spike we observed came from meta-externalagent/1.1, Meta's AI crawler. And we're not alone — according to a Fastly report on 2025 AI crawler traffic, Meta accounts for 52% of all global AI crawler traffic [source 1](https://www.tecnoacquisti.com/en/blog/online-security-blog/meta-ai-bot-the-meta-webindexer-crawler-is-hammering-websites-with-thousands-of-requests-per-day) [source 2](https://usehall.com/agents/meta-externalagent).
 
 
 The obvious first thought is: just block them in robots.txt. But hundreds of webmasters have reported that Meta's bot doesn't respect robots.txt directives and applies no rate limiting whatsoever.
