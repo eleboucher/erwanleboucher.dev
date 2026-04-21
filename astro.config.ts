@@ -9,9 +9,6 @@ export default defineConfig({
   integrations: [
     expressiveCode({
       themes: ['github-dark'],
-      shiki: {
-        langs: ['bash', 'yaml', 'typescript', 'javascript', 'json', 'go', 'python', 'dockerfile', 'rust'],
-      },
       defaultProps: {
         overridesByLang: {
           'bash,sh,zsh': { wrap: false },
@@ -36,7 +33,6 @@ export default defineConfig({
           editorActiveTabForeground: '#d0d0d8',
           editorActiveTabIndicatorTopColor: '#3672a4',
           editorActiveTabIndicatorHeight: '2px',
-          editorTabForeground: '#b8b8c2',
           terminalBackground: '#16181f',
           terminalTitlebarBackground: '#1c1e28',
           terminalTitlebarBorderBottomColor: '#252834',
@@ -44,8 +40,7 @@ export default defineConfig({
           terminalTitlebarDotsForeground: '#b8b8c2',
           inlineButtonBackground: 'transparent',
           inlineButtonForeground: '#b8b8c2',
-          inlineButtonHoverBackground: '#252834',
-          inlineButtonHoverForeground: '#f8f8fa',
+          inlineButtonBackgroundHoverOrFocusOpacity: '0.15',
           shadowColor: 'transparent',
         },
       },
@@ -54,6 +49,7 @@ export default defineConfig({
     sitemap(),
   ],
   vite: {
+    // @ts-expect-error — @tailwindcss/vite Plugin type is incompatible with Astro's bundled Vite PluginOption
     plugins: [tailwindcss()],
   },
 })
