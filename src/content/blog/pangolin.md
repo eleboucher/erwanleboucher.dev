@@ -17,7 +17,7 @@ Choosing a VPS was pretty straightforward to me. It was either Hetzner or OVH. S
 
 An incoming request hits the VPS, where Traefik handles TLS termination and routing. On the cluster side, Newt runs as a Deployment and handles the WireGuard tunnel back to the VPS. Traffic is forwarded through that tunnel to your in-cluster gateway (kgateway in my case), which routes it to the appropriate service. Pangolin acts as the control plane, managing sites, resources, and access rules across that tunnel. Gerbil runs alongside Pangolin on the VPS and handles the network-level plumbing between Traefik and the tunnel.
 
-```
+```txt "Traffic flow"
 internet -> VPS (Traefik + Gerbil) -> WireGuard tunnel (Newt) -> cluster (kgateway -> service)
 ```
 
@@ -33,8 +33,7 @@ Now that we have Pangolin set up and running, we need to configure the link betw
 
 Newt can push configuration directly to Pangolin, letting you manage exposed services from the cluster using Blueprints:
 
-```yaml
-public-resources:
+```yaml title="newt-blueprint.yaml"
   jellyfin:
     name: 'Jellyfin'
     protocol: http
@@ -58,8 +57,7 @@ If you are experienced with Cloudflare Tunnels, you might think about having a w
 
 Newt-sidecar watches all HTTPRoute resources in your cluster and configures them in Pangolin automatically. This runs as a sidecar container alongside the Newt deployment.
 
-```yaml
-initContainers:
+```yaml title="helmrelease.yaml" "initContainers"
   newt-sidecar:
     image:
       repository: ghcr.io/home-operations/newt-sidecar
@@ -81,9 +79,7 @@ The OVH API key is a bit tricky to get. You need to provide the endpoint path to
 
 Once you have your credentials (`ApplicationKey`, `ApplicationSecret` and `ConsumerKey`), make them available as environment variables in your deployment:
 
-```yaml
-traefik:
-  image: docker.io/traefik:v3.6
+```yaml title="docker-compose.yml" "environment"
   container_name: traefik
   restart: unless-stopped
   environment:
@@ -96,8 +92,7 @@ traefik:
 
 And in `traefik_config.yaml`:
 
-```yaml
-certificatesResolvers:
+```yaml title="traefik_config.yaml"
   letsencrypt:
     acme:
       dnsChallenge:
@@ -115,8 +110,7 @@ As this opens a door into our homelab cluster, we should be careful to protect o
 
 In my case, I added ufw rules to restrict the VPS access to only the services I need.
 
-```yaml
-- name: SSH
+```yaml title="ufw-rules.yaml"
   port: 22
 - name: HTTP
   port: 80
@@ -142,8 +136,7 @@ Badger also offers authentication with SSO capabilities, shareable links, and mo
 
 Pangolin uses the MaxMind GeoIP database to block access from countries you don't want reaching your services, and you can easily configure it with Docker Compose.
 
-```yaml
-geoipupdate:
+```yaml title="docker-compose.yml" "geoipupdate"
   container_name: geoipupdate
   image: ghcr.io/maxmind/geoipupdate:v7.1.1
   restart: unless-stopped
@@ -158,9 +151,7 @@ geoipupdate:
 
 And in the Pangolin config:
 
-```yaml
-server:
-  maxmind_db_path: './config/GeoLite2/GeoLite2-Country.mmdb'
+```yaml title="pangolin_config.yaml" './config/GeoLite2/GeoLite2-Country.mmdb'
   maxmind_asn_path: './config/GeoLite2/GeoLite2-ASN.mmdb'
 ```
 
@@ -170,10 +161,7 @@ This will automatically download and update the GeoIP database every 72 hours. [
 
 I haven't dug too deeply into CrowdSec yet, but to make it work with Pangolin, you need to configure it with Docker Compose like:
 
-```yaml
-crowdsec:
-  command: -t
-  container_name: crowdsec
+```yaml title="docker-compose.yml" "crowdsec"
   environment:
     COLLECTIONS: crowdsecurity/traefik crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules
     ENROLL_INSTANCE_NAME: pangolin-crowdsec
@@ -222,14 +210,12 @@ config:
 
 Then create a bouncer API key for Traefik. If you want CrowdSec to auto-generate one:
 
-```bash
-docker exec crowdsec cscli bouncers add traefik-bouncer
+```bash title="terminal"
 ```
 
 Copy the output key and set it as `CROWDSEC_API_KEY` in your environment. If you already have a key (e.g. from an Ansible vault), you can pass it directly:
 
-```bash
-docker exec crowdsec cscli bouncers add traefik --key "your-api-key"
+```bash title="terminal"
 ```
 
 Migrating away from Cloudflare Tunnels took an afternoon and has been rock solid since. The setup is more involved than a single `cloudflared` token and some wildcard configuration, but you gain full control over your traffic, no vendor lock-in, and no dependency on US infrastructure. If you're already running a Kubernetes homelab, the extra complexity is well worth it. Questions? Come find me on the home-operations [Discord](https://discord.gg/home-operations).

@@ -21,8 +21,7 @@ So we had to go further.
 Our first reaction was to use Anubis, it is a tool that sits before every requests and challenges anything that doesn't look legitimate , it is a great tool to protect against bots and scrapers.
 We configured it to still allow legitimate traffic (API calls, git operations, Docker pulls) while challenging everything else:
 
-```yaml
-bots:
+```yaml title="anubis-config.yaml"
   - import: (data)/apps/gitea-rss-feeds.yaml
   - import: (data)/clients/git.yaml
   - import: (data)/clients/docker-client.yaml
@@ -35,7 +34,7 @@ dnsbl: false
 
 This helped significantly, and we could see Anubis blocking crawlers in the logs:
 
-```json
+```json title="anubis.log"
 {
   "time": "2026-04-03T20:57:19.271308391+02:00",
   "level": "INFO",
@@ -65,18 +64,14 @@ I needed to block things further upstream, at the VPS level, before they even re
 
 Since we already had CrowdSec running on our VPS alongside Pangolin [link of the article](/blog/pangolin). the fix was to push blocking logic there. First thing I noticed: the generated Docker Compose file from Pangolin had CrowdSec running in test mode — so it was doing absolutely nothing:
 
-```yaml
-crowdsec:
-  command: -t # this was test only :D
+```yaml title="docker-compose.yml" "crowdsec (broken)"
   container_name: crowdsec
 ```
 
 Removing -t was step one. Then I added two CrowdSec scenarios.
 The first one blocks known AI crawlers by user-agent. I made an exception for Claude (because i'm using it):
 
-```yaml
-type: trigger
-name: custom/ban-ai-crawlers
+```yaml title="ban-ai-crawlers.yaml"
 description: 'Ban AI crawlers and scrapers by user-agent'
 filter: >-
   evt.Parsed.http_user_agent != nil
@@ -91,9 +86,7 @@ labels:
 
 The second one goes further and blocks all traffic originating from GAFAM-owned networks, identified by their public ASNs (ASNs are unique numbers assigned to each network on the internet):
 
-```yaml
-type: trigger
-name: custom/ban-gafam
+```yaml title="ban-gafam.yaml"
 description: 'Ban traffic from GAFAM (Google, Apple, Facebook/Meta, Amazon, Microsoft) AS numbers'
 filter: >-
   evt.Meta.ASNumber in [
@@ -112,8 +105,7 @@ labels:
 
 Both files go here:
 
-```yaml
-- source: crowdsec_ban_gafam
+```yaml title="ansible-task.yaml"
   target: /etc/crowdsec/scenarios/ban-gafam.yaml
 - source: crowdsec_ban_ai_crawlers
   target: /etc/crowdsec/scenarios/ban-ai-crawlers.yaml
