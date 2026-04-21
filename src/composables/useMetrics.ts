@@ -6,7 +6,6 @@ import {
   METRICS_PRECISION_PERCENTAGE,
   SLA_PRECISION_PERCENTAGE,
   DEFAULT_METRIC_VALUE,
-  DEFAULT_LOADING_TEXT,
   TIME_UNITS,
 } from '../constants'
 
@@ -56,7 +55,7 @@ export function useMetrics() {
       key: 'github_public_repos',
     },
     github_stars: { val: DEFAULT_METRIC_VALUE, title: 'Stars', key: 'github_stars_total' },
-    gh_repo: { val: DEFAULT_LOADING_TEXT, key: 'github_last_push_info' },
+    gh_repo: { val: DEFAULT_METRIC_VALUE, key: 'github_last_push_info' },
     gh_ago: { val: DEFAULT_METRIC_VALUE, key: 'github_last_push_timestamp' },
     talos: { val: 'Unknown', key: 'talos_version' },
     k8s: { val: 'Unknown', key: 'kubernetes_version' },

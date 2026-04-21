@@ -83,5 +83,15 @@ const paths = computed(() => buildPaths(props.values))
   width: 100%;
   height: 60%;
   pointer-events: none;
+  animation: sparkline-in 0.6s ease both;
+}
+
+@keyframes sparkline-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>

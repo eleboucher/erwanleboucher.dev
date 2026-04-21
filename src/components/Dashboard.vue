@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { computed, nextTick, onMounted, ref } from 'vue'
 import { useMetrics } from '../composables/useMetrics'
 import { PRIMARY_STACK, GITHUB_USER } from '../constants'
 import type { MetricConfig } from '../types'
@@ -44,7 +44,12 @@ const versionPills = computed(() => [
 
 const isLoaded = (key: string) => !!loaded[key]
 
-onMounted(() => {
+// Brief skeleton flash for static cards so they reveal in sync with async ones
+const staticReady = ref(false)
+
+onMounted(async () => {
+  await nextTick()
+  staticReady.value = true
   if ('requestIdleCallback' in window) {
     requestIdleCallback(startPolling)
   } else {
@@ -62,20 +67,14 @@ onMounted(() => {
       class="card group relative overflow-hidden"
       :class="[
         isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-800',
-        { skeleton: !isLoaded(m.key) },
+        { loading: !isLoaded(m.key) },
       ]"
       role="article"
       :aria-label="`${m.title}: ${m.val}`"
     >
-      <template v-if="isLoaded(m.key)">
-        <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
-        <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
-        <span class="card-value">{{ m.val }}</span>
-      </template>
-      <template v-else>
-        <div class="skeleton-label"></div>
-        <div class="skeleton-value"></div>
-      </template>
+      <SparklineChart v-if="isLoaded(m.key) && m.history" :values="m.history" :id="m.key" />
+      <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
+      <span class="card-value">{{ m.val }}</span>
     </div>
 
     <a
@@ -87,24 +86,17 @@ onMounted(() => {
       target="_blank"
       rel="noopener noreferrer"
       class="card card-link group border-anthracite-800"
-      :class="{ skeleton: !isLoaded(metrics.gh_repo.key) }"
+      :class="{ loading: !isLoaded(metrics.gh_repo.key) }"
       :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
     >
-      <template v-if="isLoaded(metrics.gh_repo.key)">
-        <span class="card-label group-hover:text-cream-300">Latest Push</span>
-        <div class="flex flex-col">
-          <span class="card-value truncate">{{ metrics.gh_repo.val }}</span>
-          <span class="text-sm text-cream-500 mt-1">{{ metrics.gh_ago.val }}</span>
-        </div>
-      </template>
-      <template v-else>
-        <div class="skeleton-label"></div>
-        <div class="skeleton-value"></div>
-      </template>
+      <span class="card-label group-hover:text-cream-300">Latest Push</span>
+      <span class="card-value truncate">{{ metrics.gh_repo.val }}</span>
+      <span class="card-sub">{{ metrics.gh_ago.val }}</span>
     </a>
 
     <div
-      class="card group border-anthracite-800 hover:border-anthracite-700"
+      class="card card-static group border-anthracite-800 hover:border-anthracite-700"
+      :class="{ loading: !staticReady }"
       role="article"
       :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
     >
@@ -114,7 +106,8 @@ onMounted(() => {
     <a
       v-if="latestPost"
       :href="`/blog/${latestPost.slug}`"
-      class="card card-link group col-span-full border-anthracite-800"
+      class="card card-static card-link group col-span-full border-anthracite-800"
+      :class="{ loading: !staticReady }"
       :aria-label="`Latest post: ${latestPost.title}`"
     >
       <span class="card-label group-hover:text-cream-300">Latest Post</span>
@@ -132,20 +125,14 @@ onMounted(() => {
       class="card group relative overflow-hidden"
       :class="[
         isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-800',
-        { skeleton: !isLoaded(m.key) },
+        { loading: !isLoaded(m.key) },
       ]"
       role="article"
       :aria-label="`${m.title}: ${m.val}`"
     >
-      <template v-if="isLoaded(m.key)">
-        <SparklineChart v-if="m.history" :values="m.history" :id="m.key" />
-        <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
-        <span class="card-value">{{ m.val }}</span>
-      </template>
-      <template v-else>
-        <div class="skeleton-label"></div>
-        <div class="skeleton-value"></div>
-      </template>
+      <SparklineChart v-if="isLoaded(m.key) && m.history" :values="m.history" :id="m.key" />
+      <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
+      <span class="card-value">{{ m.val }}</span>
     </div>
   </section>
 
@@ -155,13 +142,10 @@ onMounted(() => {
         v-for="p in versionPills"
         :key="p.label"
         class="pill"
-        :class="{ skeleton: !isLoaded(p.key) }"
+        :class="{ loading: !isLoaded(p.key) }"
         :aria-label="`${p.label} version ${p.metric.val}`"
       >
-        <template v-if="isLoaded(p.key)"> {{ p.label }} {{ p.metric.val }} </template>
-        <template v-else>
-          <div class="skeleton-pill"></div>
-        </template>
+        {{ p.label }} {{ p.metric.val }}
       </span>
     </div>
     <div v-if="allLoaded" class="fetch-time" role="status" aria-live="polite">
@@ -197,11 +181,18 @@ onMounted(() => {
 }
 
 .card-label {
-  @apply block text-xs text-cream-500 uppercase tracking-[0.15em] mb-2 transition-colors;
+  @apply block text-xs text-cream-500 uppercase tracking-[0.15em] mb-2;
+  transition: color 0.5s ease;
 }
 
 .card-value {
   @apply text-2xl font-bold text-cream-100;
+  transition: color 0.5s ease;
+}
+
+.card-sub {
+  @apply block text-sm text-cream-500 mt-1;
+  transition: color 0.5s ease;
 }
 
 .footer {
@@ -214,25 +205,27 @@ onMounted(() => {
 
 .pill {
   @apply px-2.5 py-1 border border-anthracite-800 rounded-md text-xs text-cream-400 uppercase tracking-wider;
+  transition: color 0.5s ease;
 }
 
 .fetch-time {
   @apply text-xs text-cream-500 mt-3;
 }
 
-.skeleton {
-  @apply animate-pulse pointer-events-none;
+/* Loading skeleton state */
+.loading {
+  @apply pointer-events-none;
 }
 
-.skeleton-label {
-  @apply h-3 bg-anthracite-800/60 w-24 mb-3;
+.loading > :where(span, p, div:not(.sparkline)) {
+  @apply rounded bg-anthracite-800/60 animate-pulse;
+  color: transparent;
+  width: fit-content;
+  min-width: 5rem;
 }
 
-.skeleton-value {
-  @apply h-8 bg-anthracite-800/60 w-32;
-}
-
-.skeleton-pill {
-  @apply h-4 bg-anthracite-800/60 w-16;
+.loading.pill {
+  @apply animate-pulse;
+  color: transparent;
 }
 </style>

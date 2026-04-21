@@ -14,6 +14,5 @@ export const TIME_UNITS = {
 } as const
 
 export const DEFAULT_METRIC_VALUE = '--'
-export const DEFAULT_LOADING_TEXT = 'Loading...'
 
 export const PRIMARY_STACK = ['Golang', 'Python'] as const
