@@ -1,5 +1,5 @@
 ---
-title: "apoci: A Federated Container Registry Built on ActivityPub"
+title: 'apoci: A Federated Container Registry Built on ActivityPub'
 date: 2026-04-25
 description: What happens when your homelab dies and you have to rebootstrap from scratch.
 posted: false
@@ -54,7 +54,7 @@ Minimal config, single binary:
 
 ```yaml
 # apoci.yaml
-endpoint: "https://foo.com"
+endpoint: 'https://foo.com'
 ```
 
 ```bash
@@ -118,4 +118,7 @@ Source is at [git.erwanleboucher.dev/eleboucher/apoci](https://git.erwanlebouche
 or mirror is on GitHub at [github.com/eleboucher/apoci](https://github.com/eleboucher/apoci)
 feel free to raise issues or contribute if you want to see features or help out.
 If you're running a homelab and have ever wondered what happens when it dies, this is my answer.
+
+```
+
 ```

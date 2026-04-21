@@ -1,0 +1,90 @@
+---
+import '@fontsource-variable/atkinson-hyperlegible-mono'
+import '@fontsource-variable/inter'
+import '../app.css'
+import Header from '../components/Header.astro'
+
+interface Props {
+  title: string
+  description?: string
+}
+
+const { title, description = 'Live infrastructure dashboard showcasing real-time Kubernetes cluster metrics, GitHub activity, and homelab telemetry.' } = Astro.props
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="software engineer, kubernetes, homelab, talos linux, golang, python, devops, site reliability"
+    />
+    <meta name="author" content="Erwan Leboucher" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#101218" />
+
+    <!-- RSS -->
+    <link rel="alternate" type="application/rss+xml" title="Erwan Leboucher" href="/rss.xml" />
+
+    <!-- Analytics -->
+    <script
+      async
+      src="https://stats.erwanleboucher.dev/script.js"
+      data-website-id="23e7cf1e-dadf-4b70-b967-c3304bbd00c2"></script>
+
+    <!-- Redirect old hash-based URLs (/#/blog/slug → /blog/slug) -->
+    <script is:inline>
+      if (location.hash.startsWith('#/')) {
+        location.replace(location.hash.slice(1))
+      }
+    </script>
+  </head>
+  <body>
+    <div class="layout">
+      <div class="container">
+        <Header currentPath={Astro.url.pathname} />
+        <slot />
+      </div>
+    </div>
+  </body>
+</html>
+
+<style>
+  @reference '../app.css';
+
+  .layout {
+    @apply min-h-screen flex items-start justify-center py-20 px-6;
+  }
+
+  .container {
+    @apply w-full max-w-4xl;
+  }
+</style>

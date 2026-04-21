@@ -1,5 +1,3 @@
-import type { o } from 'vue-router/dist/options-Dvc4jXVE.cjs'
-
 export interface KromgoRawResponse {
   metric: Record<string, unknown>
   value: [number, string]

@@ -1,0 +1,211 @@
+---
+import { getCollection, render } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => data.posted)
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }))
+}
+
+const { post } = Astro.props
+const { Content } = await render(post)
+const dateStr = post.data.date.toISOString().slice(0, 10)
+---
+
+<BaseLayout title={`${post.data.title} — Erwan Leboucher`} description={post.data.description}>
+  <header class="post-header">
+    <a href="/blog" class="back-link">&larr; Back</a>
+    <span class="post-date">{dateStr}</span>
+    <h1 class="post-title">{post.data.title}</h1>
+    <p class="post-desc">{post.data.description}</p>
+  </header>
+
+  <main>
+    <article class="prose">
+      <Content />
+    </article>
+  </main>
+
+  <button class="scroll-top" aria-label="Scroll to top" id="scroll-top-btn" hidden> &uarr; </button>
+</BaseLayout>
+
+<script>
+  function handleCopyClick(event: Event) {
+    const target = event.target as HTMLElement
+    const button = target.closest('.copy-btn')
+    if (!button) return
+
+    const wrapper = button.closest('.code-block-wrapper')
+    const code = wrapper?.querySelector('code')?.textContent
+
+    if (code) {
+      navigator.clipboard.writeText(code).then(() => {
+        button.classList.add('copied')
+        setTimeout(() => button.classList.remove('copied'), 2000)
+      })
+    }
+  }
+
+  const article = document.querySelector('.prose')
+  article?.addEventListener('click', handleCopyClick)
+
+  const btn = document.getElementById('scroll-top-btn')!
+  window.addEventListener(
+    'scroll',
+    () => {
+      btn.hidden = window.scrollY <= 400
+    },
+    { passive: true },
+  )
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
+</script>
+
+<style>
+  @reference '../../app.css';
+
+  .post-header {
+    @apply flex flex-col gap-3 mb-16 pb-6 border-b border-anthracite-800;
+  }
+
+  .back-link {
+    @apply text-sm text-cream-500 hover:text-cream-200 transition-colors;
+  }
+
+  .post-date {
+    @apply text-xs text-navy-300 uppercase tracking-[0.15em] mt-2;
+  }
+
+  .post-title {
+    @apply text-2xl font-bold text-cream-100 tracking-tight leading-tight;
+  }
+
+  .post-desc {
+    @apply text-base text-cream-400 m-0 leading-relaxed;
+  }
+
+  .prose {
+    @apply max-w-3xl;
+  }
+
+  .prose :global(h1),
+  .prose :global(h2),
+  .prose :global(h3) {
+    @apply font-bold text-cream-100 mt-14 mb-4;
+  }
+
+  .prose :global(h1) {
+    @apply text-2xl;
+  }
+  .prose :global(h2) {
+    @apply text-xl;
+  }
+  .prose :global(h3) {
+    @apply text-lg;
+  }
+
+  .prose :global(p) {
+    @apply text-base text-cream-200 leading-7 mb-6;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    @apply text-base text-cream-200 pl-6 mb-6 leading-7;
+  }
+
+  .prose :global(ul) {
+    @apply list-disc;
+  }
+  .prose :global(ol) {
+    @apply list-decimal;
+  }
+
+  .prose :global(li) {
+    @apply mb-2 pl-1;
+  }
+
+  .prose :global(li > ul),
+  .prose :global(li > ol) {
+    @apply mt-2 mb-0;
+  }
+
+  .prose :global(a) {
+    @apply text-navy-300 hover:text-navy-400 underline underline-offset-2 transition-colors;
+  }
+
+  .prose :global(code):not(pre code) {
+    @apply text-navy-300 bg-anthracite-850 px-1.5 py-0.5 text-sm;
+  }
+
+  .prose :global(.code-block-wrapper) {
+    @apply relative mb-8 overflow-hidden border border-anthracite-800 bg-anthracite-900;
+  }
+
+  .prose :global(.code-header) {
+    @apply flex items-center justify-between px-4 py-2;
+    @apply bg-anthracite-850 border-b border-anthracite-800;
+  }
+
+  .prose :global(.code-lang) {
+    @apply text-sm font-medium text-cream-400 uppercase tracking-wide;
+  }
+
+  .prose :global(.copy-btn) {
+    @apply relative flex items-center justify-center;
+    @apply p-4 cursor-pointer transition-all duration-150;
+    @apply bg-transparent text-cream-300 hover:bg-anthracite-800 hover:text-cream-100;
+
+    :global(svg) {
+      @apply w-4 h-4 transition-all duration-200;
+    }
+    :global(.copy-icon),
+    :global(.check-icon) {
+      @apply absolute;
+    }
+    :global(.check-icon) {
+      @apply text-navy-400 opacity-0 scale-50;
+    }
+    :global(.copy-icon) {
+      @apply opacity-100 scale-100;
+    }
+
+    &:global(.copied) :global(.copy-icon) {
+      @apply opacity-0 scale-50;
+    }
+    &:global(.copied) :global(.check-icon) {
+      @apply opacity-100 scale-100;
+    }
+  }
+
+  .prose :global(.code-block-wrapper code) {
+    @apply block min-w-full;
+    @apply m-0 p-5 overflow-x-auto text-sm leading-[1.6] antialiased;
+    outline: none;
+  }
+
+  .prose :global(.code-block-wrapper code:focus-visible) {
+    @apply ring-2 ring-navy-400 ring-offset-2 ring-offset-anthracite-900;
+  }
+
+  .prose :global(blockquote) {
+    @apply border-l-2 border-navy-500/50 pl-5 text-cream-400 italic mb-6 py-1;
+  }
+
+  .prose :global(hr) {
+    @apply border-anthracite-800 my-10;
+  }
+
+  .prose :global(img) {
+    @apply max-w-full h-auto rounded-md border border-anthracite-800 my-6;
+  }
+
+  .scroll-top {
+    @apply fixed bottom-8 right-8 w-10 h-10 rounded-md;
+    @apply bg-anthracite-800 border border-anthracite-700 text-cream-300;
+    @apply hover:bg-anthracite-700 hover:text-cream-100;
+    @apply cursor-pointer transition-all duration-200;
+    @apply flex items-center justify-center text-sm;
+  }
+</style>

@@ -1,4 +1,4 @@
-import { ref, onUnmounted } from 'vue'
+import { ref, reactive, onUnmounted } from 'vue'
 import type { MetricsState, KromgoEndpointResponse, KromgoHistoryResponse } from '../types'
 import {
   KROMGO_BASE,
@@ -65,7 +65,8 @@ export function useMetrics() {
     routeros: { val: 'Unknown', key: 'mkt_version' },
   })
 
-  const loading = ref(true)
+  const loaded = reactive<Record<string, boolean>>({})
+  const allLoaded = ref(false)
   const error = ref<string | null>(null)
   const fetchDuration = ref(0)
   let intervalId: number | null = null
@@ -129,12 +130,14 @@ export function useMetrics() {
               config.val = value
           }
         }
+        loaded[config.key] = true
       } catch (err) {
         console.warn(`Failed to fetch ${config.key}:`, err)
+        loaded[config.key] = true
       } finally {
         remaining--
         if (remaining === 0) {
-          loading.value = false
+          allLoaded.value = true
           fetchDuration.value = Math.round(performance.now() - start)
         }
       }
@@ -168,7 +171,8 @@ export function useMetrics() {
 
   return {
     metrics,
-    loading,
+    loaded,
+    allLoaded,
     error,
     fetchDuration,
     fetchAllStats,

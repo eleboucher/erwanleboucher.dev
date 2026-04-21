@@ -1,5 +1,5 @@
 ---
-title: "How AI made me feel worse about myself"
+title: 'How AI made me feel worse about myself'
 date: 2026-03-30
 description: The imposter syndrome is now worse.
 posted: true

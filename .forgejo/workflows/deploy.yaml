@@ -27,7 +27,7 @@ jobs:
         run: bun run type-check
 
       - name: Build
-        run: bun run build-only
+        run: bun run build
 
       - name: Deploy to OVHcloud S3
         env:

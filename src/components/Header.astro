@@ -1,0 +1,147 @@
+---
+interface Props {
+  currentPath: string
+}
+
+const { currentPath } = Astro.props
+const isActive = (path: string) =>
+  path === '/' ? currentPath === '/' : currentPath.startsWith(path)
+---
+
+<header class="header">
+  <div class="identity">
+    <div>
+      <h1 class="name">Erwan Leboucher</h1>
+      <p class="subtitle">Senior Software Engineer — Paris · he/him</p>
+    </div>
+    <div class="status-badge" role="status" aria-live="polite">
+      <span class="status-dot"></span>
+      Systems Operational
+    </div>
+  </div>
+
+  <nav class="nav" aria-label="Main navigation">
+    <div class="nav-group">
+      <a
+        href="/"
+        class:list={['nav-link', { active: isActive('/') }]}
+        aria-current={isActive('/') ? 'page' : undefined}
+      >
+        Home
+      </a>
+      <a
+        href="/blog"
+        class:list={['nav-link', { active: isActive('/blog') }]}
+        aria-current={isActive('/blog') ? 'page' : undefined}
+      >
+        Blog
+      </a>
+    </div>
+    <div class="nav-group">
+      <a
+        href="mailto:erwanleboucher@gmail.com"
+        class="nav-link external"
+        aria-label="Send email to erwanleboucher@gmail.com"
+      >
+        Email
+      </a>
+      <a
+        href="https://github.com/eleboucher"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link external"
+      >
+        GitHub
+      </a>
+      <a
+        href="https://git.erwanleboucher.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link external"
+      >
+        Forgejo
+      </a>
+      <a
+        href="https://linkedin.com/in/erwan-leboucher"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link external"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://keyoxide.org/erwan@erwanleboucher.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link external"
+      >
+        Keyoxide
+      </a>
+      <a
+        href="https://ko-fi.com/eleboucher"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link external"
+      >
+        Sponsor
+      </a>
+      <a
+        href="/rss.xml"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-link external"
+        aria-label="RSS Feed"
+      >
+        RSS
+      </a>
+    </div>
+  </nav>
+</header>
+
+<style>
+  @reference '../app.css';
+
+  .header {
+    @apply flex flex-col gap-6 mb-16 pb-6 border-b border-anthracite-800;
+  }
+
+  .identity {
+    @apply flex flex-col md:flex-row justify-between items-start gap-4;
+  }
+
+  .name {
+    @apply text-4xl font-bold text-cream-100 tracking-tight leading-none;
+  }
+
+  .subtitle {
+    @apply text-sm text-cream-400 mt-2 tracking-wide;
+  }
+
+  .status-badge {
+    @apply flex items-center gap-2 text-xs text-navy-300 uppercase tracking-widest;
+  }
+
+  .status-dot {
+    @apply w-1.5 h-1.5 rounded-full bg-navy-300 animate-pulse;
+  }
+
+  .nav {
+    @apply flex flex-wrap justify-between gap-6 text-sm;
+  }
+
+  .nav-group {
+    @apply flex flex-wrap gap-6;
+  }
+
+  .nav-link {
+    @apply text-cream-400 hover:text-cream-100 transition-colors duration-200;
+  }
+
+  .nav-link.active {
+    @apply text-cream-100 border-b border-navy-400;
+  }
+
+  .nav-link.external {
+    @apply text-cream-500 hover:text-cream-300;
+  }
+</style>

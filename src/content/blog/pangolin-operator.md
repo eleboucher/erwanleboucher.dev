@@ -1,12 +1,11 @@
 ---
-title: "Pangolin Operator: Managing Tunnel Infrastructure the Kubernetes Way"
+title: 'Pangolin Operator: Managing Tunnel Infrastructure the Kubernetes Way'
 date: 2026-04-21
 description: How I replaced manual Pangolin management with a Kubernetes operator and a few YAML files.
 posted: false
 ---
 
-
-If you've read my [previous article about Pangolin](https://erwanleboucher.dev/#/blog/pangolin), you know
+If you've read my [previous article about Pangolin](/blog/pangolin), you know
 I've been running Pangolin on a VPS to expose my homelab services without depending on Cloudflare. As part
 of that setup, I built [newt-sidecar](https://github.com/home-operations/newt-sidecar), a sidecar that
 watches HTTPRoute resources in the cluster and pushes them to Pangolin automatically via blueprints.
@@ -34,7 +33,7 @@ Everything is namespaced under `pangolin.home-operations.com/v1alpha1`, and the 
 lifecycle: create, update, drift detection, and deletion with finalizers so nothing gets orphaned.
 
 The biggest difference from newt-sidecar is that the operator owns the reconciliation loop. If a resource
-disappears on the Pangolin side, the operator detects it on the next periodic sync and re-creates it. 
+disappears on the Pangolin side, the operator detects it on the next periodic sync and re-creates it.
 newt-sidecar had no way to do this, it pushed config once and moved on.
 
 ---

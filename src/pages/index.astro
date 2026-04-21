@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Dashboard from '../components/Dashboard.vue'
+
+const posts = (await getCollection('blog', ({ data }) => data.posted)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+)
+
+const latestPost = posts[0]
+---
+
+<BaseLayout title="Erwan Leboucher - Senior Software Engineer • Paris">
+  <main>
+    <Dashboard client:idle latestPost={{
+      slug: latestPost.id,
+      title: latestPost.data.title,
+      description: latestPost.data.description,
+      date: latestPost.data.date.toISOString().slice(0, 10),
+    }} />
+  </main>
+</BaseLayout>
