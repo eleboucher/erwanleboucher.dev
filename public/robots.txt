@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://erwanleboucher.dev/sitemap-index.xml

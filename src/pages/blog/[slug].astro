@@ -18,7 +18,9 @@ const dateStr = post.data.date.toISOString().slice(0, 10)
 <BaseLayout title={`${post.data.title} — Erwan Leboucher`} description={post.data.description}>
   <header class="post-header">
     <a href="/blog" class="back-link">&larr; Back</a>
-    <span class="post-date">{dateStr}</span>
+    <span class="post-date">
+        <time datetime={dateStr}>{dateStr}</time>
+      </span>
     <h1 class="post-title">{post.data.title}</h1>
     <p class="post-desc">{post.data.description}</p>
   </header>
@@ -33,34 +35,17 @@ const dateStr = post.data.date.toISOString().slice(0, 10)
 </BaseLayout>
 
 <script>
-  function handleCopyClick(event: Event) {
-    const target = event.target as HTMLElement
-    const button = target.closest('.copy-btn')
-    if (!button) return
-
-    const wrapper = button.closest('.code-block-wrapper')
-    const code = wrapper?.querySelector('code')?.textContent
-
-    if (code) {
-      navigator.clipboard.writeText(code).then(() => {
-        button.classList.add('copied')
-        setTimeout(() => button.classList.remove('copied'), 2000)
-      })
-    }
+  const btn = document.getElementById('scroll-top-btn')
+  if (btn) {
+    window.addEventListener(
+      'scroll',
+      () => {
+        btn.hidden = window.scrollY <= 400
+      },
+      { passive: true },
+    )
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
   }
-
-  const article = document.querySelector('.prose')
-  article?.addEventListener('click', handleCopyClick)
-
-  const btn = document.getElementById('scroll-top-btn')!
-  window.addEventListener(
-    'scroll',
-    () => {
-      btn.hidden = window.scrollY <= 400
-    },
-    { passive: true },
-  )
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
 </script>
 
 <style>
@@ -139,54 +124,14 @@ const dateStr = post.data.date.toISOString().slice(0, 10)
     @apply text-navy-300 bg-anthracite-850 px-1.5 py-0.5 text-sm;
   }
 
-  .prose :global(.code-block-wrapper) {
-    @apply relative mb-8 overflow-hidden border border-anthracite-800 bg-anthracite-900;
+  /* expressive-code block spacing and focus ring */
+  .prose :global(.expressive-code) {
+    @apply mb-8;
   }
 
-  .prose :global(.code-header) {
-    @apply flex items-center justify-between px-4 py-2;
-    @apply bg-anthracite-850 border-b border-anthracite-800;
-  }
-
-  .prose :global(.code-lang) {
-    @apply text-sm font-medium text-cream-400 uppercase tracking-wide;
-  }
-
-  .prose :global(.copy-btn) {
-    @apply relative flex items-center justify-center;
-    @apply p-4 cursor-pointer transition-all duration-150;
-    @apply bg-transparent text-cream-300 hover:bg-anthracite-800 hover:text-cream-100;
-
-    :global(svg) {
-      @apply w-4 h-4 transition-all duration-200;
-    }
-    :global(.copy-icon),
-    :global(.check-icon) {
-      @apply absolute;
-    }
-    :global(.check-icon) {
-      @apply text-navy-400 opacity-0 scale-50;
-    }
-    :global(.copy-icon) {
-      @apply opacity-100 scale-100;
-    }
-
-    &:global(.copied) :global(.copy-icon) {
-      @apply opacity-0 scale-50;
-    }
-    &:global(.copied) :global(.check-icon) {
-      @apply opacity-100 scale-100;
-    }
-  }
-
-  .prose :global(.code-block-wrapper code) {
-    @apply block min-w-full;
-    @apply m-0 p-5 overflow-x-auto text-sm leading-[1.6] antialiased;
-    outline: none;
-  }
-
-  .prose :global(.code-block-wrapper code:focus-visible) {
+  .prose :global(.expressive-code pre code:focus-visible) {
     @apply ring-2 ring-navy-400 ring-offset-2 ring-offset-anthracite-900;
+    outline: none;
   }
 
   .prose :global(blockquote) {

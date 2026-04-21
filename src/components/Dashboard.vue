@@ -6,7 +6,7 @@ import type { MetricConfig } from '../types'
 import SparklineChart from './SparklineChart.vue'
 
 const props = defineProps<{
-  latestPost: { slug: string; title: string; description: string; date: string }
+  latestPost: { slug: string; title: string; description: string; date: string } | null
 }>()
 
 const { metrics, loaded, allLoaded, fetchDuration, startPolling } = useMetrics()
@@ -79,7 +79,7 @@ onMounted(() => {
     </div>
 
     <a
-      :href="`https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`"
+      :href="isLoaded(metrics.gh_repo.key) ? `https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}` : undefined"
       target="_blank"
       rel="noopener noreferrer"
       class="card card-link group border-anthracite-800"
@@ -108,6 +108,7 @@ onMounted(() => {
       <span class="card-value">{{ PRIMARY_STACK.join(' / ') }}</span>
     </div>
     <a
+      v-if="latestPost"
       :href="`/blog/${latestPost.slug}`"
       class="card card-link group col-span-full border-anthracite-800"
       :aria-label="`Latest post: ${latestPost.title}`"
@@ -169,7 +170,7 @@ onMounted(() => {
 @reference '../app.css';
 
 .section {
-  @apply flex flex-col mb-12 border-b border-anthracite-800 pb-6 gap-4;
+  @apply mb-12 border-b border-anthracite-800 pb-6;
 }
 
 .metrics-grid {

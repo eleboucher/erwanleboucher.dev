@@ -7,16 +7,16 @@ const posts = (await getCollection('blog', ({ data }) => data.posted)).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
 )
 
-const latestPost = posts[0]
+const latestPost = posts[0] ?? null
 ---
 
 <BaseLayout title="Erwan Leboucher - Senior Software Engineer • Paris">
   <main>
-    <Dashboard client:idle latestPost={{
+    <Dashboard client:idle latestPost={latestPost ? {
       slug: latestPost.id,
       title: latestPost.data.title,
       description: latestPost.data.description,
       date: latestPost.data.date.toISOString().slice(0, 10),
-    }} />
+    } : null} />
   </main>
 </BaseLayout>

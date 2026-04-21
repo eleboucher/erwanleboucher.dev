@@ -133,6 +133,7 @@ export function useMetrics() {
         loaded[config.key] = true
       } catch (err) {
         console.warn(`Failed to fetch ${config.key}:`, err)
+        error.value = err instanceof Error ? err.message : String(err)
         loaded[config.key] = true
       } finally {
         remaining--
