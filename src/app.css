@@ -6,12 +6,14 @@
     'Liberation Mono', 'Courier New', monospace;
 
   /* Anthracite base — dark gray with a cool blue undertone */
+  --color-anthracite-1000: #0a0c12;
   --color-anthracite-950: #101218;
   --color-anthracite-900: #16181f;
   --color-anthracite-850: #1c1e28;
   --color-anthracite-800: #252834;
   --color-anthracite-700: #313544;
   --color-anthracite-600: #3e4358;
+  --color-anthracite-500: #535875;
 
   /* Navy accent */
   --color-navy-700: #1e3d66;
@@ -19,6 +21,10 @@
   --color-navy-500: #3672a4;
   --color-navy-400: #4a8ec8;
   --color-navy-300: #6baad8;
+
+  /* Slate — muted text with a navy undertone */
+  --color-slate-400: #8a9ab5;
+  --color-slate-300: #b4c0d5;
 
   /* Text tones */
   --color-cream-100: #f8f8fa;
