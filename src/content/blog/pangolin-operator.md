@@ -1,8 +1,8 @@
 ---
 title: 'Pangolin Operator: Managing Tunnel Infrastructure the Kubernetes Way'
-date: 2026-04-21
+date: 2026-04-29
 description: How I replaced manual Pangolin management with a Kubernetes operator and a few YAML files.
-posted: false
+posted: true
 ---
 
 If you've read my [previous article about Pangolin](/blog/pangolin), you know
@@ -13,9 +13,7 @@ watches HTTPRoute resources in the cluster and pushes them to Pangolin automatic
 It worked, but it had limits. No custom public resources, no private resources, the sidecar was just reading a config json file and pushing it to Pangolin without any feedback loop. If something went wrong on the Pangolin side, the sidecar had no way of knowing.
 And there was no native way to manage the full lifecycle: creating sites, handling credentials, cleaning up resources on deletion. It was also a sidecar, which meant it was coupled to the Newt deployment rather than being a first-class citizen in my infrastructure.
 
-Meanwhile I was still running Tailscale for private VPN access to my cluster internals. It works, but it's
-yet another external dependency for something I could self-host. Pangolin already has its own VPN solution
-built in (OLM), so the pieces were all there.
+Meanwhile I was still running Tailscale for private VPN access to my cluster internals. It works, but it's yet another external dependency for something I could self-host. Pangolin already has its own VPN solution built in (OLM), so the pieces were all there.
 
 So I built a proper Kubernetes operator.
 
@@ -29,11 +27,9 @@ The operator talks directly to the Pangolin Integration API and manages three ty
 - `PublicResource` exposes a service publicly over HTTP, TCP, or UDP
 - `PrivateResource` registers a host or CIDR range for OLM VPN access, this is what replaced Tailscale
 
-Everything is namespaced under `pangolin.home-operations.com/v1alpha1`, and the operator handles the full
-lifecycle: create, update, drift detection, and deletion with finalizers so nothing gets orphaned.
+Everything is namespaced under `pangolin.home-operations.com/v1alpha1`, and the operator handles the full lifecycle: create, update, drift detection, and deletion with finalizers so nothing gets orphaned.
 
-The biggest difference from newt-sidecar is that the operator owns the reconciliation loop. If a resource
-disappears on the Pangolin side, the operator detects it on the next periodic sync and re-creates it.
+The biggest difference from newt-sidecar is that the operator owns the reconciliation loop. If a resource disappears on the Pangolin side, the operator detects it on the next periodic sync and re-creates it.
 newt-sidecar had no way to do this, it pushed config once and moved on.
 
 ---
