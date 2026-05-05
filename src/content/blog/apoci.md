@@ -2,7 +2,7 @@
 title: 'apoci: A Federated Container Registry Built on ActivityPub'
 date: 2026-04-25
 description: What happens when your homelab dies and you have to rebootstrap from scratch.
-posted: false
+posted: true
 ---
 
 I want everything to be independent from American corporations. So I try to host as many services as
@@ -10,10 +10,12 @@ possible, and build alternatives when I can't find good ones. It works great unt
 uncomfortable question: if my homelab dies tomorrow, how do I bring it back up?
 
 Most people would answer "from Docker Hub" or "from GHCR." Which means depending on third-party
-infrastructure at exactly the moment you need to be most self-sufficient. That bothered me enough that
-I built something about it.
+infrastructure at exactly the moment you need to be most self-sufficient.
 
-**apoci** is a federated OCI container registry. Each node is a single-user registry and an ActivityPub
+One day a friend told me: you can just share your homelab artifacts with 5 of yours friends and so you will
+be able to bring it back. So I made it happened
+
+**apoci** is a federated container registry (and working also on packages). Each node is a single-user registry and an ActivityPub
 actor — `@registry@foo.com`. Push an artifact and it federates to your followers. When your server goes
 down, your peers still serve your images and you can rebootstrap from any of them.
 
@@ -118,7 +120,3 @@ Source is at [git.erwanleboucher.dev/eleboucher/apoci](https://git.erwanlebouche
 or mirror is on GitHub at [github.com/eleboucher/apoci](https://github.com/eleboucher/apoci)
 feel free to raise issues or contribute if you want to see features or help out.
 If you're running a homelab and have ever wondered what happens when it dies, this is my answer.
-
-```
-
-```
