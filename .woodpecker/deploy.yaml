@@ -17,7 +17,7 @@ steps:
       frozen_lockfile: true
 
   - name: Deploy to OVHcloud S3
-    image: amazon/aws-cli:latest@sha256:c9756d3e11fdfc02497e980c1cb94c678c31b6e38c93f6443291e52f71493720
+    image: amazon/aws-cli:latest@sha256:e899d2f3c2c86646a0b18cbd7a81feccf8eba2f177e2317059407368f51776d7
     environment:
       AWS_ACCESS_KEY_ID:
         from_secret: OVH_S3_ACCESS_KEY
