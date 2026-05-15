@@ -1,7 +1,7 @@
 ---
 clone:
   git:
-    image: woodpeckerci/plugin-git@sha256:1e536c0da16f8cbb35e870fb3d75fde45c85c7239225fea2209cc6990ba330e4
+    image: woodpeckerci/plugin-git@sha256:8995e4745cf57dcee659db94d43598fd181b1b370671db2c9ccf7b0b2a8f31c8
     settings:
       skip-verify: true
 
