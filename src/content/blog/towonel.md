@@ -5,6 +5,10 @@ description: Cloudflare Tunnel decrypts everything. Towonel doesn't.
 posted: true
 ---
 
+Edit: I released towonel website alongside a managed solution so people don't need to pay for a VPS, it's currently in Alpha under invitation only. [Check it out](https://towonel.dev)
+
+---
+
 If you've read my [previous article about Pangolin](https://erwanleboucher.dev/#/blog/pangolin), you know
 I've been running it to expose my homelab services without depending on Cloudflare. It worked well, but
 Pangolin is heavy — too much RAM for what it does, and the Node.js stack doesn't help. On a cheap VPS
@@ -99,4 +103,4 @@ docker pull git.erwanleboucher.dev/eleboucher/towonel-node:latest
 docker pull git.erwanleboucher.dev/eleboucher/towonel-agent:latest
 ```
 
-Source is at [git.erwanleboucher.dev/eleboucher/towonel](https://git.erwanleboucher.dev/eleboucher/towonel). If you're in the home-operations community and want to leave Cloudflare Tunnels without spinning up your own VPS, come find me on Discord.
+Source is at [https://codeberg.org/towonel](https://codeberg.org/towonel). If you're in the home-operations community and want to leave Cloudflare Tunnels without spinning up your own VPS, come find me on Discord.
