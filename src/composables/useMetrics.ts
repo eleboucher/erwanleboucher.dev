@@ -71,7 +71,7 @@ export function useMetrics() {
   let intervalId: number | null = null
 
   const fetchMetric = async (key: string): Promise<KromgoEndpointResponse> => {
-    const res = await fetch(`${KROMGO_BASE}/${key}`)
+    const res = await fetch(`${KROMGO_BASE}/badges/${key}?format=json`)
     if (!res.ok) {
       throw new Error(`Failed to fetch ${key}: ${res.status} ${res.statusText}`)
     }
@@ -80,7 +80,7 @@ export function useMetrics() {
   }
 
   const fetchHistory = async (key: string, last: string): Promise<number[]> => {
-    const res = await fetch(`${KROMGO_BASE}/${key}?format=history&last=${last}`)
+    const res = await fetch(`${KROMGO_BASE}/graphs/${key}?format=json&last=${last}`)
     if (!res.ok) return []
     const data = (await res.json()) as KromgoHistoryResponse
     return data.series?.[0]?.data?.map((p) => p.v) ?? []
@@ -104,29 +104,29 @@ export function useMetrics() {
       const config = metrics.value[dictKey]
       try {
         const response = await fetchMetric(config.key)
-        if (response && response.message !== null) {
-          const value = response.message
+        if (response && response.value != null) {
+          const result = response.result
           config.color = response.color
 
           switch (dictKey) {
             case 'cpu':
             case 'mem':
-              config.val = `${parseFloat(value).toFixed(METRICS_PRECISION_PERCENTAGE)}%`
+              config.val = `${result.toFixed(METRICS_PRECISION_PERCENTAGE)}%`
               break
             case 'sla':
-              config.val = `${parseFloat(value).toFixed(SLA_PRECISION_PERCENTAGE)}%`
+              config.val = `${result.toFixed(SLA_PRECISION_PERCENTAGE)}%`
               break
             case 'uptime':
-              config.val = `${parseInt(value, 10)} days`
+              config.val = `${Math.round(result)} days`
               break
             case 'cluster_latency':
-              config.val = `${Math.round(parseFloat(value) * 1000)} ms`
+              config.val = `${Math.round(result * 1000)} ms`
               break
             case 'gh_ago':
-              config.val = timeAgo(new Date(parseInt(value, 10) * 1000))
+              config.val = timeAgo(new Date(result * 1000))
               break
             default:
-              config.val = value
+              config.val = response.value
           }
         }
         loaded[config.key] = true

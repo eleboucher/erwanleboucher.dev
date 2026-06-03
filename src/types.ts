@@ -1,13 +1,7 @@
-export interface KromgoRawResponse {
-  metric: Record<string, unknown>
-  value: [number, string]
-}
-
 export interface KromgoEndpointResponse {
-  message: string
+  value: string
   color: string
-  label: string
-  schemaVersion: number
+  result: number
 }
 
 export interface GitHubEvent {
@@ -19,21 +13,14 @@ export interface GitHubEvent {
 }
 
 export interface KromgoHistoryDataPoint {
-  t: number
   v: number
 }
 
 export interface KromgoHistorySeries {
-  labels: Record<string, unknown>
   data: KromgoHistoryDataPoint[]
 }
 
 export interface KromgoHistoryResponse {
-  metric: string
-  title: string
-  start: number
-  end: number
-  step: number
   series: KromgoHistorySeries[]
 }
 
