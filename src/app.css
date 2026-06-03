@@ -5,7 +5,7 @@
     'Atkinson Hyperlegible Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
     'Liberation Mono', 'Courier New', monospace;
 
-  /* Anthracite base — dark gray with a cool blue undertone */
+  /* Anthracite base: dark gray with a cool blue undertone */
   --color-anthracite-1000: #0a0c12;
   --color-anthracite-950: #101218;
   --color-anthracite-900: #16181f;
@@ -22,7 +22,7 @@
   --color-navy-400: #4a8ec8;
   --color-navy-300: #6baad8;
 
-  /* Slate — muted text with a navy undertone */
+  /* Slate: muted text with a navy undertone */
   --color-slate-400: #8a9ab5;
   --color-slate-300: #b4c0d5;
 
@@ -38,6 +38,23 @@
   background-color: var(--color-anthracite-950);
   color: var(--color-cream-200);
   color-scheme: dark;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-navy-300);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

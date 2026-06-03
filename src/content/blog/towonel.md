@@ -5,16 +5,16 @@ description: Cloudflare Tunnel decrypts everything. Towonel doesn't.
 posted: true
 ---
 
-Edit: I released towonel website alongside a managed solution so people don't need to pay for a VPS, it's currently in Alpha under invitation only. [Check it out](https://towonel.dev)
+Edit: I released the towonel website alongside a managed solution so people don't need to pay for a VPS. It's currently in Alpha, invitation only. [Check it out](https://towonel.dev)
 
 ---
 
-If you've read my [previous article about Pangolin](https://erwanleboucher.dev/#/blog/pangolin), you know
+If you've read my [previous article about Pangolin](/blog/pangolin), you know
 I've been running it to expose my homelab services without depending on Cloudflare. It worked well, but
-Pangolin is heavy — too much RAM for what it does, and the Node.js stack doesn't help. On a cheap VPS
+Pangolin is heavy: too much RAM for what it does, and the Node.js stack doesn't help. On a cheap VPS
 that's already doing a few other things, it adds up fast.
 
-But the resource usage wasn't the only problem. Most tunnel solutions — Cloudflare Tunnels included —
+But the resource usage wasn't the only problem. Most tunnel solutions, Cloudflare Tunnels included,
 terminate TLS at the edge. That means your traffic is decrypted on someone else's server before being
 forwarded to you. For a service handling personal data, that's a meaningful compromise.
 
@@ -22,8 +22,8 @@ I also wanted something the [home-operations](https://discord.gg/home-operations
 actually use together. Most people want to leave Cloudflare but don't want to manage a VPS on their own.
 If one person runs a hub and a few friends share it, the monthly cost becomes almost nothing.
 
-So I built towonel. In Rust, partly because I wanted to learn the language properly, partly because a
-tunnel proxy that spends its life doing I/O and well rust is known to be good there.
+So I built towonel, in Rust, partly because I wanted to learn the language properly, and partly because
+a tunnel proxy spends its life doing I/O, and Rust is known to be good at that.
 
 ---
 
@@ -73,7 +73,7 @@ boots any number of replicas, which also makes it trivial to run in Kubernetes.
 
 ## TCP/UDP proxy
 
-One feature that is not possible with cloudflare is TCP/UDP proxy. With Towonel you can expose your ssh, postgres port, sturn for matrix call, game server and so much more.
+One feature that isn't possible with Cloudflare is a TCP/UDP proxy. With towonel you can expose SSH, a Postgres port, STUN/TURN for Matrix calls, a game server, and much more.
 The agent declares the services it wants exposed; the edge picks them up automatically. The hub operator doesn't touch anything per service.
 
 ```bash

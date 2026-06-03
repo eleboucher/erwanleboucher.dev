@@ -1,7 +1,7 @@
 ---
 title: 'apoci: A Federated Container Registry Built on ActivityPub'
 date: 2026-04-25
-description: What happens when your homelab dies and you have to rebootstrap from scratch.
+description: A federated, single-user container registry built on ActivityPub, so your homelab can rebootstrap from your peers when it dies.
 posted: true
 ---
 
@@ -12,11 +12,11 @@ uncomfortable question: if my homelab dies tomorrow, how do I bring it back up?
 Most people would answer "from Docker Hub" or "from GHCR." Which means depending on third-party
 infrastructure at exactly the moment you need to be most self-sufficient.
 
-One day a friend told me: you can just share your homelab artifacts with 5 of yours friends and so you will
-be able to bring it back. So I made it happened
+One day a friend told me: you can just share your homelab artifacts with five of your friends, and then you
+can bring it back. So I made it happen.
 
-**apoci** is a federated container registry (and working also on packages). Each node is a single-user registry and an ActivityPub
-actor — `@registry@foo.com`. Push an artifact and it federates to your followers. When your server goes
+**apoci** is a federated container registry (with package support in the works). Each node is a single-user registry and an ActivityPub
+actor, `@registry@foo.com`. Push an artifact and it federates to your followers. When your server goes
 down, your peers still serve your images and you can rebootstrap from any of them.
 
 The replication problem for a container registry isn't that different from the social web problem: you
@@ -33,8 +33,8 @@ When you push a manifest, three AP activities fire to every follower: the manife
 mapping, and a blob announcement that triggers background replication. By the time a peer confirms, they
 already have everything they need to serve your image independently.
 
-The part that required the most design work was namespacing. When you federate across independently-
-operated nodes, two people can have an image called `myapp` and they can't collide. The solution is the
+The part that required the most design work was namespacing. When you federate across independently
+operated nodes, two people can have an image called `myapp` and they must not collide. The solution is the
 same one the fediverse uses for accounts: domain-prefix everything.
 
 ```bash
@@ -46,7 +46,7 @@ docker pull bar.com/bar.com/myapp:v1      # bar's image, directly from bar
 The second case is the interesting one. If `foo` follows `bar`, `foo` has `bar`'s metadata. On pull,
 `foo` fetches the blob from `bar`, verifies the SHA-256, caches it, and serves it locally. Next pull is
 fully local. The domain prefix is added automatically on push so you don't have to type it every time,
-and writes to a foreign namespace are rejected — you can only push under your own domain.
+and writes to a foreign namespace are rejected. You can only push under your own domain.
 
 ---
 
@@ -72,7 +72,7 @@ docker login foo.com -u registry -p "$TOKEN"
 docker push foo.com/myapp:v1
 ```
 
-To federate with someone, you follow them and they accept — same mental model as the fediverse:
+To federate with someone, you follow them and they accept, same mental model as the fediverse:
 
 ```bash
 # on your node
@@ -90,7 +90,7 @@ approval, which is what you want when you're building a small trust network rath
 ## A few other things worth mentioning
 
 It also works as a pull-through cache for external registries. Sometimes you can't avoid pulling from
-Docker Hub or GHCR — at least you can avoid doing it more than once. Configure the upstreams you need
+Docker Hub or GHCR. At least you can avoid doing it more than once. Configure the upstreams you need
 and pull through your node:
 
 ```bash
@@ -116,7 +116,8 @@ infrastructure.
 go install git.erwanleboucher.dev/eleboucher/apoci/cmd/apoci@latest
 ```
 
-Source is at [git.erwanleboucher.dev/eleboucher/apoci](https://git.erwanleboucher.dev/eleboucher/apoci)
-or mirror is on GitHub at [github.com/eleboucher/apoci](https://github.com/eleboucher/apoci)
-feel free to raise issues or contribute if you want to see features or help out.
+The source is at [git.erwanleboucher.dev/eleboucher/apoci](https://git.erwanleboucher.dev/eleboucher/apoci),
+mirrored on GitHub at [github.com/eleboucher/apoci](https://github.com/eleboucher/apoci).
+Feel free to raise issues or contribute if you want to see features or help out.
+
 If you're running a homelab and have ever wondered what happens when it dies, this is my answer.

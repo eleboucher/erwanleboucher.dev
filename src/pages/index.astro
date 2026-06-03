@@ -8,10 +8,35 @@ const posts = (await getCollection('blog', ({ data }) => data.posted)).sort(
 )
 
 const latestPost = posts[0] ?? null
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Erwan Leboucher',
+  jobTitle: 'Senior Software Engineer',
+  url: 'https://erwanleboucher.dev',
+  email: 'mailto:erwanleboucher@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Paris',
+    addressCountry: 'FR',
+  },
+  worksFor: { '@type': 'Organization', name: 'OVHcloud' },
+  knowsAbout: [
+    'Kubernetes',
+    'Go',
+    'Python',
+    'Rust',
+    'Site Reliability Engineering',
+    'Self-hosting',
+    'DevOps',
+  ],
+  sameAs: ['https://github.com/eleboucher', 'https://linkedin.com/in/erwan-leboucher'],
+}
 ---
 
-<BaseLayout title="Erwan Leboucher - Senior Software Engineer • Paris">
-  <main>
+<BaseLayout title="Erwan Leboucher - Senior Software Engineer • Paris" jsonLd={jsonLd}>
+  <main id="main">
     <Dashboard client:idle latestPost={latestPost ? {
       slug: latestPost.id,
       title: latestPost.data.title,

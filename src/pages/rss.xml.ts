@@ -16,6 +16,8 @@ export async function GET(context: APIContext) {
       pubDate: post.data.date,
       description: post.data.description,
       link: `/blog/${post.id}`,
+      guid: new URL(`/blog/${post.id}`, context.site).href,
+      author: 'Erwan Leboucher',
     })),
   })
 }

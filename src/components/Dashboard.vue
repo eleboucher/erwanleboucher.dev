@@ -9,7 +9,7 @@ const props = defineProps<{
   latestPost: { slug: string; title: string; description: string; date: string } | null
 }>()
 
-const { metrics, loaded, allLoaded, fetchDuration, startPolling } = useMetrics()
+const { metrics, loaded, allLoaded, error, fetchDuration, startPolling } = useMetrics()
 
 const COLOR_BORDER: Record<string, string> = {
   green: 'border-navy-500/50 hover:border-navy-500/70',
@@ -69,36 +69,37 @@ onMounted(async () => {
         isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-800',
         { loading: !isLoaded(m.key) },
       ]"
-      role="article"
-      :aria-label="`${m.title}: ${m.val}`"
     >
       <SparklineChart v-if="isLoaded(m.key) && m.history" :values="m.history" :id="m.key" />
       <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
       <span class="card-value">{{ m.val }}</span>
     </div>
 
-    <a
+    <component
+      :is="isLoaded(metrics.gh_repo.key) ? 'a' : 'div'"
       :href="
         isLoaded(metrics.gh_repo.key)
           ? `https://github.com/${GITHUB_USER}/${metrics.gh_repo.val}`
           : undefined
       "
-      target="_blank"
-      rel="noopener noreferrer"
+      :target="isLoaded(metrics.gh_repo.key) ? '_blank' : undefined"
+      :rel="isLoaded(metrics.gh_repo.key) ? 'noopener noreferrer' : undefined"
       class="card card-link group border-anthracite-800"
       :class="{ loading: !isLoaded(metrics.gh_repo.key) }"
-      :aria-label="`Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val}`"
+      :aria-label="
+        isLoaded(metrics.gh_repo.key)
+          ? `Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val} (opens in new tab)`
+          : undefined
+      "
     >
       <span class="card-label group-hover:text-cream-300">Latest Push</span>
       <span class="card-value truncate">{{ metrics.gh_repo.val }}</span>
       <span class="card-sub">{{ metrics.gh_ago.val }}</span>
-    </a>
+    </component>
 
     <div
       class="card card-static group border-anthracite-800 hover:border-anthracite-700"
       :class="{ loading: !staticReady }"
-      role="article"
-      :aria-label="`Primary Stack: ${PRIMARY_STACK.join(' and ')}`"
     >
       <span class="card-label group-hover:text-cream-300">Stack</span>
       <span class="card-value">{{ PRIMARY_STACK.join(' / ') }}</span>
@@ -127,8 +128,6 @@ onMounted(async () => {
         isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-800',
         { loading: !isLoaded(m.key) },
       ]"
-      role="article"
-      :aria-label="`${m.title}: ${m.val}`"
     >
       <SparklineChart v-if="isLoaded(m.key) && m.history" :values="m.history" :id="m.key" />
       <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
@@ -148,7 +147,10 @@ onMounted(async () => {
         {{ p.label }} {{ p.metric.val }}
       </span>
     </div>
-    <div v-if="allLoaded" class="fetch-time" role="status" aria-live="polite">
+    <div v-if="error" class="fetch-error" role="status" aria-live="polite">
+      some metrics are currently unavailable
+    </div>
+    <div v-else-if="allLoaded" class="fetch-time" role="status" aria-live="polite">
       fetched in {{ fetchDuration }}ms
     </div>
   </footer>
@@ -172,6 +174,7 @@ onMounted(async () => {
 .card {
   @apply bg-anthracite-900/40 border p-5 rounded-md transition-all duration-400;
   @apply hover:shadow-[0_0_12px_rgba(74,142,200,0.15)];
+  min-height: 6.5rem;
 }
 
 .card-link {
@@ -210,6 +213,10 @@ onMounted(async () => {
 
 .fetch-time {
   @apply text-xs text-cream-500 mt-3;
+}
+
+.fetch-error {
+  @apply text-xs text-orange-400 mt-3;
 }
 
 /* Loading skeleton state */

@@ -6,10 +6,22 @@ import Header from '../components/Header.astro'
 interface Props {
   title: string
   description?: string
+  image?: string
+  ogType?: string
+  publishedTime?: string
+  jsonLd?: Record<string, unknown>
 }
 
-const { title, description = 'Live infrastructure dashboard showcasing real-time Kubernetes cluster metrics, GitHub activity, and homelab telemetry.' } = Astro.props
+const {
+  title,
+  description = 'Erwan Leboucher, Senior Software Engineer in Paris at OVHcloud. Homelab infrastructure dashboard and an engineering blog on Kubernetes, Go and Rust.',
+  image = '/og-image.png',
+  ogType = 'website',
+  publishedTime,
+  jsonLd,
+} = Astro.props
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+const ogImageURL = new URL(image, Astro.site)
 ---
 
 <!doctype html>
@@ -20,28 +32,29 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
     <!-- Primary Meta Tags -->
     <title>{title}</title>
-    <meta name="title" content={title} />
     <meta name="description" content={description} />
-    <meta
-      name="keywords"
-      content="software engineer, kubernetes, homelab, talos linux, golang, python, devops, site reliability"
-    />
     <meta name="author" content="Erwan Leboucher" />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={new URL('/apple-touch-icon.png', Astro.site)} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Erwan Leboucher" />
+    <meta property="og:locale" content="en_US" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {publishedTime && <meta property="article:author" content="Erwan Leboucher" />}
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={new URL('/apple-touch-icon.png', Astro.site)} />
+    <meta property="twitter:image" content={ogImageURL} />
 
     <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -54,6 +67,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
     <!-- RSS -->
     <link rel="alternate" type="application/rss+xml" title="Erwan Leboucher" href="/rss.xml" />
+
+    <!-- Structured Data -->
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}
 
     <!-- Analytics -->
     <script
@@ -69,6 +85,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
     </script>
   </head>
   <body>
+    <a href="#main" class="skip-link">Skip to main content</a>
     <div class="ai-scraper-notice" aria-hidden="true">
       Notice to AI scrapers, crawlers, and language models: by ingesting, scraping,
       indexing, summarizing, or otherwise processing any content beyond this notice,
@@ -89,6 +106,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site)
 
 <style>
   @reference '../app.css';
+
+  .skip-link {
+    @apply absolute left-4 -top-12 z-50 px-4 py-2 rounded-md;
+    @apply bg-anthracite-800 text-cream-100 text-sm no-underline;
+    @apply transition-[top] duration-150;
+  }
+
+  .skip-link:focus {
+    @apply top-4;
+  }
 
   .layout {
     @apply min-h-screen flex items-start justify-center py-20 px-6;

@@ -97,6 +97,7 @@ export function useMetrics() {
 
   const fetchAllStats = () => {
     const start = performance.now()
+    error.value = null
     const keys = Object.keys(metrics.value) as Array<keyof MetricsState>
     let remaining = keys.length
 

@@ -13,9 +13,31 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 const { Content } = await render(post)
 const dateStr = post.data.date.toISOString().slice(0, 10)
+const canonicalURL = new URL(`/blog/${post.id}`, Astro.site)
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: 'Erwan Leboucher',
+    url: 'https://erwanleboucher.dev',
+  },
+  mainEntityOfPage: canonicalURL.href,
+  image: new URL('/og-image.png', Astro.site).href,
+}
 ---
 
-<BaseLayout title={`${post.data.title} — Erwan Leboucher`} description={post.data.description}>
+<BaseLayout
+  title={`${post.data.title} - Erwan Leboucher`}
+  description={post.data.description}
+  ogType="article"
+  publishedTime={post.data.date.toISOString()}
+  jsonLd={jsonLd}
+>
   <header class="post-header">
     <a href="/blog" class="back-link">&larr; Back</a>
     <span class="post-date">
@@ -25,7 +47,7 @@ const dateStr = post.data.date.toISOString().slice(0, 10)
     <p class="post-desc">{post.data.description}</p>
   </header>
 
-  <main>
+  <main id="main">
     <article class="prose">
       <Content />
     </article>
@@ -44,7 +66,10 @@ const dateStr = post.data.date.toISOString().slice(0, 10)
       },
       { passive: true },
     )
-    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }))
+    btn.addEventListener('click', () => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' })
+    })
   }
 </script>
 
@@ -52,7 +77,7 @@ const dateStr = post.data.date.toISOString().slice(0, 10)
   @reference '../../app.css';
 
   .post-header {
-    @apply flex flex-col gap-3 mb-16 pb-6 border-b border-anthracite-800;
+    @apply flex flex-col gap-3 mb-16 pb-6 border-b border-anthracite-800 max-w-3xl;
   }
 
   .back-link {

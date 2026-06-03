@@ -7,8 +7,9 @@ const posts = (await getCollection('blog', ({ data }) => data.posted)).sort(
 )
 ---
 
-<BaseLayout title="Blog — Erwan Leboucher">
-  <main>
+<BaseLayout title="Blog - Erwan Leboucher">
+  <main id="main">
+    <h1 class="page-title">Blog</h1>
     <ul class="post-list">
       {
         posts.map((post) => (
@@ -32,6 +33,10 @@ const posts = (await getCollection('blog', ({ data }) => data.posted)).sort(
 
 <style>
   @reference '../../app.css';
+
+  .page-title {
+    @apply text-2xl font-bold text-cream-100 tracking-tight mb-8;
+  }
 
   .post-list {
     @apply list-none p-0 m-0 flex flex-col;

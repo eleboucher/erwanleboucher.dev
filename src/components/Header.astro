@@ -6,15 +6,26 @@ interface Props {
 const { currentPath } = Astro.props
 const isActive = (path: string) =>
   path === '/' ? currentPath === '/' : currentPath.startsWith(path)
+const isHome = currentPath === '/'
 ---
 
 <header class="header">
   <div class="identity">
     <div>
-      <h1 class="name">Erwan Leboucher</h1>
-      <p class="subtitle">Senior Software Engineer — Paris · he/him</p>
+      {
+        isHome ? (
+          <h1 class="name">Erwan Leboucher</h1>
+        ) : (
+          <p class="name">
+            <a href="/" class="name-link">
+              Erwan Leboucher
+            </a>
+          </p>
+        )
+      }
+      <p class="subtitle">Senior Software Engineer · Paris · he/him</p>
     </div>
-    <div class="status-badge" role="status" aria-live="polite">
+    <div class="status-badge">
       <span class="status-dot"></span>
       Systems Operational
     </div>
@@ -50,6 +61,7 @@ const isActive = (path: string) =>
         target="_blank"
         rel="noopener noreferrer"
         class="nav-link external"
+        aria-label="GitHub (opens in new tab)"
       >
         GitHub
       </a>
@@ -58,6 +70,7 @@ const isActive = (path: string) =>
         target="_blank"
         rel="noopener noreferrer"
         class="nav-link external"
+        aria-label="Forgejo (opens in new tab)"
       >
         Forgejo
       </a>
@@ -66,6 +79,7 @@ const isActive = (path: string) =>
         target="_blank"
         rel="noopener noreferrer"
         class="nav-link external"
+        aria-label="LinkedIn (opens in new tab)"
       >
         LinkedIn
       </a>
@@ -74,6 +88,7 @@ const isActive = (path: string) =>
         target="_blank"
         rel="noopener noreferrer"
         class="nav-link external"
+        aria-label="Keyoxide (opens in new tab)"
       >
         Keyoxide
       </a>
@@ -82,6 +97,7 @@ const isActive = (path: string) =>
         target="_blank"
         rel="noopener noreferrer"
         class="nav-link external"
+        aria-label="Sponsor on Ko-fi (opens in new tab)"
       >
         Sponsor
       </a>
@@ -90,7 +106,7 @@ const isActive = (path: string) =>
         target="_blank"
         rel="noopener noreferrer"
         class="nav-link external"
-        aria-label="RSS Feed"
+        aria-label="RSS Feed (opens in new tab)"
       >
         RSS
       </a>
@@ -110,7 +126,11 @@ const isActive = (path: string) =>
   }
 
   .name {
-    @apply text-4xl font-bold text-cream-100 tracking-tight leading-none;
+    @apply text-4xl font-bold text-cream-100 tracking-tight leading-none m-0;
+  }
+
+  .name-link {
+    @apply text-cream-100 no-underline hover:text-navy-300 transition-colors;
   }
 
   .subtitle {
@@ -122,15 +142,15 @@ const isActive = (path: string) =>
   }
 
   .status-dot {
-    @apply w-1.5 h-1.5 rounded-full bg-navy-300 animate-pulse;
+    @apply w-1.5 h-1.5 rounded-full bg-[#3fb950] animate-pulse;
   }
 
   .nav {
-    @apply flex flex-wrap justify-between gap-6 text-sm;
+    @apply flex flex-col md:flex-row md:flex-wrap md:justify-between gap-4 md:gap-6 text-sm;
   }
 
   .nav-group {
-    @apply flex flex-wrap gap-6;
+    @apply flex flex-wrap gap-x-5 gap-y-2 md:gap-6;
   }
 
   .nav-link {
