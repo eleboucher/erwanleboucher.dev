@@ -51,6 +51,7 @@
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
@@ -61,8 +62,17 @@ body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--color-anthracite-950);
-  background-image: radial-gradient(circle, var(--color-anthracite-800) 0.5px, transparent 0.5px);
-  background-size: 24px 24px;
+  background-image:
+    radial-gradient(
+      ellipse 90% 40% at 50% -5%,
+      color-mix(in srgb, var(--color-navy-500) 9%, transparent),
+      transparent
+    ),
+    radial-gradient(circle, var(--color-anthracite-700) 0.5px, transparent 0.5px);
+  background-size:
+    100% 100%,
+    24px 24px;
+  background-repeat: no-repeat, repeat;
   font-family: var(--font-mono);
   -webkit-font-smoothing: antialiased;
 }

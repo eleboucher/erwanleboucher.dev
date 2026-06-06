@@ -17,7 +17,15 @@ const COLOR_BORDER: Record<string, string> = {
   red: 'border-red-500/50 hover:border-red-500/70',
 }
 const metricBorder = (m: MetricConfig) =>
-  COLOR_BORDER[m.color ?? ''] ?? 'border-anthracite-800 hover:border-navy-500/30'
+  COLOR_BORDER[m.color ?? ''] ?? 'border-anthracite-700 hover:border-navy-500/30'
+
+// Non-color companion to the border state (WCAG 1.4.1)
+const STATE_LABEL: Record<string, string> = {
+  green: 'ok',
+  orange: 'warn',
+  red: 'crit',
+}
+const stateLabel = (m: MetricConfig) => STATE_LABEL[m.color ?? '']
 
 const githubMetrics = computed(() => [
   metrics.value.github_contributions,
@@ -62,17 +70,21 @@ onMounted(async () => {
   <section class="metrics-grid section" aria-labelledby="github-metrics-heading">
     <h2 id="github-metrics-heading">GitHub Metrics</h2>
     <div
-      v-for="m in githubMetrics"
+      v-for="(m, i) in githubMetrics"
       :key="m.key"
       class="card group relative overflow-hidden"
       :class="[
-        isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-800',
+        isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-700',
         { loading: !isLoaded(m.key) },
       ]"
+      :style="{ '--reveal-delay': `${i * 70}ms` }"
     >
       <SparklineChart v-if="isLoaded(m.key) && m.history" :values="m.history" :id="m.key" />
+      <span v-if="isLoaded(m.key) && stateLabel(m)" class="card-state" :class="`state-${m.color}`">
+        {{ stateLabel(m) }}
+      </span>
       <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
-      <span class="card-value">{{ m.val }}</span>
+      <span class="card-value card-value-metric">{{ m.val }}</span>
     </div>
 
     <component
@@ -84,8 +96,9 @@ onMounted(async () => {
       "
       :target="isLoaded(metrics.gh_repo.key) ? '_blank' : undefined"
       :rel="isLoaded(metrics.gh_repo.key) ? 'noopener noreferrer' : undefined"
-      class="card card-link group border-anthracite-800"
+      class="card card-link group border-anthracite-700"
       :class="{ loading: !isLoaded(metrics.gh_repo.key) }"
+      :style="{ '--reveal-delay': '280ms' }"
       :aria-label="
         isLoaded(metrics.gh_repo.key)
           ? `Latest code push: ${metrics.gh_repo.val}, ${metrics.gh_ago.val} (opens in new tab)`
@@ -98,8 +111,9 @@ onMounted(async () => {
     </component>
 
     <div
-      class="card card-static group border-anthracite-800 hover:border-anthracite-700"
+      class="card card-static group border-anthracite-700 hover:border-anthracite-600"
       :class="{ loading: !staticReady }"
+      :style="{ '--reveal-delay': '350ms' }"
     >
       <span class="card-label group-hover:text-cream-300">Stack</span>
       <span class="card-value">{{ PRIMARY_STACK.join(' / ') }}</span>
@@ -107,8 +121,9 @@ onMounted(async () => {
     <a
       v-if="latestPost"
       :href="`/blog/${latestPost.slug}`"
-      class="card card-static card-link group col-span-full border-anthracite-800"
+      class="card card-static card-link group col-span-full border-anthracite-700"
       :class="{ loading: !staticReady }"
+      :style="{ '--reveal-delay': '420ms' }"
       :aria-label="`Latest post: ${latestPost.title}`"
     >
       <span class="card-label group-hover:text-cream-300">Latest Post</span>
@@ -121,17 +136,21 @@ onMounted(async () => {
   <section class="metrics-grid section" aria-labelledby="cluster-metrics-heading">
     <h2 id="cluster-metrics-heading">Cluster Metrics</h2>
     <div
-      v-for="m in clusterMetrics"
+      v-for="(m, i) in clusterMetrics"
       :key="m.key"
       class="card group relative overflow-hidden"
       :class="[
-        isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-800',
+        isLoaded(m.key) ? metricBorder(m) : 'border-anthracite-700',
         { loading: !isLoaded(m.key) },
       ]"
+      :style="{ '--reveal-delay': `${i * 70}ms` }"
     >
       <SparklineChart v-if="isLoaded(m.key) && m.history" :values="m.history" :id="m.key" />
+      <span v-if="isLoaded(m.key) && stateLabel(m)" class="card-state" :class="`state-${m.color}`">
+        {{ stateLabel(m) }}
+      </span>
       <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
-      <span class="card-value">{{ m.val }}</span>
+      <span class="card-value card-value-metric">{{ m.val }}</span>
     </div>
   </section>
 
@@ -150,7 +169,7 @@ onMounted(async () => {
     <div v-if="error" class="fetch-error" role="status" aria-live="polite">
       some metrics are currently unavailable
     </div>
-    <div v-else-if="allLoaded" class="fetch-time" role="status" aria-live="polite">
+    <div v-else-if="allLoaded" class="fetch-time" aria-hidden="true">
       fetched in {{ fetchDuration }}ms
     </div>
   </footer>
@@ -175,6 +194,19 @@ onMounted(async () => {
   @apply bg-anthracite-900/40 border p-5 rounded-md transition-all duration-400;
   @apply hover:shadow-[0_0_12px_rgba(74,142,200,0.15)];
   min-height: 6.5rem;
+  animation: card-in 0.5s ease backwards;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .card-link {
@@ -193,6 +225,26 @@ onMounted(async () => {
   transition: color 0.5s ease;
 }
 
+.card-value-metric {
+  @apply text-4xl tracking-tight;
+}
+
+.card-state {
+  @apply absolute top-5 right-5 text-[0.6rem] font-bold uppercase tracking-[0.15em];
+}
+
+.state-green {
+  @apply text-[#3fb950];
+}
+
+.state-orange {
+  @apply text-orange-400;
+}
+
+.state-red {
+  @apply text-red-400;
+}
+
 .card-sub {
   @apply block text-sm text-cream-500 mt-1;
   transition: color 0.5s ease;
@@ -207,7 +259,7 @@ onMounted(async () => {
 }
 
 .pill {
-  @apply px-2.5 py-1 border border-anthracite-800 rounded-md text-xs text-cream-400 uppercase tracking-wider;
+  @apply px-2.5 py-1 border border-anthracite-700 rounded-md text-xs text-cream-400 uppercase tracking-wider;
   transition: color 0.5s ease;
 }
 

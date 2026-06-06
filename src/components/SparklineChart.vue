@@ -63,6 +63,7 @@ const paths = computed(() => buildPaths(props.values))
     </defs>
     <path :d="paths.area" :fill="`url(#sg-${id})`" stroke="none" />
     <path
+      class="line"
       :d="paths.line"
       stroke="#4a8ec8"
       stroke-width="0.8"
@@ -92,6 +93,17 @@ const paths = computed(() => buildPaths(props.values))
   }
   to {
     opacity: 1;
+  }
+}
+
+.line {
+  clip-path: inset(0 100% 0 0);
+  animation: sparkline-draw 1.2s ease 0.2s forwards;
+}
+
+@keyframes sparkline-draw {
+  to {
+    clip-path: inset(0 0 0 0);
   }
 }
 </style>

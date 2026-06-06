@@ -117,9 +117,11 @@ export function useMetrics() {
             case 'sla':
               config.val = `${result.toFixed(SLA_PRECISION_PERCENTAGE)}%`
               break
-            case 'uptime':
-              config.val = `${Math.round(result)} days`
+            case 'uptime': {
+              const days = Math.round(result)
+              config.val = days < 1 ? '< 1 day' : days === 1 ? '1 day' : `${days} days`
               break
+            }
             case 'cluster_latency':
               config.val = `${Math.round(result * 1000)} ms`
               break

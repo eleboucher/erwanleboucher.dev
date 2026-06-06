@@ -13,6 +13,13 @@ export async function getStaticPaths() {
 const { post } = Astro.props
 const { Content } = await render(post)
 const dateStr = post.data.date.toISOString().slice(0, 10)
+const words =
+  post.body
+    ?.replace(/```[\s\S]*?```/g, ' ')
+    .split(/\s+/)
+    .filter((t) => /\w/.test(t)).length ?? 0
+const minutes = Math.max(1, Math.round(words / 220))
+const wordsLabel = words === 1 ? '1 word' : `${words} words`
 const canonicalURL = new URL(`/blog/${post.id}`, Astro.site)
 
 const jsonLd = {
@@ -40,9 +47,13 @@ const jsonLd = {
 >
   <header class="post-header">
     <a href="/blog" class="back-link">&larr; Back</a>
-    <span class="post-date">
+    <div class="post-meta">
+      <span class="post-pill post-pill-date">
         <time datetime={dateStr}>{dateStr}</time>
       </span>
+      <span class="post-pill">{wordsLabel}</span>
+      <span class="post-pill">{minutes} min read</span>
+    </div>
     <h1 class="post-title">{post.data.title}</h1>
     <p class="post-desc">{post.data.description}</p>
   </header>
@@ -84,8 +95,16 @@ const jsonLd = {
     @apply text-sm text-cream-500 hover:text-cream-200 transition-colors;
   }
 
-  .post-date {
-    @apply text-xs text-navy-300 uppercase tracking-[0.15em] mt-2;
+  .post-meta {
+    @apply flex flex-wrap gap-2 mt-2;
+  }
+
+  .post-pill {
+    @apply px-2.5 py-1 border border-anthracite-800 rounded-md text-xs text-cream-400 uppercase tracking-wider;
+  }
+
+  .post-pill-date {
+    @apply text-navy-300;
   }
 
   .post-title {

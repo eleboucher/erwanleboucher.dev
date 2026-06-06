@@ -14,20 +14,23 @@ const isHome = currentPath === '/'
     <div>
       {
         isHome ? (
-          <h1 class="name">Erwan Leboucher</h1>
+          <h1 class="name">
+            Erwan Leboucher<span class="cursor" aria-hidden="true" />
+          </h1>
         ) : (
           <p class="name">
             <a href="/" class="name-link">
               Erwan Leboucher
             </a>
+            <span class="cursor" aria-hidden="true" />
           </p>
         )
       }
       <p class="subtitle">Senior Software Engineer · Paris · he/him</p>
     </div>
-    <div class="status-badge">
+    <div class="status-badge unknown" id="status-badge" role="status" aria-live="polite">
       <span class="status-dot"></span>
-      Systems Operational
+      <span id="status-text">Checking Systems</span>
     </div>
   </div>
 
@@ -114,6 +117,36 @@ const isHome = currentPath === '/'
   </nav>
 </header>
 
+<script>
+  import { KROMGO_BASE } from '../constants'
+  import type { KromgoEndpointResponse } from '../types'
+
+  const badge = document.getElementById('status-badge')
+  const text = document.getElementById('status-text')
+
+  const setStatus = (state: 'operational' | 'degraded' | 'unknown', label: string) => {
+    if (!badge || !text) return
+    badge.classList.remove('operational', 'degraded', 'unknown')
+    badge.classList.add(state)
+    text.textContent = label
+  }
+
+  const fetchBadge = (key: string): Promise<KromgoEndpointResponse> =>
+    fetch(`${KROMGO_BASE}/badges/${key}?format=json`).then((res) =>
+      res.ok ? res.json() : Promise.reject(new Error(`${res.status}`)),
+    )
+
+  Promise.all([fetchBadge('cluster_alert_count'), fetchBadge('global_sla')])
+    .then(([alerts, sla]) => {
+      if (alerts.result > 0 || sla.color !== 'green') {
+        setStatus('degraded', 'Systems Degraded')
+      } else {
+        setStatus('operational', 'Systems Operational')
+      }
+    })
+    .catch(() => setStatus('unknown', 'Status Unknown'))
+</script>
+
 <style>
   @reference '../app.css';
 
@@ -133,6 +166,22 @@ const isHome = currentPath === '/'
     @apply text-cream-100 no-underline hover:text-navy-300 transition-colors;
   }
 
+  .cursor {
+    @apply inline-block bg-navy-300 ml-2 align-baseline;
+    width: 0.5ch;
+    height: 0.75em;
+    animation: cursor-blink 1.2s steps(2, jump-none) infinite;
+  }
+
+  @keyframes cursor-blink {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
   .subtitle {
     @apply text-sm text-cream-400 mt-2 tracking-wide;
   }
@@ -143,6 +192,26 @@ const isHome = currentPath === '/'
 
   .status-dot {
     @apply w-1.5 h-1.5 rounded-full bg-[#3fb950] animate-pulse;
+  }
+
+  .status-badge.operational {
+    @apply text-[#3fb950];
+  }
+
+  .status-badge.degraded {
+    @apply text-orange-400;
+  }
+
+  .status-badge.degraded .status-dot {
+    @apply bg-orange-400;
+  }
+
+  .status-badge.unknown {
+    @apply text-cream-500;
+  }
+
+  .status-badge.unknown .status-dot {
+    @apply bg-cream-500 animate-none;
   }
 
   .nav {
