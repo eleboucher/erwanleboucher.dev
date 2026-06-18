@@ -24,6 +24,9 @@
     "astro-expressive-code": "^0.43.0",
     "vue": "^3.5.26"
   },
+  "overrides": {
+    "vite": "^7"
+  },
   "devDependencies": {
     "@astrojs/check": "^0.9.8",
     "@tailwindcss/postcss": "^4.3.0",

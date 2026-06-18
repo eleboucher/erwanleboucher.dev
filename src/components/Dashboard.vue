@@ -19,14 +19,6 @@ const COLOR_BORDER: Record<string, string> = {
 const metricBorder = (m: MetricConfig) =>
   COLOR_BORDER[m.color ?? ''] ?? 'border-anthracite-700 hover:border-navy-500/30'
 
-// Non-color companion to the border state (WCAG 1.4.1)
-const STATE_LABEL: Record<string, string> = {
-  green: 'ok',
-  orange: 'warn',
-  red: 'crit',
-}
-const stateLabel = (m: MetricConfig) => STATE_LABEL[m.color ?? '']
-
 const githubMetrics = computed(() => [
   metrics.value.github_contributions,
   metrics.value.github_followers,
@@ -146,9 +138,7 @@ onMounted(async () => {
       :style="{ '--reveal-delay': `${i * 70}ms` }"
     >
       <SparklineChart v-if="isLoaded(m.key) && m.history" :values="m.history" :id="m.key" />
-      <span v-if="isLoaded(m.key) && stateLabel(m)" class="card-state" :class="`state-${m.color}`">
-        {{ stateLabel(m) }}
-      </span>
+
       <span class="card-label group-hover:text-cream-300">{{ m.title }}</span>
       <span class="card-value card-value-metric">{{ m.val }}</span>
     </div>
