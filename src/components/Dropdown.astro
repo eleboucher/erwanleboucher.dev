@@ -1,0 +1,214 @@
+---
+interface DropdownItem {
+  label: string
+  href: string
+  ariaLabel: string
+}
+
+interface Props {
+  triggerLabel: string
+  triggerAriaLabel: string
+  items: DropdownItem[]
+}
+
+const { triggerLabel, triggerAriaLabel, items } = Astro.props
+const menuId = `dropdown-${triggerLabel.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
+---
+
+<div class="nav-item-dropdown" data-dropdown>
+  <button
+    type="button"
+    class="dropdown-trigger"
+    aria-haspopup="menu"
+    aria-expanded="false"
+    aria-controls={menuId}
+    aria-label={triggerAriaLabel}
+  >
+    {triggerLabel}
+    <svg
+      class="dropdown-arrow"
+      aria-hidden="true"
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+    >
+      <path
+        d="M2 4 L5 7 L8 4"
+        stroke="currentColor"
+        stroke-width="1.5"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"></path>
+    </svg>
+  </button>
+  <ul id={menuId} class="dropdown-menu" role="menu">
+    {
+      items.map((item) => (
+        <li role="none">
+          <a
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            role="menuitem"
+            class="dropdown-item"
+            aria-label={item.ariaLabel}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  const dropdowns = document.querySelectorAll<HTMLElement>('[data-dropdown]')
+
+  const closeAll = (except?: HTMLElement) => {
+    for (const dd of dropdowns) {
+      if (dd === except) continue
+      const trigger = dd.querySelector<HTMLButtonElement>('.dropdown-trigger')
+      if (trigger) trigger.setAttribute('aria-expanded', 'false')
+    }
+  }
+
+  for (const dd of dropdowns) {
+    const trigger = dd.querySelector<HTMLButtonElement>('.dropdown-trigger')
+    const items = dd.querySelectorAll<HTMLAnchorElement>('.dropdown-item')
+    if (!trigger) continue
+
+    const open = () => {
+      closeAll(dd)
+      trigger.setAttribute('aria-expanded', 'true')
+    }
+
+    const close = () => {
+      trigger.setAttribute('aria-expanded', 'false')
+    }
+
+    const isOpen = () => trigger.getAttribute('aria-expanded') === 'true'
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation()
+      if (isOpen()) close()
+      else open()
+    })
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault()
+        open()
+        items[0]?.focus()
+      }
+    })
+
+    dd.addEventListener('keydown', (e) => {
+      const current = document.activeElement as HTMLElement | null
+      const idx = Array.from(items).indexOf(current as HTMLAnchorElement)
+      if (e.key === 'ArrowDown') {
+        e.preventDefault()
+        if (!isOpen()) open()
+        items[(idx + 1) % items.length || 0]?.focus()
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault()
+        items[(idx - 1 + items.length) % items.length]?.focus()
+      } else if (e.key === 'Escape') {
+        if (isOpen()) {
+          close()
+          trigger.focus()
+        }
+      } else if (e.key === 'Tab') {
+        close()
+      }
+    })
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement | null
+    if (target && !target.closest('[data-dropdown]')) closeAll()
+  })
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAll()
+      const open = document.querySelector<HTMLButtonElement>(
+        '[data-dropdown] .dropdown-trigger[aria-expanded="true"]',
+      )
+      open?.focus()
+    }
+  })
+</script>
+
+<style>
+  .nav-item-dropdown {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .dropdown-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    color: var(--color-cream-500);
+    transition: color 200ms;
+  }
+
+  .dropdown-trigger:hover {
+    color: var(--color-cream-300);
+  }
+
+  .dropdown-arrow {
+    display: inline-block;
+    transition: rotate 200ms;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.5rem;
+    min-width: 100%;
+    list-style: none;
+    padding: 0.25rem;
+    margin: 0;
+    z-index: 10;
+    background-color: var(--color-anthracite-900);
+    border: 1px solid var(--color-anthracite-700);
+    border-radius: 0.375rem;
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
+    display: none;
+  }
+
+  .dropdown-item {
+    display: block;
+    white-space: nowrap;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.125rem;
+    color: var(--color-cream-500);
+    text-decoration: none;
+    transition: background-color 150ms, color 150ms;
+  }
+
+  .dropdown-item:hover,
+  .dropdown-item:focus-visible {
+    background-color: var(--color-anthracite-800);
+    color: var(--color-cream-100);
+  }
+
+  .dropdown-trigger[aria-expanded='true'] + .dropdown-menu,
+  .nav-item-dropdown:hover .dropdown-menu {
+    display: block;
+  }
+
+  .dropdown-trigger[aria-expanded='true'] .dropdown-arrow,
+  .nav-item-dropdown:hover .dropdown-arrow {
+    rotate: 180deg;
+  }
+</style>

@@ -1,4 +1,6 @@
 ---
+import Dropdown from './Dropdown.astro'
+
 interface Props {
   currentPath: string
 }
@@ -7,6 +9,32 @@ const { currentPath } = Astro.props
 const isActive = (path: string) =>
   path === '/' ? currentPath === '/' : currentPath.startsWith(path)
 const isHome = currentPath === '/'
+
+const codeItems = [
+  {
+    label: 'GitHub',
+    href: 'https://github.com/eleboucher',
+    ariaLabel: 'GitHub (opens in new tab)',
+  },
+  {
+    label: 'Forgejo',
+    href: 'https://git.erwanleboucher.dev',
+    ariaLabel: 'Forgejo (opens in new tab)',
+  },
+]
+
+const sponsorItems = [
+  {
+    label: 'Liberapay',
+    href: 'https://liberapay.com/eleboucher/',
+    ariaLabel: 'Sponsor on Liberapay (opens in new tab)',
+  },
+  {
+    label: 'Ko-fi',
+    href: 'https://ko-fi.com/eleboucher',
+    ariaLabel: 'Sponsor on Ko-fi (opens in new tab)',
+  },
+]
 ---
 
 <header class="header">
@@ -59,24 +87,11 @@ const isHome = currentPath === '/'
       >
         Email
       </a>
-      <a
-        href="https://github.com/eleboucher"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="nav-link external"
-        aria-label="GitHub (opens in new tab)"
-      >
-        GitHub
-      </a>
-      <a
-        href="https://git.erwanleboucher.dev"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="nav-link external"
-        aria-label="Forgejo (opens in new tab)"
-      >
-        Forgejo
-      </a>
+      <Dropdown
+        triggerLabel="Code"
+        triggerAriaLabel="Code hosting options"
+        items={codeItems}
+      />
       <a
         href="https://linkedin.com/in/erwan-leboucher"
         target="_blank"
@@ -95,15 +110,11 @@ const isHome = currentPath === '/'
       >
         Keyoxide
       </a>
-      <a
-        href="https://ko-fi.com/eleboucher"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="nav-link external"
-        aria-label="Sponsor on Ko-fi (opens in new tab)"
-      >
-        Sponsor
-      </a>
+      <Dropdown
+        triggerLabel="Sponsor"
+        triggerAriaLabel="Sponsorship options"
+        items={sponsorItems}
+      />
       <a
         href="/rss.xml"
         target="_blank"
