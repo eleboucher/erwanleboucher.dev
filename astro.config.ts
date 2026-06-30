@@ -1,10 +1,15 @@
 import { defineConfig } from 'astro/config'
+import tailwindcss from '@tailwindcss/vite'
 import vue from '@astrojs/vue'
 import sitemap from '@astrojs/sitemap'
 import expressiveCode from 'astro-expressive-code'
 
 export default defineConfig({
   site: 'https://erwanleboucher.dev',
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 
   integrations: [
     expressiveCode({
