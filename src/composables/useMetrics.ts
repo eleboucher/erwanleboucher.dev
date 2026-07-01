@@ -105,7 +105,7 @@ export function useMetrics() {
       const config = metrics.value[dictKey]
       try {
         const response = await fetchMetric(config.key)
-        if (response && response.value != null) {
+        if (response && response.value != null && response.result != null) {
           const result = response.result
           config.color = response.color
 
