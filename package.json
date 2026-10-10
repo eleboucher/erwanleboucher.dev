@@ -31,8 +31,8 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@types/node": "^26.0.0",
-    "oxlint": "~1.85.0",
-    "prettier": "3.9.9",
+    "oxlint": "~1.87.0",
+    "prettier": "3.9.10",
     "sharp": "^0.35.2",
     "tailwindcss": "^4.3.0",
     "typescript": "~7.0.0",
